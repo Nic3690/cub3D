@@ -1,6 +1,6 @@
 NAME	= cub3d
 
-SRC		= ./sources/main.c ./sources/raycasting.c ./sources/map.c
+SRC		= ./sources/main.c ./sources/raycasting.c ./sources/map.c ./sources/rendering.c ./sources/drawing.c
 
 #ANSII COLOR
 

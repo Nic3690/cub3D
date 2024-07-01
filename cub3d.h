@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/01 15:27:44 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/01 17:01:04 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,18 @@ typedef struct s_texture
 	t_image	*sky;
 }	t_texture;
 
+typedef struct s_draw
+{
+    int		draw_start;
+    int		draw_end;
+    int		line;
+    int		tex_x;
+    int		tex_y;
+    int		color;
+    double  wall_x;
+    double  step;
+}	t_draw;
+
 typedef struct  s_player
 {
     double      pos_x;
@@ -125,6 +137,7 @@ typedef struct  s_game
     t_data      *data;
     t_image     *image;
     t_texture   *tex;
+    t_draw      *draw;
 }               t_game;
 
 /*main.c*/
@@ -134,16 +147,23 @@ int load_texture(t_game *game, t_image *texture_image, const char *path);
 int load_wall_textures(t_game *game, const char **paths);
 
 /*raycasting.c*/
-void    color_floor_and_sky(t_game *game, t_image *image, int y);
-t_image *check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
-void calculate_ray_direction(t_game *game, int x);
-void identify_cell(t_player *pg);
-void calculate_wall_distance(t_game *game);
-int calculate_line_height(t_player *pg, int side);
-int get_tex_color(t_image *image, int tex_x, int tex_y);
-void render_wall_column(t_game *game, int x, int line_height, int draw_start, int draw_end, int side, double wall_x);
-void	drawing(t_game *game, int x);
-int render_game(t_game *game);
+void	calculate_ray_direction(t_game *game, int x);
+void	identify_cell(t_player *pg);
+void	calculate_wall_distance(t_game *game);
+void	calculate_wall_side(t_game *g);
+int		calculate_line_height(t_player *pg, int side);
+
+/*rendering.c*/
+void	render_ceiling_and_floor(t_game *g);
+t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
+void	color_floor_and_sky(t_game *game, t_image *image, int y);
+void	render_wall_column(t_game *game, int x, t_draw *draw, int side);
+int		render_game(t_game *game);
+
+/*drawing.c*/
+int		get_tex_color(t_image *image, int tex_x, int tex_y);
+void	drawing(t_game *g, t_image *image, double tex_pos, int x);
+void	drawing_colums(t_game *game, int x);
 
 /*map.c*/
 void load_map(t_game *game, const char *filename);
