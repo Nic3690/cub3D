@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/06/30 14:11:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:04:36 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void load_map(t_game *game, const char *filename)
     }
     close(fd);
 
-    // Initialize the game map and player position
+    // Initialize the game map and pg position
     for (int y = 0; y < MAP_ROWS; y++)
     {
         for (int x = 0; x < MAP_COLUMNS; x++)
         {
             if (buffer[y][x] == 'P')
             {
-                game->player->pos_x = x + 0.5;
-                game->player->pos_y = y + 0.5;
-                buffer[y][x] = '0'; // Clear the player's starting position in the map
+                game->pg->pos_x = x + 0.5;
+                game->pg->pos_y = y + 0.5;
+                buffer[y][x] = '0'; // Clear the pg's starting position in the map
             }
         }
     }

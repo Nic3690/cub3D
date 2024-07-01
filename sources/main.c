@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/06/30 15:19:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:17:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void my_mlx_pixel_put(t_game *game, int x, int y, int color)
+void pixel_put(t_game *game, int x, int y, int color)
 {
     char *dst;
 
@@ -30,13 +30,13 @@ void init_game(t_game *game)
     game->win = mlx_new_window(game->mlx, game->map_width, game->map_height, "Cub3D");
     game->img = mlx_new_image(game->mlx, game->map_width, game->map_height);
     game->addr = mlx_get_data_addr(game->img, &game->bits, &game->line, &game->endian);
-    game->player = malloc(sizeof(t_player));
-    if (!game->player)
+    game->pg = malloc(sizeof(t_player));
+    if (!game->pg)
         return ;
-    game->texture = malloc(sizeof(t_texture));
-    if (!game->texture)
+    game->tex = malloc(sizeof(t_texture));
+    if (!game->tex)
     {
-        free(game->player);
+        free(game->pg);
         return ;
     }
 }
@@ -57,25 +57,25 @@ int load_texture(t_game *game, t_image *image, const char *path)
         mlx_destroy_image(game->mlx, game->image->img);
         return 0;
     }
-    image->width = width;
-    image->height = height;
+    image->w = width;
+    image->h = height;
     return 1;
 }
 
 int load_wall_textures(t_game *game, const char **paths)
 {
-    game->texture->sky = malloc(sizeof(t_image));
-    game->texture->floor = malloc(sizeof(t_image));
-    game->texture->north = malloc(sizeof(t_image));
-    game->texture->south = malloc(sizeof(t_image));
-    game->texture->west = malloc(sizeof(t_image));
-    game->texture->east = malloc(sizeof(t_image));
-    load_texture(game, game->texture->sky, paths[0]);
-    load_texture(game, game->texture->floor, paths[1]);
-    load_texture(game, game->texture->north, paths[2]);
-    load_texture(game, game->texture->south, paths[3]);
-    load_texture(game, game->texture->west, paths[4]);
-    load_texture(game, game->texture->east, paths[5]);
+    game->tex->sky = malloc(sizeof(t_image));
+    game->tex->floor = malloc(sizeof(t_image));
+    game->tex->north = malloc(sizeof(t_image));
+    game->tex->south = malloc(sizeof(t_image));
+    game->tex->west = malloc(sizeof(t_image));
+    game->tex->east = malloc(sizeof(t_image));
+    load_texture(game, game->tex->sky, paths[0]);
+    load_texture(game, game->tex->floor, paths[1]);
+    load_texture(game, game->tex->north, paths[2]);
+    load_texture(game, game->tex->south, paths[3]);
+    load_texture(game, game->tex->west, paths[4]);
+    load_texture(game, game->tex->east, paths[5]);
     return (1);
 }
 
@@ -100,24 +100,24 @@ int main(int argc, char **argv)
         printf("Error: Failed to load wall textures.\n");
         return 1;
     }
-    game.player->pos_x = 22.0;
-    game.player->pos_y = 12.0;
-    game.player->dir_x = -1.0;
-    game.player->dir_y = 0.0;
-    game.player->plane_x = 0.0;
-    game.player->plane_y = 0.66;
+    game.pg->pos_x = 22.0;
+    game.pg->pos_y = 12.0;
+    game.pg->dir_x = -1.0;
+    game.pg->dir_y = 0.0;
+    game.pg->plane_x = 0.0;
+    game.pg->plane_y = 0.66;
     load_map(&game, "./maps/map.txt");
     render_game(&game);
     // mlx_loop_hook(game.mlx, &render_game, &game);
     mlx_loop(game.mlx);
-    free(game.player);
-    free(game.texture->sky);
-    free(game.texture->floor);
-    free(game.texture->north);
-    free(game.texture->south);
-    free(game.texture->west);
-    free(game.texture->east);
-    free(game.texture);
+    free(game.pg);
+    free(game.tex->sky);
+    free(game.tex->floor);
+    free(game.tex->north);
+    free(game.tex->south);
+    free(game.tex->west);
+    free(game.tex->east);
+    free(game.tex);
     return 0;
     (void)argv;
 }
