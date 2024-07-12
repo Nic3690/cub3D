@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/06/30 19:17:07 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/12 23:29:41 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,11 @@ int main(int argc, char **argv)
         printf("Error: Failed to load wall textures.\n");
         return 1;
     }
-    game.pg->pos_x = 22.0;
-    game.pg->pos_y = 12.0;
     game.pg->dir_x = -1.0;
     game.pg->dir_y = 0.0;
     game.pg->plane_x = 0.0;
     game.pg->plane_y = 0.66;
-    load_map(&game, "./maps/map.txt");
+    init_paths(&game, "./maps/map.txt");
     render_game(&game);
     // mlx_loop_hook(game.mlx, &render_game, &game);
     mlx_loop(game.mlx);

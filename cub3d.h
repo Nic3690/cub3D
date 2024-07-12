@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/01 17:01:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:02:44 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct  s_game
     char        **map;
     int         map_width;
     int         map_height;
+    char        **texture_paths;
     t_player    *pg;
     t_data      *data;
     t_image     *image;
@@ -166,6 +167,14 @@ void	drawing(t_game *g, t_image *image, double tex_pos, int x);
 void	drawing_colums(t_game *game, int x);
 
 /*map.c*/
-void load_map(t_game *game, const char *filename);
+void    init_paths(t_game *game, char *filename);
+void	init_map(t_game *game, int fd);
+
+/*get_next_line.c*/
+char	*ft_strchr(const char *s, int c);
+int     ft_strlen(char *string);
+char	*ft_strdup(char *string);
+char	*get_next_line(int fd);
+
 
 #endif
