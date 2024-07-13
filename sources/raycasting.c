@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:13:41 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 20:40:45 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:53:09 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void identify_cell(t_player *pg)
         pg->step_x = 1;
         pg->side_x = (pg->map_x + 1.0 - pg->pos_x) * pg->delta_x;
     }
-
     if (pg->ray_y < 0)
     {
         pg->step_y = -1;
@@ -70,9 +69,7 @@ void calculate_wall_distance(t_game *g)
         }
 
         if (g->map[g->pg->map_y][g->pg->map_x] == '1')
-        {
             hit = 1;
-        }
     }
     calculate_wall_side(g);
 }
@@ -80,9 +77,11 @@ void calculate_wall_distance(t_game *g)
 void calculate_wall_side(t_game *g)
 {
     if (g->pg->side == 0)
-        g->pg->wall_dist = (g->pg->map_x - g->pg->pos_x + (1 - g->pg->step_x) / 2) / g->pg->ray_x;
+        g->pg->wall_dist = (g->pg->map_x - g->pg->pos_x
+            + (1 - g->pg->step_x) / 2) / g->pg->ray_x;
     else
-        g->pg->wall_dist = (g->pg->map_y - g->pg->pos_y + (1 - g->pg->step_y) / 2) / g->pg->ray_y;
+        g->pg->wall_dist = (g->pg->map_y - g->pg->pos_y
+            + (1 - g->pg->step_y) / 2) / g->pg->ray_y;
 }
 
 int calculate_line_height(t_player *pg, int side)

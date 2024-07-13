@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 22:20:29 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:57:17 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ typedef struct  s_image
     int         h;
 }               t_image;
 
+typedef struct s_enemy
+{
+    double  pos_x;
+    double  pos_y;
+    t_image *texture;
+}   t_enemy;
+
 typedef struct s_texture
 {
 	int		x;
@@ -68,6 +75,7 @@ typedef struct s_texture
 	t_image	*floor;
 	t_image	*sky;
     t_image *paws;
+    t_image *enemy;
 }	t_texture;
 
 typedef struct s_draw
@@ -137,6 +145,9 @@ typedef struct  s_game
     t_image     *image;
     t_texture   *tex;
     t_draw      *draw;
+    t_enemy     *enemies;
+    int         num_enemies;
+    double      *z_buffer;
 }               t_game;
 
 /*main.c*/
@@ -179,5 +190,8 @@ char	*get_next_line(int fd);
 void	rotate_right(t_player *pg);
 void	rotate_left(t_player *pg);
 int		key_press(int keycode, t_game *g);
+
+/*enemies.c*/
+void render_sprite(t_game *game, t_enemy *enemy);
 
 #endif

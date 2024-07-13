@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 22:35:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:25:26 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int load_wall_textures(t_game *game, const char **paths)
     game->tex->west = malloc(sizeof(t_image));
     game->tex->east = malloc(sizeof(t_image));
     game->tex->paws = malloc(sizeof(t_image));
+    game->tex->enemy = malloc(sizeof(t_image));
     load_texture(game, game->tex->sky, paths[0]);
     load_texture(game, game->tex->floor, paths[1]);
     load_texture(game, game->tex->north, paths[2]);
@@ -78,6 +79,7 @@ int load_wall_textures(t_game *game, const char **paths)
     load_texture(game, game->tex->west, paths[4]);
     load_texture(game, game->tex->east, paths[5]);
     load_texture(game, game->tex->paws, "textures/tranquipaws.xpm");
+    load_texture(game, game->tex->enemy, "textures/crow_closed.xpm");
     return (1);
 }
 

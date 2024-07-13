@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 22:26:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:56:35 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,20 @@ int render_game(t_game *game)
 	int x;
 
 	x = 0;
+    game->z_buffer = malloc(sizeof(double) * WIDTH);
 	while (x < WIDTH)
     {
         calculate_ray_direction(game, x);
         identify_cell(game->pg);
         calculate_wall_distance(game);
 		drawing_colums(game, x);
+        game->z_buffer[x] = game->pg->wall_dist;
 		x++;
     }
+    for (int i = 0; i < game->num_enemies; i++)
+        render_sprite(game, &game->enemies[i]);
     draw_paws(game, game->tex->paws);
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+    free(game->z_buffer);
     return (0);
 }

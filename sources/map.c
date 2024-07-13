@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 21:41:13 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 23:55:14 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,24 @@ void init_map(t_game *game, int fd)
                 printf("Player found at %d, %d\n", x, y);
                 game->pg->pos_x = x + 0.5;
                 game->pg->pos_y = y + 0.5;
-                game->map[y][x] = '0'; // Clear the pg's starting position in the map
+                game->map[y][x] = '0';
+            }
+            if (game->map[y][x] == 'E')
+                game->num_enemies++;
+        }
+    }
+    game->enemies = malloc(sizeof(t_enemy) * game->num_enemies);
+    int enemy_index = 0;
+    for (int y = 0; y < rows; y++)
+    {
+        for (int x = 0; x < max_cols; x++)
+        {
+            if (game->map[y][x] == 'E')
+            {
+                game->enemies[enemy_index].pos_x = x + 0.5;
+                game->enemies[enemy_index].pos_y = y + 0.5;
+                game->enemies[enemy_index].texture = game->tex->enemy;
+                enemy_index++;
             }
         }
     }
