@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/12 23:24:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:41:13 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,10 @@ void init_map(t_game *game, int fd)
     game->map = malloc(sizeof(char *) * rows);
     for (i = 0; i < rows; i++)
     {
-        game->map[i] = ft_strdup(buffer[i]);
+        game->map[rows - i - 1] = ft_strdup(buffer[i]);
         free(buffer[i]);
     }
-    // Alloca memoria per la mappa trasposta
-    // game->map = malloc(sizeof(char *) * max_cols);
-    // for (i = 0; i < max_cols; i++)
-    // {
-    //     game->map[i] = malloc(sizeof(char) * (rows + 1)); // +1 per il terminatore di stringa
-    //     for (j = 0; j < rows; j++)
-    //     {
-    //         game->map[i][j] = temp_map[j][i]; // Inizializza con spazi vuoti
-    //     }
-    //     printf("%s\n", game->map[i]); 
-    //     game->map[i][rows] = '\0'; // Aggiungi il terminatore di stringa
-    // }
+    printf ("Rows: %d\n Max_cols: %d\n", rows, max_cols);
     for (int y = 0; y < rows; y++)
     {
         for (int x = 0; x < max_cols; x++)
@@ -86,17 +75,10 @@ void init_map(t_game *game, int fd)
             if (game->map[y][x] == 'P')
             {
                 printf("Player found at %d, %d\n", x, y);
-                game->pg->pos_x = x + 1;
-                game->pg->pos_y = y + 1;
+                game->pg->pos_x = x + 0.5;
+                game->pg->pos_y = y + 0.5;
                 game->map[y][x] = '0'; // Clear the pg's starting position in the map
             }
         }
     }
-
-    // Libera la memoria della mappa temporanea
-    // for (i = 0; i < rows; i++)
-    // {
-    //     free(temp_map[i]);
-    // }
-    // free(temp_map);
 }

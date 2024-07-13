@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/12 23:29:41 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:35:04 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ int load_wall_textures(t_game *game, const char **paths)
     game->tex->south = malloc(sizeof(t_image));
     game->tex->west = malloc(sizeof(t_image));
     game->tex->east = malloc(sizeof(t_image));
+    game->tex->paws = malloc(sizeof(t_image));
     load_texture(game, game->tex->sky, paths[0]);
     load_texture(game, game->tex->floor, paths[1]);
     load_texture(game, game->tex->north, paths[2]);
     load_texture(game, game->tex->south, paths[3]);
     load_texture(game, game->tex->west, paths[4]);
     load_texture(game, game->tex->east, paths[5]);
+    load_texture(game, game->tex->paws, "textures/tranquipaws.xpm");
     return (1);
 }
 
@@ -87,9 +89,9 @@ int main(int argc, char **argv)
         "textures/sky.xpm",
         "textures/grass.xpm",
         "textures/Recinto.xpm",
+        "textures/fence_dark.xpm",
         "textures/recintodark.xpm",
-        "textures/fence_light.xpm",
-        "textures/fence_dark.xpm"
+        "textures/fence_light.xpm"
     };
     (void)argc;
     // if (argc != 2)
@@ -100,13 +102,15 @@ int main(int argc, char **argv)
         printf("Error: Failed to load wall textures.\n");
         return 1;
     }
-    game.pg->dir_x = -1.0;
+    game.pg->dir_x = 0.5;
     game.pg->dir_y = 0.0;
     game.pg->plane_x = 0.0;
     game.pg->plane_y = 0.66;
-    init_paths(&game, "./maps/map.txt");
-    render_game(&game);
-    // mlx_loop_hook(game.mlx, &render_game, &game);
+    game.pg->move_speed = 0.12;
+    init_paths(&game, "./maps/map.cub");
+    mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+    render_ceiling_and_floor(&game);
+    mlx_loop_hook(game.mlx, &render_game, &game);
     mlx_loop(game.mlx);
     free(game.pg);
     free(game.tex->sky);
@@ -115,6 +119,7 @@ int main(int argc, char **argv)
     free(game.tex->south);
     free(game.tex->west);
     free(game.tex->east);
+    free(game.tex->paws);
     free(game.tex);
     return 0;
     (void)argv;

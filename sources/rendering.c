@@ -6,11 +6,32 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/12 22:34:52 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:26:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void    draw_paws(t_game *game, t_image *paws)
+{
+    int x, y;
+    int img_x, img_y;
+    int scale = 10;
+    int screen_x_start = (WIDTH - paws->w * scale) / 2;
+    int screen_y_start = HEIGHT - paws->h * scale;
+
+    for (y = 0; y < paws->h * scale; y++)
+    {
+        for (x = 0; x < paws->w * scale; x++)
+        {
+            img_x = x / scale;
+            img_y = y / scale;
+            int color = get_tex_color(paws, img_x, img_y);
+            if (color != (0xFF << 24))
+                pixel_put(game, screen_x_start + x, screen_y_start + y, color);
+        }
+    }
+}
 
 void render_ceiling_and_floor(t_game *g)
 {
@@ -103,7 +124,6 @@ int render_game(t_game *game)
 	int x;
 
 	x = 0;
-    render_ceiling_and_floor(game);
 	while (x < WIDTH)
     {
         calculate_ray_direction(game, x);
@@ -112,8 +132,7 @@ int render_game(t_game *game)
 		drawing_colums(game, x);
 		x++;
     }
-    printf("Rendering frame...\n");
+    draw_paws(game, game->tex->paws);
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-    printf("Finished rendering frame.\n");
     return (0);
 }

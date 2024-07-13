@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/12 22:02:44 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/13 22:20:29 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 #define HEIGHT 750
 #define MAP_COLUMNS 25
 #define MAP_ROWS 13
+
+#define ROTATION_SPEED 0.05
 
 # include "mlx.h"
 # include <math.h>
@@ -51,12 +53,6 @@ typedef struct  s_image
 
 typedef struct s_texture
 {
-	char	*sprite_north;
-	char	*sprite_south;
-	char	*sprite_west;
-	char	*sprite_east;
-	char	*sprite_floor;
-	char	*sprite_sky;
 	int		x;
 	int		y;
 	double	tex_pos;
@@ -71,6 +67,7 @@ typedef struct s_texture
 	t_image	*east;
 	t_image	*floor;
 	t_image	*sky;
+    t_image *paws;
 }	t_texture;
 
 typedef struct s_draw
@@ -111,6 +108,7 @@ typedef struct  s_player
     double      fx;
     double      fy;
     double      wall_dist;
+    double      move_speed;
 }               t_player;
 
 typedef struct s_data
@@ -155,6 +153,7 @@ void	calculate_wall_side(t_game *g);
 int		calculate_line_height(t_player *pg, int side);
 
 /*rendering.c*/
+void    draw_paws(t_game *game, t_image *paws);
 void	render_ceiling_and_floor(t_game *g);
 t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
 void	color_floor_and_sky(t_game *game, t_image *image, int y);
@@ -176,5 +175,9 @@ int     ft_strlen(char *string);
 char	*ft_strdup(char *string);
 char	*get_next_line(int fd);
 
+/*keys.c*/
+void	rotate_right(t_player *pg);
+void	rotate_left(t_player *pg);
+int		key_press(int keycode, t_game *g);
 
 #endif
