@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 23:57:17 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:04:55 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 
 #define TEXTURE
 
-#define TEXTURE_SKY         0
-#define TEXTURE_GRASS       1
-#define TEXTURE_SIDE_RIGHT  2
-#define TEXTURE_SIDE_LEFT   3
-#define TEXTURE_FENCE_LIGHT 4
-#define TEXTURE_FENCE_DARK  5
+#define CROW 'C'
+#define FLY 'F'
+#define SPIDER 'S'
 
 #define MAX_TEXTURES 6
 
@@ -29,7 +26,7 @@
 #define MAP_COLUMNS 25
 #define MAP_ROWS 13
 
-#define ROTATION_SPEED 0.05
+#define ROTATION_SPEED 0.1
 
 # include "mlx.h"
 # include <math.h>
@@ -55,7 +52,19 @@ typedef struct s_enemy
 {
     double  pos_x;
     double  pos_y;
+    double  dist;
     t_image *texture;
+    t_image *texture2;
+    t_image *current_texture;
+    t_image *attack_texture;
+    t_image *dead_texture;
+    double  last_switch_time;
+    int     attacking;
+    int     retreating;
+    int     retreat_timer;
+    int     type;
+    int     enemy_health;
+    int     death_timer;
 }   t_enemy;
 
 typedef struct s_texture
@@ -75,7 +84,23 @@ typedef struct s_texture
 	t_image	*floor;
 	t_image	*sky;
     t_image *paws;
-    t_image *enemy;
+    t_image *blood_paws;
+    t_image *crow;
+    t_image *fly;
+    t_image *spider;
+    t_image *crow_open;
+    t_image *fly_open;
+    t_image *spider_2;
+    t_image *maya;
+    t_image *angry_maya;
+    t_image *maya_left;
+    t_image *maya_right;
+    t_image *fly_attack;
+    t_image *spider_attack;
+    t_image *crow_attack;
+    t_image *fly_dead;
+    t_image *spider_dead;
+    t_image *crow_dead;
 }	t_texture;
 
 typedef struct s_draw
@@ -117,6 +142,10 @@ typedef struct  s_player
     double      fy;
     double      wall_dist;
     double      move_speed;
+    int         health;
+    int         attack;
+    int         attack_time;
+    int         attack_cooldown;
 }               t_player;
 
 typedef struct s_data
@@ -148,6 +177,9 @@ typedef struct  s_game
     t_enemy     *enemies;
     int         num_enemies;
     double      *z_buffer;
+    int         frame_count;
+    int         face_state;
+    int         face_timer;
 }               t_game;
 
 /*main.c*/
@@ -164,7 +196,6 @@ void	calculate_wall_side(t_game *g);
 int		calculate_line_height(t_player *pg, int side);
 
 /*rendering.c*/
-void    draw_paws(t_game *game, t_image *paws);
 void	render_ceiling_and_floor(t_game *g);
 t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
 void	color_floor_and_sky(t_game *game, t_image *image, int y);
@@ -192,6 +223,34 @@ void	rotate_left(t_player *pg);
 int		key_press(int keycode, t_game *g);
 
 /*enemies.c*/
+void update_enemy_textures(t_game *game);
 void render_sprite(t_game *game, t_enemy *enemy);
+int is_visible(t_game *game, double x0, double y0, double x1, double y1);
+
+/*sort_enemies.c*/
+void swap(t_enemy *a, t_enemy *b);
+int partition(t_enemy *enemies, int low, int high);
+void quick_sort(t_enemy *enemies, int low, int high);
+void calculate_enemy_distances(t_game *game);
+
+/*maya.c*/
+void draw_face(t_game *game);
+void update_face_state(t_game *game);
+
+/*health_bar.c*/
+void draw_rectangle(t_game *game, int x, int y, int width, int height, int color);
+void draw_health_bar(t_game *game, int x, int y, int width, int height);
+
+/*attack.c*/
+void start_attack(t_game *game);
+void draw_paws_attack(t_game *game);
+void player_attack(t_game *game);
+
+/*collision.c*/
+int is_enemy_at(t_game *game, double x, double y);
+void move_forward(t_game *game);
+void move_backward(t_game *game);
+void move_left(t_game *game);
+void move_right(t_game *game);
 
 #endif

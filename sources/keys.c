@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:19:25 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/13 22:06:48 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:02:31 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,24 @@ void rotate_left(t_player *pg)
 
 int	key_press(int keycode, t_game *g)
 {
-	printf("keycode: %d\n", keycode);
 	if (keycode == 13) // W
-	{
-		g->pg->pos_x += g->pg->dir_x * g->pg->move_speed;
-		g->pg->pos_y += g->pg->dir_y * g->pg->move_speed;
-	}
+		move_forward(g);
 	if (keycode == 0) // A
-	{
-		g->pg->pos_x += g->pg->dir_y * g->pg->move_speed;
-		g->pg->pos_y -= g->pg->dir_x * g->pg->move_speed;
-	}
+		move_left(g);
 	if (keycode == 1) // S
-	{
-		g->pg->pos_x -= g->pg->dir_x * g->pg->move_speed;
-		g->pg->pos_y -= g->pg->dir_y * g->pg->move_speed;
-	}
+		move_backward(g);
 	if (keycode == 2) // D
-	{
-		g->pg->pos_x -= g->pg->dir_y * g->pg->move_speed;
-		g->pg->pos_y += g->pg->dir_x * g->pg->move_speed;
-	}
+		move_right(g);
 	if (keycode == 123) // LEFT
 		rotate_left(g->pg);
 	if (keycode == 124) // RIGHT
 		rotate_right(g->pg);
-    render_ceiling_and_floor(g);
+	if (keycode == 3) // F
+		g->pg->health -= 10;
+	if (keycode == 260 || keycode == 259)
+	{
+		start_attack(g); // CMD
+		player_attack(g);
+	}
 	return (0);
 }

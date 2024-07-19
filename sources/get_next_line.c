@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 19:12:42 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/12 22:01:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:37:16 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strdup(char *string)
 
 	i = 0;
 	size = ft_strlen(string);
-	duplicate = malloc(sizeof(char) * (size));
+	duplicate = malloc(sizeof(char) * (size) + 1);
 	if (!duplicate)
 		return (0);
 	while (string[i] && string[i] != '\n')
@@ -61,7 +61,7 @@ char	*ft_strdup(char *string)
 char	*get_next_line(int fd)
 {
 	char	buffer;
-	char	line[500];
+	char	line[5000];
 	int		b;
 	int		i;
 
