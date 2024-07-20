@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:19:25 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 17:02:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 15:18:32 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,7 @@ int	key_press(int keycode, t_game *g)
 		start_attack(g); // CMD
 		player_attack(g);
 	}
+	if (keycode == 53) // ESC
+		exit_game(g);
 	return (0);
 }

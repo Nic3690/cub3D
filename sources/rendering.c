@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 12:37:44 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:42:01 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,51 +76,67 @@ void    color_floor_and_sky(t_game *g, t_image *img, int y)
 void render_wall_column(t_game *g, int x, t_draw *draw, int side)
 {
     t_image *image;
-	double	tex_pos;
+    double tex_pos;
 
-    if (side == 0 && g->pg->ray_x > 0)
-        image = g->tex->east;
-    else if (side == 0 && g->pg->ray_x < 0)
-        image = g->tex->west;
-    else if (side == 1 && g->pg->ray_y > 0)
-        image = g->tex->south;
+    if (g->pg->map_x == g->door_x && g->pg->map_y == g->door_y)
+    {
+        image = g->tex->door_light;
+    }
     else
-        image = g->tex->north;
+    {
+        if (side == 0 && g->pg->ray_x > 0)
+            image = g->tex->east;
+        else if (side == 0 && g->pg->ray_x < 0)
+            image = g->tex->west;
+        else if (side == 1 && g->pg->ray_y > 0)
+            image = g->tex->south;
+        else
+            image = g->tex->north;
+    }
+
     g->tex->tex_w = image->w;
     g->tex->tex_h = image->h;
     draw->tex_x = (int)(draw->wall_x * (double)g->tex->tex_w);
     if (side == 0 && g->pg->ray_x > 0)
-		draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
+        draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
     if (side == 1 && g->pg->ray_y < 0)
-		draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
+        draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
     draw->step = 1.0 * g->tex->tex_w / draw->line;
     tex_pos = (draw->draw_start - HEIGHT / 2 + draw->line / 2) * draw->step;
-	drawing(g, image, tex_pos, x);
+    drawing(g, image, tex_pos, x);
 }
 
 int render_game(t_game *game)
 {
-	int x;
+    int x;
 
-	x = 0;
+    x = 0;
     game->z_buffer = malloc(sizeof(double) * WIDTH);
     render_ceiling_and_floor(game);
-	while (x < WIDTH)
+    while (x < WIDTH)
     {
         calculate_ray_direction(game, x);
         identify_cell(game->pg);
         calculate_wall_distance(game);
-		drawing_colums(game, x);
+        drawing_colums(game, x);
         game->z_buffer[x] = game->pg->wall_dist;
-		x++;
+        x++;
     }
-    calculate_enemy_distances(game);
-    quick_sort(game->enemies, 0, game->num_enemies - 1);
+
+    int entity_count = game->num_food + game->num_enemies + 1;
+    t_entity *entities = malloc(sizeof(t_entity) * entity_count);
+    calculate_entity_distances(game, entities, &entity_count);
+    update_cat_textures(game);
     update_enemy_textures(game);
-    for (int i = 0; i < game->num_enemies; i++)
+    update_food_textures(game);
+    check_food_collision(game);
+    for (int i = 0; i < entity_count; i++)
     {
-        render_sprite(game, &game->enemies[i]);
+        render_entity(game, &entities[i]);
     }
+
+    free(entities);
+
     draw_paws_attack(game);
     draw_health_bar(game, WIDTH / 13, HEIGHT / 9, 3 * WIDTH / 10, HEIGHT / 60);
     update_face_state(game);

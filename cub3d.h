@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 19:04:55 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:36:02 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,17 @@
 
 #define TEXTURE
 
-#define CROW 'C'
-#define FLY 'F'
-#define SPIDER 'S'
+#define NORTH 'N'
+#define SOUTH 'S'
+#define WEST 'W'
+#define EAST 'E'
+#define FOOD '2'
+#define BONE '3'
+#define CAT '4'
+#define CROW '5'
+#define FLY '6'
+#define SPIDER '7'
+#define DOOR '8'
 
 #define MAX_TEXTURES 6
 
@@ -48,6 +56,14 @@ typedef struct  s_image
     int         h;
 }               t_image;
 
+typedef struct s_entity
+{
+    double pos_x;
+    double pos_y;
+    double dist;
+    t_image *texture;
+} t_entity;
+
 typedef struct s_enemy
 {
     double  pos_x;
@@ -66,6 +82,36 @@ typedef struct s_enemy
     int     enemy_health;
     int     death_timer;
 }   t_enemy;
+
+typedef struct s_food
+{
+    double  pos_x;
+    double  pos_y;
+    int     type;
+    double  dist;
+    t_image *texture;
+    int     active;
+}   t_food;
+
+typedef struct s_cat
+{
+    double  pos_x;
+    double  pos_y;
+    double  dist;
+    int visible;
+    int wait_timer;
+    int moving;
+    double target_x;
+    double target_y;
+    t_image *current_texture;
+    t_image *escape_texture;
+    t_image *escape_texture_2;
+    t_image *escape_texture_3;
+    t_image *escape_texture_4;
+    t_image *dead_texture;
+    int     health;
+    int     death_timer;
+}   t_cat;
 
 typedef struct s_texture
 {
@@ -101,6 +147,15 @@ typedef struct s_texture
     t_image *fly_dead;
     t_image *spider_dead;
     t_image *crow_dead;
+    t_image *food;
+    t_image *bone;
+    t_image *cat_dead;
+    t_image *cat_escape;
+    t_image *cat_escape_2;
+    t_image *cat_escape_3;
+    t_image *cat_escape_4;
+    t_image *door_light;
+    t_image *door_dark;
 }	t_texture;
 
 typedef struct s_draw
@@ -180,13 +235,19 @@ typedef struct  s_game
     int         frame_count;
     int         face_state;
     int         face_timer;
+    int         num_food;
+    t_food      *food;
+    t_cat       *cat;
+    double      door_x;
+    double      door_y;
 }               t_game;
 
 /*main.c*/
+void    exit_game(t_game *g);
 void pixel_put(t_game *game, int x, int y, int color);
 void init_game(t_game *game);
 int load_texture(t_game *game, t_image *texture_image, const char *path);
-int load_wall_textures(t_game *game, const char **paths);
+int load_wall_textures(t_game *game);
 
 /*raycasting.c*/
 void	calculate_ray_direction(t_game *game, int x);
@@ -208,6 +269,7 @@ void	drawing(t_game *g, t_image *image, double tex_pos, int x);
 void	drawing_colums(t_game *game, int x);
 
 /*map.c*/
+void    set_player_direction(t_game *game, char dir);
 void    init_paths(t_game *game, char *filename);
 void	init_map(t_game *game, int fd);
 
@@ -252,5 +314,27 @@ void move_forward(t_game *game);
 void move_backward(t_game *game);
 void move_left(t_game *game);
 void move_right(t_game *game);
+
+/*food.c*/
+void swap_food(t_food *a, t_food *b);
+int partition_food(t_food *food, int low, int high);
+void quick_sort_food(t_food *food, int low, int high);
+void calculate_food_distances(t_game *game);
+void update_food_textures(t_game *game);
+void render_food_sprite(t_game *game, t_food *food);
+void    check_food_collision(t_game *game);
+
+/*cat.c*/
+void update_cat_textures(t_game *game);
+void calculate_cat_distances(t_game *game);
+void render_cat_sprite(t_game *game, t_cat *cat);
+int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
+
+/*door.c*/
+void render_door_sprite(t_game *game);
+
+/*entity.c*/
+void calculate_entity_distances(t_game *game, t_entity *entities, int *entity_count);
+void render_entity(t_game *game, t_entity *entity);
 
 #endif

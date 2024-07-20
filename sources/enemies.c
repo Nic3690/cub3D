@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 19:39:27 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 12:43:57 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void update_enemy_textures(t_game *game)
             // Mantieni distanza minima tra i nemici
             for (int j = 0; j < game->num_enemies; j++)
             {
-                if (i != j)
+                if (i != j && game->enemies[j].death_timer == -1)
                 {
                     double dist_x = enemy->pos_x - game->enemies[j].pos_x;
                     double dist_y = enemy->pos_y - game->enemies[j].pos_y;
@@ -220,6 +220,5 @@ int is_visible(t_game *game, double x0, double y0, double x1, double y1)
             return 0;
         }
     }
-
     return 1;
 }

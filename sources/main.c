@@ -6,11 +6,56 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 17:16:51 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:12:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void    exit_game(t_game *g)
+{
+    free(g->pg);
+    free(g->tex->sky);
+    free(g->tex->floor);
+    free(g->tex->north);
+    free(g->tex->south);
+    free(g->tex->west);
+    free(g->tex->east);
+    free(g->tex->paws);
+    free(g->tex->blood_paws);
+    free(g->tex->maya);
+    free(g->tex->maya_left);
+    free(g->tex->maya_right);
+    free(g->tex->angry_maya);
+    free(g->tex->crow);
+    free(g->tex->fly);
+    free(g->tex->spider);
+    free(g->tex->crow_open);
+    free(g->tex->fly_open);
+    free(g->tex->spider_2);
+    free(g->tex->fly_attack);
+    free(g->tex->spider_attack);
+    free(g->tex->crow_attack);
+    free(g->tex->fly_dead);
+    free(g->tex->spider_dead);
+    free(g->tex->crow_dead);
+    free(g->tex->food);
+    free(g->tex->bone);
+    free(g->tex->cat_dead);
+    free(g->tex->cat_escape);
+    free(g->tex->cat_escape_2);
+    free(g->tex->cat_escape_3);
+    free(g->tex->cat_escape_4);
+    free(g->tex);
+    free(g->map);
+    free(g->enemies); // liberare i contenuti
+    free(g->food); // liberare i contenuti
+    free(g->cat);
+    free(g->texture_paths); // liberare i contenuti
+    mlx_clear_window(g->mlx, g->win);
+    mlx_destroy_window(g->mlx, g->win);
+    exit(0);
+}
 
 void pixel_put(t_game *game, int x, int y, int color)
 {
@@ -66,7 +111,7 @@ int load_texture(t_game *game, t_image *image, const char *path)
     return 1;
 }
 
-int load_wall_textures(t_game *game, const char **paths)
+int load_wall_textures(t_game *game)
 {
     game->tex->sky = malloc(sizeof(t_image));
     game->tex->floor = malloc(sizeof(t_image));
@@ -92,12 +137,21 @@ int load_wall_textures(t_game *game, const char **paths)
     game->tex->fly_dead = malloc(sizeof(t_image));
     game->tex->spider_dead = malloc(sizeof(t_image));
     game->tex->crow_dead = malloc(sizeof(t_image));
-    load_texture(game, game->tex->sky, paths[0]);
-    load_texture(game, game->tex->floor, paths[1]);
-    load_texture(game, game->tex->north, paths[2]);
-    load_texture(game, game->tex->south, paths[3]);
-    load_texture(game, game->tex->west, paths[4]);
-    load_texture(game, game->tex->east, paths[5]);
+    game->tex->food = malloc(sizeof(t_image));
+    game->tex->bone = malloc(sizeof(t_image));
+    game->tex->cat_dead = malloc(sizeof(t_image));
+    game->tex->cat_escape = malloc(sizeof(t_image));
+    game->tex->cat_escape_2 = malloc(sizeof(t_image));
+    game->tex->cat_escape_3 = malloc(sizeof(t_image));
+    game->tex->cat_escape_4 = malloc(sizeof(t_image));
+    game->tex->door_light = malloc(sizeof(t_image));
+    game->tex->door_dark = malloc(sizeof(t_image));
+    load_texture(game, game->tex->east, game->texture_paths[0]);
+    load_texture(game, game->tex->south, game->texture_paths[1]);
+    load_texture(game, game->tex->north, game->texture_paths[2]);
+    load_texture(game, game->tex->west, game->texture_paths[3]);
+    load_texture(game, game->tex->floor, game->texture_paths[4]);
+    load_texture(game, game->tex->sky, game->texture_paths[5]);
     load_texture(game, game->tex->paws, "textures/paws.xpm");
     load_texture(game, game->tex->blood_paws, "textures/nontranquipaws.xpm");
     load_texture(game, game->tex->crow, "textures/crow_open.xpm");
@@ -116,6 +170,14 @@ int load_wall_textures(t_game *game, const char **paths)
     load_texture(game, game->tex->fly_dead, "textures/poltigliadimosca.xpm");
     load_texture(game, game->tex->crow_dead, "textures/poltigliadicornacchia.xpm");
     load_texture(game, game->tex->spider_dead, "textures/poltigliadiragno.xpm");
+    load_texture(game, game->tex->food, "textures/food.xpm");
+    load_texture(game, game->tex->bone, "textures/bone.xpm");
+    load_texture(game, game->tex->cat_dead, "textures/mismisvola.xpm");
+    load_texture(game, game->tex->cat_escape, "textures/misescaping_1.xpm");
+    load_texture(game, game->tex->cat_escape_2, "textures/misescaping_2.xpm");
+    load_texture(game, game->tex->cat_escape_3, "textures/mismisescapediculo.xpm");
+    load_texture(game, game->tex->cat_escape_4, "textures/mismisescapediculo_2.xpm");
+    load_texture(game, game->tex->door_light, "textures/cat_door_light.xpm");
     return (1);
 }
 
@@ -123,53 +185,14 @@ int main(int argc, char **argv)
 {
     t_game game;
 
-    const char *texture_paths[] = {
-        "textures/sky.xpm",
-        "textures/grass.xpm",
-        "textures/recinto.xpm",
-        "textures/fence_dark.xpm",
-        "textures/recintodark.xpm",
-        "textures/fence_light.xpm"
-    };
-    (void)argc;
-    // if (argc != 2)
-    //     return (0);
+    if (argc != 2)
+        return (0);
     init_game(&game);
-    if (!load_wall_textures(&game, texture_paths))
-    {
-        printf("Error: Failed to load wall textures.\n");
-        return 1;
-    }
-    game.pg->dir_x = 0.5;
-    game.pg->dir_y = 0.0;
-    game.pg->plane_x = 0.0;
-    game.pg->plane_y = 0.66;
+    init_paths(&game, argv[1]);
     game.pg->move_speed = 0.12;
-    init_paths(&game, "./maps/test.cub");
     mlx_hook(game.win, 2, 1L << 0, key_press, &game);
     render_ceiling_and_floor(&game);
     mlx_loop_hook(game.mlx, &render_game, &game);
     mlx_loop(game.mlx);
-    free(game.pg);
-    free(game.tex->sky);
-    free(game.tex->floor);
-    free(game.tex->north);
-    free(game.tex->south);
-    free(game.tex->west);
-    free(game.tex->east);
-    free(game.tex->paws);
-    free(game.tex->blood_paws);
-    free(game.tex->maya);
-    free(game.tex->maya_left);
-    free(game.tex->maya_right);
-    free(game.tex->angry_maya);
-    free(game.tex->crow);
-    free(game.tex->fly);
-    free(game.tex->spider);
-    free(game.tex->crow_open);
-    free(game.tex->fly_open);
-    free(game.tex->spider_2);
-    free(game.tex);
     return 0;
-    (void)argv;
 }
