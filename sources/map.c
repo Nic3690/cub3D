@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:08:18 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:06:55 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void init_map(t_game *game, int fd)
     game->map = malloc(sizeof(char *) * rows);
     for (i = 0; i < rows; i++)
     {
-        game->map[rows - i - 1] = ft_strdup(buffer[i]);
+        game->map[rows - i - 1] = malloc(sizeof(char) * max_cols + 1);
+        ft_bzero(game->map[rows - i - 1], max_cols, ' ');
+        strcpy(game->map[rows - i - 1], buffer[i]);
         free(buffer[i]);
     }
     for (int y = 0; y < rows; y++)

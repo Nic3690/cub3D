@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:47:46 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:05:04 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ void    init_paths(t_game *game, char *filename);
 void	init_map(t_game *game, int fd);
 
 /*get_next_line.c*/
+void	ft_bzero(void *s, int n, char c);
 char	*ft_strchr(const char *s, int c);
 int     ft_strlen(char *string);
 char	*ft_strdup(char *string);

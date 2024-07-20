@@ -6,11 +6,24 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 19:12:42 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 12:37:16 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 19:06:49 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void	ft_bzero(void *s, int n, char c)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = c;
+		i++;
+	}
+	((char *)s)[i] = '\0';
+}
 
 char	*ft_strchr(const char *s, int c)
 {

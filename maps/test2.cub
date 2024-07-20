@@ -1,0 +1,15 @@
+NO textures/fence_light.xpm
+SO textures/fence_dark.xpm
+WE textures/recinto.xpm
+EA textures/recintodark.xpm
+
+F textures/grass.xpm
+C textures/sky.xpm
+
+11111111111111111111111111
+10000000000000040000000008
+10000000011111111111111111
+1000000001
+1000000001
+1000E00001
+1111111111
