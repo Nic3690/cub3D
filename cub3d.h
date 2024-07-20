@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:36:02 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:47:46 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,14 +286,7 @@ int		key_press(int keycode, t_game *g);
 
 /*enemies.c*/
 void update_enemy_textures(t_game *game);
-void render_sprite(t_game *game, t_enemy *enemy);
 int is_visible(t_game *game, double x0, double y0, double x1, double y1);
-
-/*sort_enemies.c*/
-void swap(t_enemy *a, t_enemy *b);
-int partition(t_enemy *enemies, int low, int high);
-void quick_sort(t_enemy *enemies, int low, int high);
-void calculate_enemy_distances(t_game *game);
 
 /*maya.c*/
 void draw_face(t_game *game);
@@ -316,18 +309,11 @@ void move_left(t_game *game);
 void move_right(t_game *game);
 
 /*food.c*/
-void swap_food(t_food *a, t_food *b);
-int partition_food(t_food *food, int low, int high);
-void quick_sort_food(t_food *food, int low, int high);
-void calculate_food_distances(t_game *game);
 void update_food_textures(t_game *game);
-void render_food_sprite(t_game *game, t_food *food);
 void    check_food_collision(t_game *game);
 
 /*cat.c*/
 void update_cat_textures(t_game *game);
-void calculate_cat_distances(t_game *game);
-void render_cat_sprite(t_game *game, t_cat *cat);
 int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
 
 /*door.c*/

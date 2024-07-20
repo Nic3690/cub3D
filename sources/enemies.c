@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 12:43:57 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:45:41 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,47 +115,6 @@ void update_enemy_textures(t_game *game)
                         game->enemies[j].pos_y -= (dist_y / dist_between_enemies) * (overlap / 2);
                     }
                 }
-            }
-        }
-    }
-}
-
-void render_sprite(t_game *game, t_enemy *enemy)
-{
-    double sprite_x = enemy->pos_x - game->pg->pos_x;
-    double sprite_y = enemy->pos_y - game->pg->pos_y;
-
-    double inv_det = 1.0 / (game->pg->plane_x * game->pg->dir_y - game->pg->dir_x * game->pg->plane_y);
-
-    double transform_x = inv_det * (game->pg->dir_y * sprite_x - game->pg->dir_x * sprite_y);
-    double transform_y = inv_det * (-game->pg->plane_y * sprite_x + game->pg->plane_x * sprite_y);
-
-    int sprite_screen_x = (int)((WIDTH / 2) * (1 + transform_x / transform_y));
-
-    int sprite_height = abs((int)(HEIGHT / transform_y));
-    int draw_start_y = -sprite_height / 2 + HEIGHT / 2;
-    if (draw_start_y < 0) draw_start_y = 0;
-    int draw_end_y = sprite_height / 2 + HEIGHT / 2;
-    if (draw_end_y >= HEIGHT) draw_end_y = HEIGHT - 1;
-
-    int sprite_width = abs((int)(HEIGHT / transform_y));
-    int draw_start_x = -sprite_width / 2 + sprite_screen_x;
-    if (draw_start_x < 0) draw_start_x = 0;
-    int draw_end_x = sprite_width / 2 + sprite_screen_x;
-    if (draw_end_x >= WIDTH) draw_end_x = WIDTH - 1;
-
-    for (int stripe = draw_start_x; stripe < draw_end_x; stripe++)
-    {
-        int tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x)) * enemy->current_texture->w / sprite_width) / 256;
-        if (transform_y > 0 && stripe > 0 && stripe < WIDTH && transform_y < game->z_buffer[stripe])
-        {
-            for (int y = draw_start_y; y < draw_end_y; y++)
-            {
-                int d = (y) * 256 - HEIGHT * 128 + sprite_height * 128;
-                int tex_y = ((d * enemy->current_texture->h) / sprite_height) / 256;
-                int color = get_tex_color(enemy->current_texture, tex_x, tex_y);
-                if (color != (0xFF << 24))
-                    pixel_put(game, stripe, y, color);
             }
         }
     }

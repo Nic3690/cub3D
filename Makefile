@@ -1,6 +1,6 @@
 NAME    = cub3d
 
-SRC     = ./sources/main.c ./sources/raycasting.c ./sources/map.c ./sources/rendering.c ./sources/drawing.c ./sources/get_next_line.c ./sources/keys.c ./sources/enemies.c ./sources/sort_enemies.c ./sources/health_bar.c ./sources/maya.c ./sources/attack.c ./sources/collision.c ./sources/food.c ./sources/cat.c ./sources/door.c ./sources/entity.c
+SRC     = ./sources/main.c ./sources/raycasting.c ./sources/map.c ./sources/rendering.c ./sources/drawing.c ./sources/get_next_line.c ./sources/keys.c ./sources/enemies.c ./sources/health_bar.c ./sources/maya.c ./sources/attack.c ./sources/collision.c ./sources/food.c ./sources/cat.c ./sources/door.c ./sources/entity.c
 
 # ANSI COLOR
 RED     = \033[0;31m
