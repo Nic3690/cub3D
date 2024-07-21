@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 19:06:55 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:05:01 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,19 +110,40 @@ void init_map(t_game *game, int fd)
                 game->num_enemies++;
             else if (game->map[y][x] == FOOD || game->map[y][x] == BONE)
                 game->num_food++;
-            else if (game->map[y][x] == DOOR)
+            else if (game->map[y][x] == CATDOOR)
             {
                 game->door_x = x;
                 game->door_y = y;
                 game->map[y][x] = '1';
             }
+            else if (game->map[y][x] == DOOR)
+                game->num_doors++;
         }
     }
     game->enemies = malloc(sizeof(t_enemy) * game->num_enemies);
     game->food = malloc(sizeof(t_food) * game->num_food);
+    game->doors = malloc(sizeof(t_door) * game->num_doors);
     game->cat = malloc(sizeof(t_cat));
     int enemy_index = 0;
     int food_index = 0;
+    int door_index = 0;
+    for (int y = 0; y < rows; y++)
+    {
+        for (int x = 0; x < max_cols; x++)
+        {
+            if (game->map[y][x] == DOOR)
+            {
+                game->doors[door_index].pos_x = x;
+                game->doors[door_index].pos_y = y;
+                game->doors[door_index].is_open = 0;
+                game->doors[door_index].open_tex = game->tex->open_door;
+                game->doors[door_index].closed_tex = game->tex->closed_door;
+                game->doors[door_index].curr_tex = game->tex->open_door;
+                game->map[y][x] = '1';
+                door_index++;
+            }
+        }
+    }
     for (int y = 0; y < rows; y++)
     {
         for (int x = 0; x < max_cols; x++)
@@ -156,6 +177,9 @@ void init_map(t_game *game, int fd)
                 game->enemies[enemy_index].attack_texture = game->tex->fly_attack;
                 game->enemies[enemy_index].dead_texture = game->tex->fly_dead;
                 game->enemies[enemy_index].enemy_health = 100;
+                game->enemies[enemy_index].speed = 0.010;
+                game->enemies[enemy_index].frame = 15;
+                game->enemies[enemy_index].damage = 5;
                 game->enemies[enemy_index].type = FLY;
             }
             else if (game->map[y][x] == SPIDER)
@@ -164,7 +188,10 @@ void init_map(t_game *game, int fd)
                 game->enemies[enemy_index].texture2 = game->tex->spider_2;
                 game->enemies[enemy_index].attack_texture = game->tex->spider_attack;
                 game->enemies[enemy_index].dead_texture = game->tex->spider_dead;
-                game->enemies[enemy_index].enemy_health = 100;
+                game->enemies[enemy_index].enemy_health = 60;
+                game->enemies[enemy_index].speed = 0.020;
+                game->enemies[enemy_index].frame = 5;
+                game->enemies[enemy_index].damage = 2;
                 game->enemies[enemy_index].type = SPIDER;
             }
             else if (game->map[y][x] == CROW)
@@ -173,7 +200,10 @@ void init_map(t_game *game, int fd)
                 game->enemies[enemy_index].texture2 = game->tex->crow_open;
                 game->enemies[enemy_index].attack_texture = game->tex->crow_attack;
                 game->enemies[enemy_index].dead_texture = game->tex->crow_dead;
-                game->enemies[enemy_index].enemy_health = 100;
+                game->enemies[enemy_index].enemy_health = 80;
+                game->enemies[enemy_index].speed = 0.015;
+                game->enemies[enemy_index].frame = 20;
+                game->enemies[enemy_index].damage = 8;
                 game->enemies[enemy_index].type = CROW;
             }
             if (game->map[y][x] == FLY || game->map[y][x] == SPIDER || game->map[y][x] == CROW)
@@ -184,6 +214,7 @@ void init_map(t_game *game, int fd)
                 game->enemies[enemy_index].last_switch_time = 0;
                 game->enemies[enemy_index].death_timer = -1;
                 enemy_index++;
+                game->map[y][x] = '0';
             }
         }
     }

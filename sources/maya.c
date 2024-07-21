@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:45:03 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 12:42:02 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:18:19 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void draw_face(t_game *game)
     int scale = 3;
     t_image *current;
 
-    int screen_x_start = 10;
-    int screen_y_start = 10;
+    int screen_x_start = WIDTH / 100;
+    int screen_y_start = HEIGHT / 75;
 
     if (game->face_state == 1)
         current = game->tex->maya_left;

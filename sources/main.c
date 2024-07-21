@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:12:07 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:43:08 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ void    exit_game(t_game *g)
     free(g->tex->cat_escape_2);
     free(g->tex->cat_escape_3);
     free(g->tex->cat_escape_4);
+    free(g->tex->cat_face);
+    free(g->tex->open_door);
+    free(g->tex->closed_door);
     free(g->tex);
     free(g->map);
     free(g->enemies); // liberare i contenuti
@@ -88,6 +91,9 @@ void init_game(t_game *game)
     }
     game->face_state = 0;
     game->face_timer = 300;
+    game->num_doors = 0;
+    game->num_enemies = 0;
+    game->num_food = 0;
 }
 
 int load_texture(t_game *game, t_image *image, const char *path)
@@ -144,8 +150,10 @@ int load_wall_textures(t_game *game)
     game->tex->cat_escape_2 = malloc(sizeof(t_image));
     game->tex->cat_escape_3 = malloc(sizeof(t_image));
     game->tex->cat_escape_4 = malloc(sizeof(t_image));
+    game->tex->cat_face = malloc(sizeof(t_image));
     game->tex->door_light = malloc(sizeof(t_image));
-    game->tex->door_dark = malloc(sizeof(t_image));
+    game->tex->open_door = malloc(sizeof(t_image));
+    game->tex->closed_door = malloc(sizeof(t_image));
     load_texture(game, game->tex->east, game->texture_paths[0]);
     load_texture(game, game->tex->south, game->texture_paths[1]);
     load_texture(game, game->tex->north, game->texture_paths[2]);
@@ -178,6 +186,9 @@ int load_wall_textures(t_game *game)
     load_texture(game, game->tex->cat_escape_3, "textures/mismisescapediculo.xpm");
     load_texture(game, game->tex->cat_escape_4, "textures/mismisescapediculo_2.xpm");
     load_texture(game, game->tex->door_light, "textures/cat_door_light.xpm");
+    load_texture(game, game->tex->cat_face, "textures/mismis_face.xpm");
+    load_texture(game, game->tex->closed_door, "textures/gate_light.xpm");
+    load_texture(game, game->tex->open_door, "textures/gate_light_open.xpm");
     return (1);
 }
 

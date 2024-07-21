@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/01 17:00:57 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:03:51 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	drawing(t_game *g, t_image *image, double tex_pos, int x)
 		g->draw->tex_y = (int)tex_pos & (g->tex->tex_h - 1);
         tex_pos += g->draw->step;
         color = get_tex_color(image, g->draw->tex_x, g->draw->tex_y);
-		pixel_put(g, x, y, color);
+		if (color != (0xFF << 24))
+			pixel_put(g, x, y, color);
 		y++;
 	}
 }

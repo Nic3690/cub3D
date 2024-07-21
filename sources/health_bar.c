@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:29:19 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/17 14:51:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:04:54 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,16 @@ void draw_health_bar(t_game *game, int x, int y, int width, int height)
 
     // Disegna la parte riempita della barra
     draw_rectangle(game, x, y, health_width, height, 0xFF0000); // Rosso
+}
+
+void draw_health_bar_cat(t_game *game, int x, int y, int width, int height)
+{
+    // Disegna il contorno della barra (sfondo)
+    draw_rectangle(game, x - 2, y - 2, width + 4, height + 4, 0x555555); // Grigio scuro
+
+    // Calcola la lunghezza della barra basata sulla vita del gatto
+    int health_width = (game->cat->health * width) / 500;
+
+    // Disegna la parte riempita della barra
+    draw_rectangle(game, x + (width - health_width), y, health_width, height, 0xFF0000); // Rosso
 }

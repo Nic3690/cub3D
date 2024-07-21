@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:42:01 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 14:01:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,11 @@ void render_wall_column(t_game *g, int x, t_draw *draw, int side)
         else
             image = g->tex->north;
     }
-
+    for (int i = 0; i < g->num_doors; i++)
+    {
+        if (g->pg->map_x == g->doors[i].pos_x && g->pg->map_y == g->doors[i].pos_y)
+            image = g->doors[i].curr_tex;
+    }
     g->tex->tex_w = image->w;
     g->tex->tex_h = image->h;
     draw->tex_x = (int)(draw->wall_x * (double)g->tex->tex_w);
@@ -122,7 +126,8 @@ int render_game(t_game *game)
         game->z_buffer[x] = game->pg->wall_dist;
         x++;
     }
-
+    // for (int i = 0; i < game->num_doors; i++)
+    //     render_door_sprite(game, &game->doors[i]);
     int entity_count = game->num_food + game->num_enemies + 1;
     t_entity *entities = malloc(sizeof(t_entity) * entity_count);
     calculate_entity_distances(game, entities, &entity_count);
@@ -131,16 +136,16 @@ int render_game(t_game *game)
     update_food_textures(game);
     check_food_collision(game);
     for (int i = 0; i < entity_count; i++)
-    {
         render_entity(game, &entities[i]);
-    }
 
     free(entities);
 
     draw_paws_attack(game);
     draw_health_bar(game, WIDTH / 13, HEIGHT / 9, 3 * WIDTH / 10, HEIGHT / 60);
+    draw_health_bar_cat(game, WIDTH - (3 * WIDTH / 10) - (WIDTH / 13), HEIGHT / 9, 3 * WIDTH / 10, HEIGHT / 60);
     update_face_state(game);
     draw_face(game);
+    draw_face_cat(game);
     mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
     free(game->z_buffer);
     game->frame_count++;

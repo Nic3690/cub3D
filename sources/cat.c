@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:27:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:48:28 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:30:18 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void move_cat(t_game *game)
     double distance = sqrt(dir_x * dir_x + dir_y * dir_y);
     double move_speed = 0.01;
 
-    if (distance > move_speed)
+    if (distance > move_speed && cat->death_timer == -1)
     {
         dir_x /= distance;
         dir_y /= distance;
@@ -62,7 +62,7 @@ void update_cat_textures(t_game *game)
     // Cambia la texture del gatto in base allo stato di movimento
     if (fabs(dir_x - game->pg->dir_x) < 0.5 && fabs(dir_y - game->pg->dir_y) < 0.5)
     {
-        if (game->frame_count % cat->wait_timer == 0)
+        if (game->frame_count % cat->wait_timer == 0 && cat->death_timer == -1)
         {
             if (cat->current_texture == cat->escape_texture_3)
                 cat->current_texture = cat->escape_texture_4;
@@ -72,7 +72,7 @@ void update_cat_textures(t_game *game)
     }
     else
     {
-        if (game->frame_count % cat->wait_timer == 0)
+        if (game->frame_count % cat->wait_timer == 0 && cat->death_timer == -1)
         {
             if (cat->current_texture == cat->escape_texture)
                 cat->current_texture = cat->escape_texture_2;
@@ -142,4 +142,36 @@ int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1)
         }
     }
     return 1;
+}
+
+void draw_face_cat(t_game *game)
+{
+    int x, y;
+    int img_x, img_y;
+    int scale = 5;
+    // t_image *current;
+
+    int screen_x_start = WIDTH - (WIDTH / 100) - 250;
+    int screen_y_start = HEIGHT / 75;
+
+    // if (game->face_state == 1)
+    //     current = game->tex->maya_left;
+    // else if (game->face_state == 2)
+    //     current = game->tex->maya_right;
+    // else if (game->face_state == 3)
+    //     current = game->tex->angry_maya;
+    // else
+    //     current = game->tex->maya;
+
+    for (y = 0; y < game->tex->cat_face->h * scale; y++)
+    {
+        for (x = 0; x < game->tex->cat_face->w * scale; x++)
+        {
+            img_x = x / scale;
+            img_y = y / scale;
+            int color = get_tex_color(game->tex->cat_face, img_x, img_y);
+            if (color != (0xFF << 24))
+                pixel_put(game, screen_x_start + x, screen_y_start + y, color);
+        }
+    }
 }

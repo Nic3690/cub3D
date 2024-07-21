@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 18:45:41 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:11:03 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 void update_enemy_textures(t_game *game)
 {
-    int switch_interval = 20;
-    double enemy_speed = 0.015;
     double attack_distance = 0.7;
     double min_distance_between_enemies = 1.0;
-    int attack_damage = 10; // Danno inflitto dal nemico per attacco
 
     for (int i = 0; i < game->num_enemies; i++)
     {
@@ -39,7 +36,7 @@ void update_enemy_textures(t_game *game)
         else if (enemy->death_timer == -1) // Solo i nemici vivi si muovono e attaccano
         {
             // Cambia la texture del nemico
-            if (game->frame_count % switch_interval == 0)
+            if (game->frame_count % enemy->frame == 0)
             {
                 if (enemy->current_texture == enemy->texture)
                     enemy->current_texture = enemy->texture2;
@@ -64,9 +61,9 @@ void update_enemy_textures(t_game *game)
                 {
                     enemy->current_texture = enemy->attack_texture;
                     // Il nemico attacca il giocatore
-                    if (game->frame_count % switch_interval == 0) // Attacco ogni switch_interval frame
+                    if (game->frame_count % enemy->frame == 0) // Attacco ogni enemy->frame
                     {
-                        game->pg->health -= attack_damage;
+                        game->pg->health -= enemy->damage;
                         if (game->pg->health <= 0)
                         {
                             printf("Game Over\n");
@@ -76,8 +73,8 @@ void update_enemy_textures(t_game *game)
                 }
                 else
                 {
-                    enemy->pos_x += dir_x * enemy_speed;
-                    enemy->pos_y += dir_y * enemy_speed;
+                    enemy->pos_x += dir_x * enemy->speed;
+                    enemy->pos_y += dir_y * enemy->speed;
                     if (enemy->current_texture == enemy->attack_texture)
                     {
                         enemy->current_texture = enemy->texture;
@@ -89,8 +86,8 @@ void update_enemy_textures(t_game *game)
                 if (enemy->retreat_timer > 0)
                 {
                     enemy->retreat_timer--;
-                    enemy->pos_x -= dir_x * enemy_speed * 1.5;
-                    enemy->pos_y -= dir_y * enemy_speed * 1.5;
+                    enemy->pos_x -= dir_x * enemy->speed * 1.5;
+                    enemy->pos_y -= dir_y * enemy->speed * 1.5;
                 }
                 else
                 {

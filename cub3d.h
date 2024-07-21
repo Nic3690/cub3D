@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/20 19:05:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 13:49:26 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 #define CROW '5'
 #define FLY '6'
 #define SPIDER '7'
-#define DOOR '8'
+#define CATDOOR '8'
+#define DOOR '9'
 
 #define MAX_TEXTURES 6
 
@@ -62,6 +63,8 @@ typedef struct s_entity
     double pos_y;
     double dist;
     t_image *texture;
+    int move_along_y;
+    int move_along_x;
 } t_entity;
 
 typedef struct s_enemy
@@ -81,6 +84,9 @@ typedef struct s_enemy
     int     type;
     int     enemy_health;
     int     death_timer;
+    double  speed;
+    int     frame;
+    int     damage;
 }   t_enemy;
 
 typedef struct s_food
@@ -112,6 +118,17 @@ typedef struct s_cat
     int     health;
     int     death_timer;
 }   t_cat;
+
+typedef struct s_door
+{
+    double  pos_x;
+    double  pos_y;
+    double  dist;
+    int     is_open;
+    t_image *closed_tex;
+    t_image *open_tex;
+    t_image *curr_tex;
+}   t_door;
 
 typedef struct s_texture
 {
@@ -156,6 +173,9 @@ typedef struct s_texture
     t_image *cat_escape_4;
     t_image *door_light;
     t_image *door_dark;
+    t_image *cat_face;
+    t_image *open_door;
+    t_image *closed_door;
 }	t_texture;
 
 typedef struct s_draw
@@ -230,12 +250,14 @@ typedef struct  s_game
     t_texture   *tex;
     t_draw      *draw;
     t_enemy     *enemies;
+    t_door      *doors;
     int         num_enemies;
+    int         num_food;
+    int         num_doors;
     double      *z_buffer;
     int         frame_count;
     int         face_state;
     int         face_timer;
-    int         num_food;
     t_food      *food;
     t_cat       *cat;
     double      door_x;
@@ -296,6 +318,7 @@ void update_face_state(t_game *game);
 /*health_bar.c*/
 void draw_rectangle(t_game *game, int x, int y, int width, int height, int color);
 void draw_health_bar(t_game *game, int x, int y, int width, int height);
+void draw_health_bar_cat(t_game *game, int x, int y, int width, int height);
 
 /*attack.c*/
 void start_attack(t_game *game);
@@ -316,9 +339,11 @@ void    check_food_collision(t_game *game);
 /*cat.c*/
 void update_cat_textures(t_game *game);
 int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
+void draw_face_cat(t_game *game);
 
 /*door.c*/
-void render_door_sprite(t_game *game);
+void    render_cat_door_sprite(t_game *game);
+void    render_door_sprite(t_game *game, t_door *door);
 
 /*entity.c*/
 void calculate_entity_distances(t_game *game, t_entity *entities, int *entity_count);

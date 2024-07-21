@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/19 19:40:27 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 12:53:19 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void start_attack(t_game *game)
     if (game->pg->attack_cooldown == 0)
     {
         game->pg->attack = 1;
-        game->pg->attack_time = 10;
-        game->pg->attack_cooldown = 20;
+        game->pg->attack_time = 5;
+        game->pg->attack_cooldown = 10;
     }
 }
 
@@ -33,7 +33,7 @@ void draw_paws_attack(t_game *game)
         else
         {
             game->pg->attack = 0;
-            game->pg->attack_cooldown = 20; // Imposta il cooldown tra gli attacchi (in frame)
+            game->pg->attack_cooldown = 5; // Imposta il cooldown tra gli attacchi (in frame)
         }
         attack_paws = game->tex->blood_paws;
     }
@@ -76,7 +76,7 @@ void player_attack(t_game *game)
         double dir_y = enemy->pos_y - game->pg->pos_y;
         double distance = sqrt(dir_x * dir_x + dir_y * dir_y);
 
-        if (distance < attack_distance)
+        if (distance < attack_distance && game->pg->attack_time >= 5)
         {
             enemy->enemy_health -= attack_damage;
             if (enemy->enemy_health <= 0 && enemy->death_timer == -1)
@@ -85,6 +85,19 @@ void player_attack(t_game *game)
                 enemy->current_texture = enemy->dead_texture;
                 enemy->death_timer = 300;
             }
+        }
+    }
+    double cat_dir_x = game->cat->pos_x - game->pg->pos_x;
+    double cat_dir_y = game->cat->pos_y - game->pg->pos_y;
+    double cat_distance = sqrt(cat_dir_x * cat_dir_x + cat_dir_y * cat_dir_y);
+    if (cat_distance < attack_distance && game->pg->attack_time >= 5)
+    {
+        game->cat->health -= attack_damage;
+        if (game->cat->health <= 0 && game->cat->death_timer == -1)
+        {
+            printf("Cat defeated!\n");
+            game->cat->current_texture = game->cat->dead_texture;
+            game->cat->death_timer = 300;
         }
     }
 }
