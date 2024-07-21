@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 14:05:01 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:17:05 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,11 +135,10 @@ void init_map(t_game *game, int fd)
             {
                 game->doors[door_index].pos_x = x;
                 game->doors[door_index].pos_y = y;
-                game->doors[door_index].is_open = 0;
+                game->doors[door_index].is_open = 1;
                 game->doors[door_index].open_tex = game->tex->open_door;
                 game->doors[door_index].closed_tex = game->tex->closed_door;
                 game->doors[door_index].curr_tex = game->tex->open_door;
-                game->map[y][x] = '1';
                 door_index++;
             }
         }

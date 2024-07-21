@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 13:49:26 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:19:13 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,8 @@ typedef struct s_cat
 
 typedef struct s_door
 {
-    double  pos_x;
-    double  pos_y;
+    int     pos_x;
+    int     pos_y;
     double  dist;
     int     is_open;
     t_image *closed_tex;
@@ -283,6 +283,7 @@ void	render_ceiling_and_floor(t_game *g);
 t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
 void	color_floor_and_sky(t_game *game, t_image *image, int y);
 void	render_wall_column(t_game *game, int x, t_draw *draw, int side);
+void    render_door_column(t_game *g, int x, int side, t_door *door);
 int		render_game(t_game *game);
 
 /*drawing.c*/

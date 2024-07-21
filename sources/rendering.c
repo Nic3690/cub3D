@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 14:01:07 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:13:33 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void    color_floor_and_sky(t_game *g, t_image *img, int y)
     }
 }
 
+// IL DRAW SI PUO' NON PASSARE
 void render_wall_column(t_game *g, int x, t_draw *draw, int side)
 {
     t_image *image;
@@ -110,24 +111,28 @@ void render_wall_column(t_game *g, int x, t_draw *draw, int side)
     drawing(g, image, tex_pos, x);
 }
 
-int render_game(t_game *game)
+void render_doors(t_game *g)
 {
     int x;
 
     x = 0;
-    game->z_buffer = malloc(sizeof(double) * WIDTH);
-    render_ceiling_and_floor(game);
     while (x < WIDTH)
     {
-        calculate_ray_direction(game, x);
-        identify_cell(game->pg);
-        calculate_wall_distance(game);
-        drawing_colums(game, x);
-        game->z_buffer[x] = game->pg->wall_dist;
+        calculate_ray_direction(g, x);
+        identify_cell(g->pg);
+        calculate_wall_distance(g);
+        drawing_colums(g, x);
+        g->z_buffer[x] = g->pg->wall_dist;
         x++;
     }
-    // for (int i = 0; i < game->num_doors; i++)
-    //     render_door_sprite(game, &game->doors[i]);
+}
+
+int render_game(t_game *game)
+{
+    game->z_buffer = malloc(sizeof(double) * WIDTH);
+    render_ceiling_and_floor(game);
+    render_doors(game);
+    
     int entity_count = game->num_food + game->num_enemies + 1;
     t_entity *entities = malloc(sizeof(t_entity) * entity_count);
     calculate_entity_distances(game, entities, &entity_count);
