@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 19:15:37 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:35:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	drawing_colums(t_game *g, int x)
 		draw->wall_x = g->pg->pos_x + g->pg->wall_dist * g->pg->ray_x;
 	draw->wall_x -= floor(draw->wall_x);
 	g->draw = draw;
-	render_wall_column(g, x, draw, g->pg->side);
+	render_wall_column(g, x, g->pg->side);
 	free(draw);
 }

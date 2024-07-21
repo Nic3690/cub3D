@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 19:13:33 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:37:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,18 +73,14 @@ void    color_floor_and_sky(t_game *g, t_image *img, int y)
     }
 }
 
-// IL DRAW SI PUO' NON PASSARE
-void render_wall_column(t_game *g, int x, t_draw *draw, int side)
+void render_wall_column(t_game *g, int x, int side)
 {
     t_image *image;
     double tex_pos;
 
     if (g->pg->map_x == g->door_x && g->pg->map_y == g->door_y)
-    {
         image = g->tex->door_light;
-    }
     else
-    {
         if (side == 0 && g->pg->ray_x > 0)
             image = g->tex->east;
         else if (side == 0 && g->pg->ray_x < 0)
@@ -93,7 +89,6 @@ void render_wall_column(t_game *g, int x, t_draw *draw, int side)
             image = g->tex->south;
         else
             image = g->tex->north;
-    }
     for (int i = 0; i < g->num_doors; i++)
     {
         if (g->pg->map_x == g->doors[i].pos_x && g->pg->map_y == g->doors[i].pos_y)
@@ -101,17 +96,17 @@ void render_wall_column(t_game *g, int x, t_draw *draw, int side)
     }
     g->tex->tex_w = image->w;
     g->tex->tex_h = image->h;
-    draw->tex_x = (int)(draw->wall_x * (double)g->tex->tex_w);
+    g->draw->tex_x = (int)(g->draw->wall_x * (double)g->tex->tex_w);
     if (side == 0 && g->pg->ray_x > 0)
-        draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
+        g->draw->tex_x = g->tex->tex_w - g->draw->tex_x - 1;
     if (side == 1 && g->pg->ray_y < 0)
-        draw->tex_x = g->tex->tex_w - draw->tex_x - 1;
-    draw->step = 1.0 * g->tex->tex_w / draw->line;
-    tex_pos = (draw->draw_start - HEIGHT / 2 + draw->line / 2) * draw->step;
+        g->draw->tex_x = g->tex->tex_w - g->draw->tex_x - 1;
+    g->draw->step = 1.0 * g->tex->tex_w / g->draw->line;
+    tex_pos = (g->draw->draw_start - HEIGHT / 2 + g->draw->line / 2) * g->draw->step;
     drawing(g, image, tex_pos, x);
 }
 
-void render_doors(t_game *g)
+void render(t_game *g)
 {
     int x;
 
@@ -120,7 +115,23 @@ void render_doors(t_game *g)
     {
         calculate_ray_direction(g, x);
         identify_cell(g->pg);
-        calculate_wall_distance(g);
+        calculate_wall_distance(g, 1);
+        drawing_colums(g, x);
+        g->z_buffer[x] = g->pg->wall_dist;
+        x++;
+    }
+}
+
+void    render_doors(t_game *g)
+{
+    int x;
+
+    x = 0;
+    while (x < WIDTH)
+    {
+        calculate_ray_direction(g, x);
+        identify_cell(g->pg);
+        calculate_wall_distance(g, 9);
         drawing_colums(g, x);
         g->z_buffer[x] = g->pg->wall_dist;
         x++;
@@ -131,6 +142,7 @@ int render_game(t_game *game)
 {
     game->z_buffer = malloc(sizeof(double) * WIDTH);
     render_ceiling_and_floor(game);
+    render(game);
     render_doors(game);
     
     int entity_count = game->num_food + game->num_enemies + 1;

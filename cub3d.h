@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 19:19:13 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:52:54 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,8 @@ typedef struct  s_game
     t_cat       *cat;
     double      door_x;
     double      door_y;
+    int         map_rows;
+    int         map_cols;
 }               t_game;
 
 /*main.c*/
@@ -274,7 +276,7 @@ int load_wall_textures(t_game *game);
 /*raycasting.c*/
 void	calculate_ray_direction(t_game *game, int x);
 void	identify_cell(t_player *pg);
-void	calculate_wall_distance(t_game *game);
+void	calculate_wall_distance(t_game *game, int type);
 void	calculate_wall_side(t_game *g);
 int		calculate_line_height(t_player *pg, int side);
 
@@ -282,8 +284,9 @@ int		calculate_line_height(t_player *pg, int side);
 void	render_ceiling_and_floor(t_game *g);
 t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
 void	color_floor_and_sky(t_game *game, t_image *image, int y);
-void	render_wall_column(t_game *game, int x, t_draw *draw, int side);
-void    render_door_column(t_game *g, int x, int side, t_door *door);
+void	render_wall_column(t_game *game, int x, int side);
+void	render(t_game *g);
+void	render_doors(t_game *g);
 int		render_game(t_game *game);
 
 /*drawing.c*/
@@ -328,6 +331,8 @@ void player_attack(t_game *game);
 
 /*collision.c*/
 int is_enemy_at(t_game *game, double x, double y);
+int is_food(t_game *game, double x, double y);
+int is_door_open(t_game *game, double x, double y);
 void move_forward(t_game *game);
 void move_backward(t_game *game);
 void move_left(t_game *game);
@@ -342,12 +347,11 @@ void update_cat_textures(t_game *game);
 int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
 void draw_face_cat(t_game *game);
 
-/*door.c*/
-void    render_cat_door_sprite(t_game *game);
-void    render_door_sprite(t_game *game, t_door *door);
-
 /*entity.c*/
 void calculate_entity_distances(t_game *game, t_entity *entities, int *entity_count);
 void render_entity(t_game *game, t_entity *entity);
+
+/*door.c*/
+void open_close_door(t_game *g);
 
 #endif

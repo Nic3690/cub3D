@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:13:41 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 19:19:25 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/21 20:27:22 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ void identify_cell(t_player *pg)
     }
 }
 
-void calculate_wall_distance(t_game *g)
+void calculate_wall_distance(t_game *g, int type)
 {
     int hit = 0;
 	
     while (hit == 0)
     {
+        if ((g->map[g->pg->map_y][g->pg->map_x] == '1' || g->map[g->pg->map_y][g->pg->map_x] == '1') && type == 9)
+            break ;
         if (g->pg->side_x < g->pg->side_y)
         {
             g->pg->side_x += g->pg->delta_x;
@@ -68,7 +70,9 @@ void calculate_wall_distance(t_game *g)
             g->pg->side = 1;
         }
 
-        if (g->map[g->pg->map_y][g->pg->map_x] == '1')
+        if (g->map[g->pg->map_y][g->pg->map_x] == '9' && type == 9)
+            hit = 1;
+        if (g->map[g->pg->map_y][g->pg->map_x] == '1' && type == 1)
             hit = 1;
     }
     calculate_wall_side(g);
