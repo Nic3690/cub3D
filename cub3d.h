@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 18:28:52 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 00:01:09 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,6 @@ typedef struct s_food
 {
     double  pos_x;
     double  pos_y;
-    double dir_x;
-    double dir_y;
     double dist_x;
     double dist_y;
     int     type;
@@ -345,10 +343,44 @@ int		get_tex_color(t_image *image, int tex_x, int tex_y);
 void	drawing(t_game *g, t_image *image, double tex_pos, int x);
 void	drawing_colums(t_game *game, int x);
 
+/************************** MAP FOLDER **************************/
 /*map.c*/
-void    set_player_direction(t_game *game, char dir);
-void    init_paths(t_game *game, char *filename);
-void	init_map(t_game *game, int fd);
+void    set_player_direction_ns(t_game *game, char dir);
+void    set_player_direction_we(t_game *game, char dir);
+void    get_rows_and_cols(t_game *game, int fd, char **buffer);
+void    copy_map(t_game *game, char **buffer);
+
+/*position.c*/
+void    handle_player_position(t_game *game, int x, int y);
+void    handle_door_position(t_game *game, int x, int y);
+void    set_enemy_position(t_game *game, int x, int y, int index);
+
+/*init_textures.c*/
+void    read_texture_paths(t_game *game, int fd);
+void    load_textures_and_map(t_game *game, char *filename);
+
+/*init_entities.c*/
+void    increment_entity_counts(t_game *game, int x, int y);
+void    scan_map_for_entities(t_game *game);
+void    allocate_entities(t_game *game);
+
+/*check_parameters.c*/
+void    check_doors(t_game *game, int x, int y);
+void    check_food(t_game *game, int x, int y, int *index);
+void    check_and_set_enemy(t_game *game, int x, int y, int *index);
+
+/*init_parameters.c*/
+void    init_food(t_game *game);
+void    init_doors(t_game *game);
+void    init_enemies(t_game *game);
+void    init_cat(t_game *game);
+void    init_map(t_game *game, int fd);
+
+/*enemies_properties.c*/
+void    set_fly_properties(t_game *game, int index);
+void    set_spider_properties(t_game *game, int index);
+void    set_crow_properties(t_game *game, int index);
+void    set_cat_properties(t_game *game, int x, int y);
 
 /*get_next_line.c*/
 void	ft_bzero(void *s, int n, char c);
@@ -357,6 +389,8 @@ int     ft_strlen(char *string);
 char	*ft_strdup(char *string);
 char	*get_next_line(int fd);
 
+/****************************************************************/
+
 /*keys.c*/
 void	rotate_right(t_player *pg);
 void	rotate_left(t_player *pg);
@@ -364,7 +398,7 @@ int		key_press(int keycode, t_game *g);
 
 /*enemies.c*/
 void    update_enemy_textures(t_game *game);
-void    move_and_attack_enemy(t_game *game, t_enemy *enemy, double attack_distance);
+void    move_and_attack(t_game *game, t_enemy *enemy, double attack_distance);
 void    distance_between_enemies(t_game *game, int i, double min_dist_btw);
 void    init_enemy_rays(t_game *game, t_enemy *enemy);
 void    perform_enemy_dda(t_enemy *enemy);
@@ -381,16 +415,17 @@ void draw_face(t_game *game);
 void update_face_state(t_game *game);
 
 /*health_bar.c*/
-void draw_rectangle(t_game *game, int x, int y, int width, int height, int color);
-void draw_health_bar(t_game *game, int x, int y, int width, int height);
-void draw_health_bar_cat(t_game *game, int x, int y, int width, int height);
+void    init_bar_params(int *y, int *height, int *color, int type);
+void    draw_rectangle(t_game *game, int x, int width, int type);
+void    draw_health_bar(t_game *game);
+void    draw_health_bar_cat(t_game *game);
 
 /*attack.c*/
-void start_attack(t_game *game);
-void update_attack_status(t_game *game);
-void attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance);
-void attack_cat(t_game *game, int attack_damage, double attack_distance);
-void player_attack(t_game *game);
+void    start_attack(t_game *game);
+void    update_attack_status(t_game *game);
+void    attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance);
+void    attack_cat(t_game *game, int attack_damage, double attack_distance);
+void    player_attack(t_game *game);
 
 /*check_collision*/
 int is_enemy_at(t_game *game, double x, double y);
@@ -425,8 +460,6 @@ void    sort_entities_by_distance(t_entity *entities, int *entity_count);
 void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
 
 /*food.c*/
-void    update_food_textures(t_game *game);
-void    remove_food(t_game *game, int index);
 void    check_food_collision(t_game *game);
 
 /*door.c*/
@@ -461,5 +494,6 @@ int is_near_wall(t_game *game, double x, double y, double margin);
 void handle_cat_collision(t_game *game);
 
 void draw_win_lose(t_game *game, t_image *texture);
+char    *ft_strcpy(char *dest, char *src);
 
 #endif

@@ -6,37 +6,48 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:19:25 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/22 12:10:45 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 22:19:45 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void rotate_right(t_player *pg)
+void	rotate_right(t_player *pg)
 {
-    double old_dir_x = pg->dir_x;
-    double old_plane_x = pg->plane_x;
+    double	old_dir_x;
+    double	old_plane_x;
 
-    pg->dir_x = pg->dir_x * cos(ROTATION_SPEED) - pg->dir_y * sin(ROTATION_SPEED);
-    pg->dir_y = old_dir_x * sin(ROTATION_SPEED) + pg->dir_y * cos(ROTATION_SPEED);
-    pg->plane_x = pg->plane_x * cos(ROTATION_SPEED) - pg->plane_y * sin(ROTATION_SPEED);
-    pg->plane_y = old_plane_x * sin(ROTATION_SPEED) + pg->plane_y * cos(ROTATION_SPEED);
+	old_dir_x = pg->dir_x;
+	old_plane_x = pg->plane_x;
+    pg->dir_x = pg->dir_x * cos(ROTATION_SPEED)
+		- pg->dir_y * sin(ROTATION_SPEED);
+    pg->dir_y = old_dir_x * sin(ROTATION_SPEED)
+		+ pg->dir_y * cos(ROTATION_SPEED);
+    pg->plane_x = pg->plane_x * cos(ROTATION_SPEED)
+		- pg->plane_y * sin(ROTATION_SPEED);
+    pg->plane_y = old_plane_x * sin(ROTATION_SPEED)
+		+ pg->plane_y * cos(ROTATION_SPEED);
 }
 
-void rotate_left(t_player *pg)
+void	rotate_left(t_player *pg)
 {
-    double old_dir_x = pg->dir_x;
-    double old_plane_x = pg->plane_x;
+    double old_dir_x;
+    double old_plane_x;
 
-    pg->dir_x = pg->dir_x * cos(-ROTATION_SPEED) - pg->dir_y * sin(-ROTATION_SPEED);
-    pg->dir_y = old_dir_x * sin(-ROTATION_SPEED) + pg->dir_y * cos(-ROTATION_SPEED);
-    pg->plane_x = pg->plane_x * cos(-ROTATION_SPEED) - pg->plane_y * sin(-ROTATION_SPEED);
-    pg->plane_y = old_plane_x * sin(-ROTATION_SPEED) + pg->plane_y * cos(-ROTATION_SPEED);
+	old_dir_x = pg->dir_x;
+	old_plane_x = pg->plane_x;
+    pg->dir_x = pg->dir_x * cos(-ROTATION_SPEED)
+		- pg->dir_y * sin(-ROTATION_SPEED);
+    pg->dir_y = old_dir_x * sin(-ROTATION_SPEED)
+		+ pg->dir_y * cos(-ROTATION_SPEED);
+    pg->plane_x = pg->plane_x * cos(-ROTATION_SPEED)
+		- pg->plane_y * sin(-ROTATION_SPEED);
+    pg->plane_y = old_plane_x * sin(-ROTATION_SPEED)
+		+ pg->plane_y * cos(-ROTATION_SPEED);
 }
 
 int	key_press(int keycode, t_game *g)
 {
-	printf("keycode: %d\n", keycode);
 	if (keycode == 13) // W
 		move_forward(g);
 	if (keycode == 0) // A
@@ -49,8 +60,6 @@ int	key_press(int keycode, t_game *g)
 		rotate_left(g->pg);
 	if (keycode == 124) // RIGHT
 		rotate_right(g->pg);
-	if (keycode == 3) // F
-		g->pg->health -= 10;
 	if (keycode == 260 || keycode == 259)
 	{
 		start_attack(g); // CMD
@@ -58,7 +67,7 @@ int	key_press(int keycode, t_game *g)
 	}
 	if (keycode == 49) // SPACE
 		open_close_door(g);
-	if (keycode == 46)// Se il tasto premuto è 'm'
+	if (keycode == 46)// M
         g->show_minimap = !g->show_minimap;
 	if (keycode == 53) // ESC
 		exit_game(g);

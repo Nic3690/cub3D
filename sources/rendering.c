@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 15:28:24 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 20:13:32 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,16 +151,13 @@ int render_game(t_game *game)
     entity_distances(game, entities, &entity_count);
     update_cat_textures(game);
     update_enemy_textures(game);
-    update_food_textures(game);
     check_food_collision(game);
     for (int i = 0; i < entity_count; i++)
         render_entity(game, &entities[i]);
-
     free(entities);
-
     draw_paws_attack(game);
-    draw_health_bar(game, WIDTH / 13, HEIGHT / 9, 3 * WIDTH / 10, HEIGHT / 60);
-    draw_health_bar_cat(game, WIDTH - (3 * WIDTH / 10) - (WIDTH / 13), HEIGHT / 9, 3 * WIDTH / 10, HEIGHT / 60);
+    draw_health_bar(game);
+    draw_health_bar_cat(game);
     update_face_state(game);
     draw_face(game);
     draw_face_cat(game);

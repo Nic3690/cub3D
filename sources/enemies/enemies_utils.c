@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:22:06 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 15:23:45 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 19:31:38 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void    init_parameters(t_game *game, t_enemy *enemy, int *visible)
 {
     enemy->dir_x = game->pg->pos_x - enemy->pos_x;
     enemy->dir_y = game->pg->pos_y - enemy->pos_y;
-    enemy->dist = sqrt(enemy->dir_x * enemy->dir_x + enemy->dir_y * enemy->dir_y);
+    enemy->dist = sqrt(enemy->dir_x * enemy->dir_x
+        + enemy->dir_y * enemy->dir_y);
     enemy->dir_x /= enemy->dist;
     enemy->dir_y /= enemy->dist;
     *visible = is_visible(game, enemy);
@@ -63,7 +64,8 @@ int is_visible(t_game *game, t_enemy *enemy)
 {
     init_enemy_rays(game, enemy);
     perform_enemy_dda(enemy);
-    while (enemy->map_x != (int)game->pg->pos_x || enemy->map_y != (int)game->pg->pos_y)
+    while (enemy->map_x != (int)game->pg->pos_x
+        || enemy->map_y != (int)game->pg->pos_y)
     {
         if (enemy->side_dist_x < enemy->side_dist_y)
         {

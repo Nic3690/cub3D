@@ -2,11 +2,17 @@ NAME    = cub3d
 
 SRC     =	./sources/main.c \
 			./sources/raycasting.c \
-			./sources/map.c \
 			./sources/rendering.c \
 			./sources/drawing.c \
-			./sources/get_next_line.c \
 			./sources/keys.c \
+			./sources/map/check_parameters.c \
+			./sources/map/enemies_properties.c \
+			./sources/map/get_next_line.c \
+			./sources/map/init_entities.c \
+			./sources/map/init_parameters.c \
+			./sources/map/init_textures.c \
+			./sources/map/map.c \
+			./sources/map/position.c \
 			./sources/enemies/enemies.c \
 			./sources/enemies/enemies_utils.c \
 			./sources/health_bar.c \

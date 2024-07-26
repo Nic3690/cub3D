@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:41:50 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/25 19:41:58 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 22:52:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,18 @@ void draw_win_lose(t_game *game, t_image *texture)
                 pixel_put(game, screen_x_start + x, screen_y_start + y, color);
         }
     }
+}
+
+char    *ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

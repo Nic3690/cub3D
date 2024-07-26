@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/22 18:09:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 23:32:19 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int main(int argc, char **argv)
     if (argc != 2)
         return (0);
     init_game(&game);
-    init_paths(&game, argv[1]);
+    load_textures_and_map(&game, argv[1]);
     game.pg->move_speed = 0.12;
     mlx_hook(game.win, 2, 1L << 0, key_press, &game);
     render_ceiling_and_floor(&game);
