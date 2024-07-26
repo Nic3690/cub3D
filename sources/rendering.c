@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 20:37:23 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 15:28:24 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,10 +144,11 @@ int render_game(t_game *game)
     render_ceiling_and_floor(game);
     render(game);
     render_doors(game);
-    
     int entity_count = game->num_food + game->num_enemies + 1;
+    if (!game->is_cat)
+        entity_count--;
     t_entity *entities = malloc(sizeof(t_entity) * entity_count);
-    calculate_entity_distances(game, entities, &entity_count);
+    entity_distances(game, entities, &entity_count);
     update_cat_textures(game);
     update_enemy_textures(game);
     update_food_textures(game);
@@ -163,7 +164,10 @@ int render_game(t_game *game)
     update_face_state(game);
     draw_face(game);
     draw_face_cat(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+    if (game->show_minimap)
+        draw_minimap(game);
+    else
+        mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
     free(game->z_buffer);
     game->frame_count++;
     return (0);

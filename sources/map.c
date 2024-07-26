@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 21:00:14 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/23 10:22:02 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ void init_map(t_game *game, int fd)
             }
         }
     }
+    game->is_cat = 0;
     for (int y = 0; y < rows; y++)
     {
         for (int x = 0; x < max_cols; x++)
@@ -241,6 +242,7 @@ void init_map(t_game *game, int fd)
                 game->cat->target_x = game->door_x + 0.5;
                 game->cat->target_y = game->door_y + 0.5;
                 game->map[y][x] = '0';
+                game->is_cat = 1;
             }
         }
     }

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 20:35:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/25 21:43:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	get_tex_color(t_image *image, int tex_x, int tex_y)
 {
-    int *texture = (int *)image->addr;
-    return texture[tex_y * image->w + tex_x];
+    int *texture;
+
+	texture = (int *)image->addr;
+    return (texture[tex_y * image->w + tex_x]);
 }
 
 void	drawing(t_game *g, t_image *image, double tex_pos, int x)

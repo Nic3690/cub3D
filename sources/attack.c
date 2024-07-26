@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 12:53:19 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:41:42 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void start_attack(t_game *game)
     }
 }
 
-void draw_paws_attack(t_game *game)
+void update_attack_status(t_game *game)
 {
-    t_image *attack_paws;
-
     if (game->pg->attack)
     {
         if (game->pg->attack_time > 0)
@@ -33,71 +31,70 @@ void draw_paws_attack(t_game *game)
         else
         {
             game->pg->attack = 0;
-            game->pg->attack_cooldown = 5; // Imposta il cooldown tra gli attacchi (in frame)
+            game->pg->attack_cooldown = 5;
         }
-        attack_paws = game->tex->blood_paws;
     }
     else
     {
-        attack_paws = game->tex->paws;
         if (game->pg->attack_cooldown > 0)
-            game->pg->attack_cooldown--; // Decrementa il cooldown ad ogni frame
+            game->pg->attack_cooldown--;
     }
+}
 
-    int x, y;
-    int img_x, img_y;
-    int scale = 10;
-    int screen_x_start = (WIDTH - attack_paws->w * scale) / 2;
-    int screen_y_start = HEIGHT - attack_paws->h * scale;
+void attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance)
+{
+    double  dir_x;
+    double  dir_y;
+    double  distance;
 
-    for (y = 0; y < attack_paws->h * scale; y++)
+    dir_x = enemy->pos_x - game->pg->pos_x;
+    dir_y = enemy->pos_y - game->pg->pos_y;
+    distance = sqrt(dir_x * dir_x + dir_y * dir_y);
+    if (distance < attack_distance && game->pg->attack_time >= 5)
     {
-        for (x = 0; x < attack_paws->w * scale; x++)
+        enemy->enemy_health -= attack_damage;
+        if (enemy->enemy_health <= 0 && enemy->death_timer == -1)
         {
-            img_x = x / scale;
-            img_y = y / scale;
-            int color = get_tex_color(attack_paws, img_x, img_y);
-            if (color != (0xFF << 24))
-                pixel_put(game, screen_x_start + x, screen_y_start + y, color);
+            enemy->current_texture = enemy->dead_texture;
+            enemy->death_timer = 300;
+        }
+    }
+}
+
+void attack_cat(t_game *game, int attack_damage, double attack_distance)
+{
+    double  dir_x;
+    double  dir_y;
+    double  distance;
+
+    dir_x = game->cat->pos_x - game->pg->pos_x;
+    dir_y = game->cat->pos_y - game->pg->pos_y;
+    distance = sqrt(dir_x * dir_x + dir_y * dir_y);
+    if (distance < attack_distance && game->pg->attack_time >= 5)
+    {
+        game->cat->health -= attack_damage;
+        if (game->cat->health <= 0 && game->cat->death_timer == -1)
+        {
+            game->cat->current_texture = game->cat->dead_texture;
+            game->cat->death_timer = 300;
+            draw_win_lose(game, game->tex->you_win);
         }
     }
 }
 
 void player_attack(t_game *game)
 {
-    int attack_damage = 10; // Danno inflitto dal giocatore per attacco
-    double attack_distance = 0.7;
+    int     attack_damage;
+    double  attack_distance;
+    int     i;
 
-    for (int i = 0; i < game->num_enemies; i++)
+    attack_damage = 10;
+    attack_distance = 0.7;
+    i = 0;
+    while (i < game->num_enemies)
     {
-        t_enemy *enemy = &game->enemies[i];
-
-        double dir_x = enemy->pos_x - game->pg->pos_x;
-        double dir_y = enemy->pos_y - game->pg->pos_y;
-        double distance = sqrt(dir_x * dir_x + dir_y * dir_y);
-
-        if (distance < attack_distance && game->pg->attack_time >= 5)
-        {
-            enemy->enemy_health -= attack_damage;
-            if (enemy->enemy_health <= 0 && enemy->death_timer == -1)
-            {
-                printf("Enemy defeated!\n");
-                enemy->current_texture = enemy->dead_texture;
-                enemy->death_timer = 300;
-            }
-        }
+        attack_enemy(game, &game->enemies[i], attack_damage, attack_distance);
+        i++;
     }
-    double cat_dir_x = game->cat->pos_x - game->pg->pos_x;
-    double cat_dir_y = game->cat->pos_y - game->pg->pos_y;
-    double cat_distance = sqrt(cat_dir_x * cat_dir_x + cat_dir_y * cat_dir_y);
-    if (cat_distance < attack_distance && game->pg->attack_time >= 5)
-    {
-        game->cat->health -= attack_damage;
-        if (game->cat->health <= 0 && game->cat->death_timer == -1)
-        {
-            printf("Cat defeated!\n");
-            game->cat->current_texture = game->cat->dead_texture;
-            game->cat->death_timer = 300;
-        }
-    }
+    attack_cat(game, attack_damage, attack_distance);
 }

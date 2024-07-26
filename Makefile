@@ -1,6 +1,32 @@
 NAME    = cub3d
 
-SRC     = ./sources/main.c ./sources/raycasting.c ./sources/map.c ./sources/rendering.c ./sources/drawing.c ./sources/get_next_line.c ./sources/keys.c ./sources/enemies.c ./sources/health_bar.c ./sources/maya.c ./sources/attack.c ./sources/collision.c ./sources/food.c ./sources/cat.c ./sources/door.c ./sources/entity.c
+SRC     =	./sources/main.c \
+			./sources/raycasting.c \
+			./sources/map.c \
+			./sources/rendering.c \
+			./sources/drawing.c \
+			./sources/get_next_line.c \
+			./sources/keys.c \
+			./sources/enemies/enemies.c \
+			./sources/enemies/enemies_utils.c \
+			./sources/health_bar.c \
+			./sources/maya.c \
+			./sources/attack.c \
+			./sources/collision/collision.c \
+			./sources/collision/check_collision.c \
+			./sources/food.c \
+			./sources/cat/cat.c \
+			./sources/cat/visibility.c \
+			./sources/cat/draw_cat.c \
+			./sources/cat/cat_collision.c \
+			./sources/door.c \
+			./sources/entities/entity.c \
+			./sources/entities/add_entities.c \
+			./sources/entities/draw_entities.c \
+			./sources/entities/render_entities.c \
+			./sources/minimap.c \
+			./sources/paws.c \
+			./sources/utils.c
 
 # ANSI COLOR
 RED     = \033[0;31m

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 13:43:08 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:09:31 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void init_game(t_game *game)
     game->win = mlx_new_window(game->mlx, game->map_width, game->map_height, "Cub3D");
     game->img = mlx_new_image(game->mlx, game->map_width, game->map_height);
     game->addr = mlx_get_data_addr(game->img, &game->bits, &game->line, &game->endian);
+    game->minimap = mlx_new_image(game->mlx, game->map_width, game->map_height);
+    game->miniaddr = mlx_get_data_addr(game->minimap, &game->minibits, &game->miniline, &game->miniendian);
     game->pg = malloc(sizeof(t_player));
     game->frame_count = 0;
     if (!game->pg)
@@ -94,6 +96,7 @@ void init_game(t_game *game)
     game->num_doors = 0;
     game->num_enemies = 0;
     game->num_food = 0;
+    game->show_minimap = 0;
 }
 
 int load_texture(t_game *game, t_image *image, const char *path)
@@ -154,6 +157,8 @@ int load_wall_textures(t_game *game)
     game->tex->door_light = malloc(sizeof(t_image));
     game->tex->open_door = malloc(sizeof(t_image));
     game->tex->closed_door = malloc(sizeof(t_image));
+    game->tex->you_win = malloc(sizeof(t_image));
+    game->tex->you_lose = malloc(sizeof(t_image));
     load_texture(game, game->tex->east, game->texture_paths[0]);
     load_texture(game, game->tex->south, game->texture_paths[1]);
     load_texture(game, game->tex->north, game->texture_paths[2]);
@@ -189,6 +194,8 @@ int load_wall_textures(t_game *game)
     load_texture(game, game->tex->cat_face, "textures/mismis_face.xpm");
     load_texture(game, game->tex->closed_door, "textures/gate_light.xpm");
     load_texture(game, game->tex->open_door, "textures/gate_light_open.xpm");
+    load_texture(game, game->tex->you_win, "textures/you_win.xpm");
+    load_texture(game, game->tex->you_lose, "textures/you_died.xpm");
     return (1);
 }
 

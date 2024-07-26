@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 20:52:54 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/26 18:28:52 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 
 #define ROTATION_SPEED 0.1
 
+#define FOOD_COLLISION_RADIUS 0.5
+
 # include "mlx.h"
 # include <math.h>
 # include <stdlib.h>
@@ -59,19 +61,43 @@ typedef struct  s_image
 
 typedef struct s_entity
 {
-    double pos_x;
-    double pos_y;
-    double dist;
-    t_image *texture;
+    double  pos_x;
+    double  pos_y;
+    double  dist;
+    t_image *tex;
     int move_along_y;
     int move_along_x;
+    double     sprite_x;
+    double     sprite_y;
+    int     draw_start_x;
+    int     draw_end_x;
+    int     draw_start_y;
+    int     draw_end_y;
+    int     e_width;
+    int     e_height;
+    double  transform_x;
+    double  transform_y;
+    int     tex_x;
+    int     tex_y;
 } t_entity;
 
 typedef struct s_enemy
 {
     double  pos_x;
     double  pos_y;
+    int     map_x;
+    int     map_y;
     double  dist;
+    double  dir_x;
+    double  dir_y;
+    double  ray_dir_x;
+    double  ray_dir_y;
+    double  side_dist_x;
+    double  side_dist_y;
+    double  delta_x;
+    double  delta_y;
+    double  step_x;
+    double  step_y;
     t_image *texture;
     t_image *texture2;
     t_image *current_texture;
@@ -93,6 +119,10 @@ typedef struct s_food
 {
     double  pos_x;
     double  pos_y;
+    double dir_x;
+    double dir_y;
+    double dist_x;
+    double dist_y;
     int     type;
     double  dist;
     t_image *texture;
@@ -103,12 +133,24 @@ typedef struct s_cat
 {
     double  pos_x;
     double  pos_y;
+    double  dir_x;
+    double  dir_y;
     double  dist;
-    int visible;
-    int wait_timer;
-    int moving;
+    double  ray_dir_x;
+    double  ray_dir_y;
+    double  side_dist_x;
+    double  side_dist_y;
+    double  delta_x;
+    double  delta_y;
+    double  step_x;
+    double  step_y;
+    int     visible;
+    int     wait_timer;
+    int     moving;
     double target_x;
     double target_y;
+    double move_speed;
+    double distance;
     t_image *current_texture;
     t_image *escape_texture;
     t_image *escape_texture_2;
@@ -176,6 +218,8 @@ typedef struct s_texture
     t_image *cat_face;
     t_image *open_door;
     t_image *closed_door;
+    t_image *you_win;
+    t_image *you_lose;
 }	t_texture;
 
 typedef struct s_draw
@@ -236,10 +280,15 @@ typedef struct  s_game
     void        *mlx;
     void        *win;
     void	    *img;
+    void	    *minimap;
 	char	    *addr;
     int		    bits;
 	int		    line;
 	int		    endian;
+	char	    *miniaddr;
+    int		    minibits;
+	int		    miniline;
+	int		    miniendian;
     char        **map;
     int         map_width;
     int         map_height;
@@ -264,6 +313,8 @@ typedef struct  s_game
     double      door_y;
     int         map_rows;
     int         map_cols;
+    int         is_cat;
+    int         show_minimap;
 }               t_game;
 
 /*main.c*/
@@ -312,8 +363,18 @@ void	rotate_left(t_player *pg);
 int		key_press(int keycode, t_game *g);
 
 /*enemies.c*/
-void update_enemy_textures(t_game *game);
-int is_visible(t_game *game, double x0, double y0, double x1, double y1);
+void    update_enemy_textures(t_game *game);
+void    move_and_attack_enemy(t_game *game, t_enemy *enemy, double attack_distance);
+void    distance_between_enemies(t_game *game, int i, double min_dist_btw);
+void    init_enemy_rays(t_game *game, t_enemy *enemy);
+void    perform_enemy_dda(t_enemy *enemy);
+
+/*enemies_utils.c*/
+void    init_parameters(t_game *game, t_enemy *enemy, int *visible);
+void    process_death_timer(t_game *game, t_enemy *enemy, int *i);
+void    retreat_enemy(t_enemy *enemy);
+void    check_textures(t_game *game, t_enemy *enemy);
+int     is_visible(t_game *game, t_enemy *enemy);
 
 /*maya.c*/
 void draw_face(t_game *game);
@@ -326,32 +387,79 @@ void draw_health_bar_cat(t_game *game, int x, int y, int width, int height);
 
 /*attack.c*/
 void start_attack(t_game *game);
-void draw_paws_attack(t_game *game);
+void update_attack_status(t_game *game);
+void attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance);
+void attack_cat(t_game *game, int attack_damage, double attack_distance);
 void player_attack(t_game *game);
 
-/*collision.c*/
+/*check_collision*/
 int is_enemy_at(t_game *game, double x, double y);
 int is_food(t_game *game, double x, double y);
 int is_door_open(t_game *game, double x, double y);
+
+/*collision.c*/
 void move_forward(t_game *game);
 void move_backward(t_game *game);
 void move_left(t_game *game);
 void move_right(t_game *game);
 
+/*add_entities*/
+void    add_food(t_game *game, t_entity *entities, int *entity_count);
+void    add_enemy(t_game *game, t_entity *entities, int *entity_count);
+void    add_cat(t_game *game, t_entity *entities, int *entity_count);
+
+/*draw_entities*/
+int     calculate_tex_x(t_entity *entity, int stripe, int sprite_screen_x);
+int     is_valid_stripe(t_game *game, t_entity *entity, int stripe);
+void    draw_sprite_column(t_game *game, t_entity *entity, int stripe);
+void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x);
+
+/*render_entities*/
+void	calculate_sprite_transform(t_game *g, t_entity *e);
+void	calculate_sprite_dimensions(t_entity *e, int *screen_x);
+void	calculate_draw_limits(t_entity *e, int screen_x);
+void    render_entity(t_game *game, t_entity *entity);
+
+/*entity*/
+void    sort_entities_by_distance(t_entity *entities, int *entity_count);
+void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
+
 /*food.c*/
-void update_food_textures(t_game *game);
+void    update_food_textures(t_game *game);
+void    remove_food(t_game *game, int index);
 void    check_food_collision(t_game *game);
-
-/*cat.c*/
-void update_cat_textures(t_game *game);
-int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
-void draw_face_cat(t_game *game);
-
-/*entity.c*/
-void calculate_entity_distances(t_game *game, t_entity *entities, int *entity_count);
-void render_entity(t_game *game, t_entity *entity);
 
 /*door.c*/
 void open_close_door(t_game *g);
+
+/*minimap.c*/
+void draw_minimap(t_game *game);
+
+/*paws.c*/
+void draw_paws_image(t_game *game, t_image *attack_paws, int scale);
+void draw_paws_attack(t_game *game);
+
+/*cat.c*/
+void move_cat(t_game *game);
+void calculate_cat_direction(t_cat *cat);
+void check_cat_visibility(t_game *game, t_cat *cat);
+void update_cat_texture_state(t_game *game, t_cat *cat);
+void update_cat_textures(t_game *game);
+
+/*draw_cat.c*/
+void draw_face_cat(t_game *game);
+
+/*visibility.c*/
+void init_ray(t_cat *cat, double x0, double y0, double x1, double y1);
+void calculate_step_and_side_dist(t_cat *cat, double x0, double y0, int map_x, int map_y);
+int perform_dda(t_game *game, t_cat *cat, int map_x, int map_y, double x1, double y1);
+int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
+
+/*cat_collision.c*/
+int is_wall(t_game *game, double x, double y);
+int is_near_wall(t_game *game, double x, double y, double margin);
+void handle_cat_collision(t_game *game);
+
+void draw_win_lose(t_game *game, t_image *texture);
 
 #endif
