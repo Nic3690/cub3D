@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 00:01:09 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 11:58:19 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 #define ROTATION_SPEED 0.1
 
 #define FOOD_COLLISION_RADIUS 0.5
+
+#define MINIMAP_SIZE 200
+#define TILE_SIZE 300 / MAP_COLUMNS
 
 # include "mlx.h"
 # include <math.h>
@@ -322,21 +325,39 @@ void init_game(t_game *game);
 int load_texture(t_game *game, t_image *texture_image, const char *path);
 int load_wall_textures(t_game *game);
 
+/************************** RAYCASTING FOLDER **************************/
 /*raycasting.c*/
 void	calculate_ray_direction(t_game *game, int x);
 void	identify_cell(t_player *pg);
-void	calculate_wall_distance(t_game *game, int type);
+void	init_side(t_game *g);
+
+/*calculate_ray.c*/
+void	calculate_deltas(t_player *pg);
+void	calculate_steps(t_player *pg);
+void	calculate_wall_distance(t_game *g, int type);
 void	calculate_wall_side(t_game *g);
 int		calculate_line_height(t_player *pg, int side);
+/***********************************************************************/
 
+/************************** RENDERING FOLDER **************************/
 /*rendering.c*/
+void	render(t_game *g);
+int 	render_game(t_game *game);
+int     calculate_entity_count(t_game *game);
+void	render_entities(t_game *game, t_entity *entities, int entity_count);
+void	draw_game_elements(t_game *game);
+
+/*floor_sky.c*/
 void	render_ceiling_and_floor(t_game *g);
 t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
 void	color_floor_and_sky(t_game *game, t_image *image, int y);
+
+/*doors_walls.c*/
 void	render_wall_column(t_game *game, int x, int side);
-void	render(t_game *g);
+t_image *select_wall_texture(t_game *g, int side);
+void    check_door_texture(t_game *g, t_image **image);
 void	render_doors(t_game *g);
-int		render_game(t_game *game);
+/***********************************************************************/
 
 /*drawing.c*/
 int		get_tex_color(t_image *image, int tex_x, int tex_y);
@@ -388,7 +409,6 @@ char	*ft_strchr(const char *s, int c);
 int     ft_strlen(char *string);
 char	*ft_strdup(char *string);
 char	*get_next_line(int fd);
-
 /****************************************************************/
 
 /*keys.c*/
@@ -396,6 +416,8 @@ void	rotate_right(t_player *pg);
 void	rotate_left(t_player *pg);
 int		key_press(int keycode, t_game *g);
 
+
+/************************** ENEMIES FOLDER ***************************/
 /*enemies.c*/
 void    update_enemy_textures(t_game *game);
 void    move_and_attack(t_game *game, t_enemy *enemy, double attack_distance);
@@ -409,24 +431,17 @@ void    process_death_timer(t_game *game, t_enemy *enemy, int *i);
 void    retreat_enemy(t_enemy *enemy);
 void    check_textures(t_game *game, t_enemy *enemy);
 int     is_visible(t_game *game, t_enemy *enemy);
-
-/*maya.c*/
-void draw_face(t_game *game);
-void update_face_state(t_game *game);
-
-/*health_bar.c*/
-void    init_bar_params(int *y, int *height, int *color, int type);
-void    draw_rectangle(t_game *game, int x, int width, int type);
-void    draw_health_bar(t_game *game);
-void    draw_health_bar_cat(t_game *game);
+/*********************************************************************/
 
 /*attack.c*/
 void    start_attack(t_game *game);
 void    update_attack_status(t_game *game);
-void    attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance);
+void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance);
 void    attack_cat(t_game *game, int attack_damage, double attack_distance);
 void    player_attack(t_game *game);
 
+
+/************************** COLLISION FOLDER **************************/
 /*check_collision*/
 int is_enemy_at(t_game *game, double x, double y);
 int is_food(t_game *game, double x, double y);
@@ -437,40 +452,69 @@ void move_forward(t_game *game);
 void move_backward(t_game *game);
 void move_left(t_game *game);
 void move_right(t_game *game);
+/**********************************************************************/
 
-/*add_entities*/
+/******************************* ENTITIES FOLDER ********************************/
+/*add_entities.c*/
 void    add_food(t_game *game, t_entity *entities, int *entity_count);
 void    add_enemy(t_game *game, t_entity *entities, int *entity_count);
 void    add_cat(t_game *game, t_entity *entities, int *entity_count);
 
-/*draw_entities*/
+/*draw_entities.c*/
 int     calculate_tex_x(t_entity *entity, int stripe, int sprite_screen_x);
 int     is_valid_stripe(t_game *game, t_entity *entity, int stripe);
 void    draw_sprite_column(t_game *game, t_entity *entity, int stripe);
 void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x);
 
-/*render_entities*/
+/*render_entities.c*/
 void	calculate_sprite_transform(t_game *g, t_entity *e);
 void	calculate_sprite_dimensions(t_entity *e, int *screen_x);
 void	calculate_draw_limits(t_entity *e, int screen_x);
 void    render_entity(t_game *game, t_entity *entity);
 
-/*entity*/
+/*entity.c*/
 void    sort_entities_by_distance(t_entity *entities, int *entity_count);
 void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
+/********************************************************************************/
 
+/******************************* ELEMENTS FOLDER ********************************/
 /*food.c*/
 void    check_food_collision(t_game *game);
 
 /*door.c*/
 void open_close_door(t_game *g);
 
-/*minimap.c*/
-void draw_minimap(t_game *game);
-
 /*paws.c*/
-void draw_paws_image(t_game *game, t_image *attack_paws, int scale);
-void draw_paws_attack(t_game *game);
+void    draw_paws_image(t_game *game, t_image *attack_paws, int scale);
+void    draw_paws_attack(t_game *game);
+
+/*dog.c*/
+void    draw_face(t_game *game);
+void    update_face_state(t_game *game);
+t_image *get_current_face_texture(t_game *game);
+void    draw_scaled_face(t_game *game, t_image *current);
+void    cycle_face_state(t_game *game);
+
+/*health_bar.c*/
+void    init_bar_params(int *y, int *height, int *color, int type);
+void    draw_rectangle(t_game *game, int x, int width, int type);
+void    draw_health_bar(t_game *game);
+void    draw_health_bar_cat(t_game *game);
+/********************************************************************************/
+
+/*minimap.c*/
+void    mini_pixel_put(t_game *game, int x, int y, int color);
+void    draw_square(t_game *game, int x, int y, int color);
+void    draw_mini_player(t_game *g);
+void    draw_mini_cat(t_game *g);
+void    draw_minimap(t_game *g);
+
+
+/************************** CAT FOLDER **************************/
+/*cat_collision.c*/
+int is_wall(t_game *game, double x, double y);
+int is_near_wall(t_game *game, double x, double y, double margin);
+void handle_cat_collision(t_game *game);
 
 /*cat.c*/
 void move_cat(t_game *game);
@@ -487,11 +531,7 @@ void init_ray(t_cat *cat, double x0, double y0, double x1, double y1);
 void calculate_step_and_side_dist(t_cat *cat, double x0, double y0, int map_x, int map_y);
 int perform_dda(t_game *game, t_cat *cat, int map_x, int map_y, double x1, double y1);
 int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
-
-/*cat_collision.c*/
-int is_wall(t_game *game, double x, double y);
-int is_near_wall(t_game *game, double x, double y, double margin);
-void handle_cat_collision(t_game *game);
+/****************************************************************/
 
 void draw_win_lose(t_game *game, t_image *texture);
 char    *ft_strcpy(char *dest, char *src);

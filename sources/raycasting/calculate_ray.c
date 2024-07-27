@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.c                                       :+:      :+:    :+:   */
+/*   calculate_ray.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/26 16:13:41 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/21 20:27:22 by nfurlani         ###   ########.fr       */
+/*   Created: 2024/07/27 11:22:13 by nfurlani          #+#    #+#             */
+/*   Updated: 2024/07/27 11:24:53 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void calculate_ray_direction(t_game *g, int x)
+void    calculate_deltas(t_player *pg)
 {
-    double camera_x = 2 * x / (double)WIDTH - 1;
-    g->pg->ray_x = g->pg->dir_x + g->pg->plane_x * camera_x;
-    g->pg->ray_y = g->pg->dir_y + g->pg->plane_y * camera_x;
+    if (pg->ray_x != 0)
+        pg->delta_x = fabs(1 / pg->ray_x);
+    else
+        pg->delta_x = DBL_MAX;
+    if (pg->ray_y != 0)
+        pg->delta_y = fabs(1 / pg->ray_y);
+    else
+        pg->delta_y = DBL_MAX;
 }
 
-void identify_cell(t_player *pg)
+void    calculate_steps(t_player *pg)
 {
-    pg->map_x = (int)pg->pos_x;
-    pg->map_y = (int)pg->pos_y;
-
-    pg->delta_x = (pg->ray_x != 0) ? fabs(1 / pg->ray_x) : DBL_MAX;
-    pg->delta_y = (pg->ray_y != 0) ? fabs(1 / pg->ray_y) : DBL_MAX;
-
     if (pg->ray_x < 0)
     {
         pg->step_x = -1;
@@ -49,27 +48,17 @@ void identify_cell(t_player *pg)
     }
 }
 
-void calculate_wall_distance(t_game *g, int type)
+void    calculate_wall_distance(t_game *g, int type)
 {
-    int hit = 0;
-	
+    int hit;
+    
+    hit = 0;
     while (hit == 0)
     {
-        if ((g->map[g->pg->map_y][g->pg->map_x] == '1' || g->map[g->pg->map_y][g->pg->map_x] == '1') && type == 9)
+        if ((g->map[g->pg->map_y][g->pg->map_x] == '1'
+            || g->map[g->pg->map_y][g->pg->map_x] == '1') && type == 9)
             break ;
-        if (g->pg->side_x < g->pg->side_y)
-        {
-            g->pg->side_x += g->pg->delta_x;
-            g->pg->map_x += g->pg->step_x;
-            g->pg->side = 0;
-        }
-        else
-        {
-            g->pg->side_y += g->pg->delta_y;
-            g->pg->map_y += g->pg->step_y;
-            g->pg->side = 1;
-        }
-
+        init_side(g);
         if (g->map[g->pg->map_y][g->pg->map_x] == '9' && type == 9)
             hit = 1;
         if (g->map[g->pg->map_y][g->pg->map_x] == '1' && type == 1)
@@ -78,7 +67,7 @@ void calculate_wall_distance(t_game *g, int type)
     calculate_wall_side(g);
 }
 
-void calculate_wall_side(t_game *g)
+void    calculate_wall_side(t_game *g)
 {
     if (g->pg->side == 0)
         g->pg->wall_dist = (g->pg->map_x - g->pg->pos_x
@@ -90,8 +79,11 @@ void calculate_wall_side(t_game *g)
 
 int calculate_line_height(t_player *pg, int side)
 {
-    double wall_dist = (side == 0) ?
-        (pg->map_x - pg->pos_x + (1 - pg->step_x) / 2) / pg->ray_x :
-        (pg->map_y - pg->pos_y + (1 - pg->step_y) / 2) / pg->ray_y;
-    return (int)(HEIGHT / wall_dist);
+    double  wall_dist;
+
+    if (side == 0)
+        wall_dist = (pg->map_x - pg->pos_x + (1 - pg->step_x) / 2) / pg->ray_x;
+    else
+        wall_dist = (pg->map_y - pg->pos_y + (1 - pg->step_y) / 2) / pg->ray_y;
+    return ((int)(HEIGHT / wall_dist));
 }

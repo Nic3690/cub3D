@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:38 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/25 21:42:26 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:36:39 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void open_close_door(t_game *g)
+void	open_close_door(t_game *g)
 {
 	int i;
 	

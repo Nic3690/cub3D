@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/25 19:41:42 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:36:31 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void start_attack(t_game *game)
+void    start_attack(t_game *game)
 {
     if (game->pg->attack_cooldown == 0)
     {
@@ -22,7 +22,7 @@ void start_attack(t_game *game)
     }
 }
 
-void update_attack_status(t_game *game)
+void    update_attack_status(t_game *game)
 {
     if (game->pg->attack)
     {
@@ -41,27 +41,27 @@ void update_attack_status(t_game *game)
     }
 }
 
-void attack_enemy(t_game *game, t_enemy *enemy, int attack_damage, double attack_distance)
+void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance)
 {
     double  dir_x;
     double  dir_y;
     double  distance;
 
-    dir_x = enemy->pos_x - game->pg->pos_x;
-    dir_y = enemy->pos_y - game->pg->pos_y;
+    dir_x = e->pos_x - g->pg->pos_x;
+    dir_y = e->pos_y - g->pg->pos_y;
     distance = sqrt(dir_x * dir_x + dir_y * dir_y);
-    if (distance < attack_distance && game->pg->attack_time >= 5)
+    if (distance < a_distance && g->pg->attack_time >= 5)
     {
-        enemy->enemy_health -= attack_damage;
-        if (enemy->enemy_health <= 0 && enemy->death_timer == -1)
+        e->enemy_health -= a_damage;
+        if (e->enemy_health <= 0 && e->death_timer == -1)
         {
-            enemy->current_texture = enemy->dead_texture;
-            enemy->death_timer = 300;
+            e->current_texture = e->dead_texture;
+            e->death_timer = 300;
         }
     }
 }
 
-void attack_cat(t_game *game, int attack_damage, double attack_distance)
+void    attack_cat(t_game *game, int a_damage, double a_distance)
 {
     double  dir_x;
     double  dir_y;
@@ -70,9 +70,9 @@ void attack_cat(t_game *game, int attack_damage, double attack_distance)
     dir_x = game->cat->pos_x - game->pg->pos_x;
     dir_y = game->cat->pos_y - game->pg->pos_y;
     distance = sqrt(dir_x * dir_x + dir_y * dir_y);
-    if (distance < attack_distance && game->pg->attack_time >= 5)
+    if (distance < a_distance && game->pg->attack_time >= 5)
     {
-        game->cat->health -= attack_damage;
+        game->cat->health -= a_damage;
         if (game->cat->health <= 0 && game->cat->death_timer == -1)
         {
             game->cat->current_texture = game->cat->dead_texture;
@@ -82,19 +82,19 @@ void attack_cat(t_game *game, int attack_damage, double attack_distance)
     }
 }
 
-void player_attack(t_game *game)
+void    player_attack(t_game *game)
 {
-    int     attack_damage;
-    double  attack_distance;
+    int     a_damage;
+    double  a_distance;
     int     i;
 
-    attack_damage = 10;
-    attack_distance = 0.7;
+    a_damage = 10;
+    a_distance = 0.7;
     i = 0;
     while (i < game->num_enemies)
     {
-        attack_enemy(game, &game->enemies[i], attack_damage, attack_distance);
+        attack_enemy(game, &game->enemies[i], a_damage, a_distance);
         i++;
     }
-    attack_cat(game, attack_damage, attack_distance);
+    attack_cat(game, a_damage, a_distance);
 }

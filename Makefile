@@ -1,8 +1,11 @@
 NAME    = cub3d
 
 SRC     =	./sources/main.c \
-			./sources/raycasting.c \
-			./sources/rendering.c \
+			./sources/raycasting/raycasting.c \
+			./sources/raycasting/calculate_ray.c \
+			./sources/rendering/rendering.c \
+			./sources/rendering/floor_sky.c \
+			./sources/rendering/doors_walls.c \
 			./sources/drawing.c \
 			./sources/keys.c \
 			./sources/map/check_parameters.c \
@@ -15,23 +18,23 @@ SRC     =	./sources/main.c \
 			./sources/map/position.c \
 			./sources/enemies/enemies.c \
 			./sources/enemies/enemies_utils.c \
-			./sources/health_bar.c \
-			./sources/maya.c \
 			./sources/attack.c \
 			./sources/collision/collision.c \
 			./sources/collision/check_collision.c \
-			./sources/food.c \
+			./sources/elements/dog.c \
+			./sources/elements/food.c \
+			./sources/elements/door.c \
+			./sources/elements/paws.c \
+			./sources/elements/health_bar.c \
 			./sources/cat/cat.c \
 			./sources/cat/visibility.c \
 			./sources/cat/draw_cat.c \
 			./sources/cat/cat_collision.c \
-			./sources/door.c \
 			./sources/entities/entity.c \
 			./sources/entities/add_entities.c \
 			./sources/entities/draw_entities.c \
 			./sources/entities/render_entities.c \
 			./sources/minimap.c \
-			./sources/paws.c \
 			./sources/utils.c
 
 # ANSI COLOR
