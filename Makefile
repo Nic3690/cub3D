@@ -6,7 +6,7 @@ SRC     =	./sources/main.c \
 			./sources/rendering/rendering.c \
 			./sources/rendering/floor_sky.c \
 			./sources/rendering/doors_walls.c \
-			./sources/drawing.c \
+			./sources/rendering/drawing.c \
 			./sources/keys.c \
 			./sources/map/check_parameters.c \
 			./sources/map/enemies_properties.c \
@@ -18,9 +18,9 @@ SRC     =	./sources/main.c \
 			./sources/map/position.c \
 			./sources/enemies/enemies.c \
 			./sources/enemies/enemies_utils.c \
-			./sources/attack.c \
-			./sources/collision/collision.c \
-			./sources/collision/check_collision.c \
+			./sources/movement/collision.c \
+			./sources/movement/movement.c \
+			./sources/movement/rotation.c \
 			./sources/elements/dog.c \
 			./sources/elements/food.c \
 			./sources/elements/door.c \
@@ -34,6 +34,9 @@ SRC     =	./sources/main.c \
 			./sources/entities/add_entities.c \
 			./sources/entities/draw_entities.c \
 			./sources/entities/render_entities.c \
+			./sources/entities/attack.c \
+			./sources/textures/load_enemy_textures.c \
+			./sources/textures/load_textures.c \
 			./sources/minimap.c \
 			./sources/utils.c
 

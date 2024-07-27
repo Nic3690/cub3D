@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:56:46 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 23:57:15 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:56:40 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    read_texture_paths(t_game *game, int fd)
         line = get_next_line(fd);
         if (line != NULL)
         {
-            game->texture_paths[i] = ft_strdup(ft_strchr(line, 't'));
+            game->texture_paths[i] = ft_strdup(ft_strchr(line, 's'));
             free(line);
             i++;
         }
@@ -39,7 +39,7 @@ void    load_textures_and_map(t_game *game, char *filename)
         exit(EXIT_FAILURE);
     game->texture_paths = malloc(sizeof(char *) * MAX_TEXTURES);
     read_texture_paths(game, fd);
-    if (!load_wall_textures(game))
+    if (!load_all_textures(game))
     {
         close(fd);
         return ;

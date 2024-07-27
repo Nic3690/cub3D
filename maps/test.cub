@@ -1,10 +1,10 @@
-NO textures/fence_light.xpm
-SO textures/fence_dark.xpm
-WE textures/recinto.xpm
-EA textures/recintodark.xpm
+NO sprites/fence_light.xpm
+SO sprites/fence_dark.xpm
+WE sprites/recinto.xpm
+EA sprites/recintodark.xpm
 
-F textures/grass.xpm
-C textures/sky.xpm
+F sprites/grass.xpm
+C sprites/sky.xpm
 
 111111111111111111111
 10N000002020201000001

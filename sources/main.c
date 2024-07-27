@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 23:32:19 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:48:02 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void    exit_game(t_game *g)
 {
+    // fare if prima del free
     free(g->pg);
     free(g->tex->sky);
     free(g->tex->floor);
@@ -51,10 +52,10 @@ void    exit_game(t_game *g)
     free(g->tex->closed_door);
     free(g->tex);
     free(g->map);
-    free(g->enemies); // liberare i contenuti
-    free(g->food); // liberare i contenuti
+    free(g->enemies);
+    free(g->food);
     free(g->cat);
-    free(g->texture_paths); // liberare i contenuti
+    free(g->texture_paths);
     mlx_clear_window(g->mlx, g->win);
     mlx_destroy_window(g->mlx, g->win);
     exit(0);
@@ -118,85 +119,6 @@ int load_texture(t_game *game, t_image *image, const char *path)
     image->w = width;
     image->h = height;
     return 1;
-}
-
-int load_wall_textures(t_game *game)
-{
-    game->tex->sky = malloc(sizeof(t_image));
-    game->tex->floor = malloc(sizeof(t_image));
-    game->tex->north = malloc(sizeof(t_image));
-    game->tex->south = malloc(sizeof(t_image));
-    game->tex->west = malloc(sizeof(t_image));
-    game->tex->east = malloc(sizeof(t_image));
-    game->tex->paws = malloc(sizeof(t_image));
-    game->tex->blood_paws = malloc(sizeof(t_image));
-    game->tex->crow = malloc(sizeof(t_image));
-    game->tex->fly = malloc(sizeof(t_image));
-    game->tex->spider = malloc(sizeof(t_image));
-    game->tex->crow_open = malloc(sizeof(t_image));
-    game->tex->fly_open = malloc(sizeof(t_image));
-    game->tex->spider_2 = malloc(sizeof(t_image));
-    game->tex->maya = malloc(sizeof(t_image));
-    game->tex->maya_left = malloc(sizeof(t_image));
-    game->tex->maya_right = malloc(sizeof(t_image));
-    game->tex->angry_maya = malloc(sizeof(t_image));
-    game->tex->fly_attack = malloc(sizeof(t_image));
-    game->tex->spider_attack = malloc(sizeof(t_image));
-    game->tex->crow_attack = malloc(sizeof(t_image));
-    game->tex->fly_dead = malloc(sizeof(t_image));
-    game->tex->spider_dead = malloc(sizeof(t_image));
-    game->tex->crow_dead = malloc(sizeof(t_image));
-    game->tex->food = malloc(sizeof(t_image));
-    game->tex->bone = malloc(sizeof(t_image));
-    game->tex->cat_dead = malloc(sizeof(t_image));
-    game->tex->cat_escape = malloc(sizeof(t_image));
-    game->tex->cat_escape_2 = malloc(sizeof(t_image));
-    game->tex->cat_escape_3 = malloc(sizeof(t_image));
-    game->tex->cat_escape_4 = malloc(sizeof(t_image));
-    game->tex->cat_face = malloc(sizeof(t_image));
-    game->tex->door_light = malloc(sizeof(t_image));
-    game->tex->open_door = malloc(sizeof(t_image));
-    game->tex->closed_door = malloc(sizeof(t_image));
-    game->tex->you_win = malloc(sizeof(t_image));
-    game->tex->you_lose = malloc(sizeof(t_image));
-    load_texture(game, game->tex->east, game->texture_paths[0]);
-    load_texture(game, game->tex->south, game->texture_paths[1]);
-    load_texture(game, game->tex->north, game->texture_paths[2]);
-    load_texture(game, game->tex->west, game->texture_paths[3]);
-    load_texture(game, game->tex->floor, game->texture_paths[4]);
-    load_texture(game, game->tex->sky, game->texture_paths[5]);
-    load_texture(game, game->tex->paws, "textures/paws.xpm");
-    load_texture(game, game->tex->blood_paws, "textures/nontranquipaws.xpm");
-    load_texture(game, game->tex->crow, "textures/crow_open.xpm");
-    load_texture(game, game->tex->fly, "textures/fly_open.xpm");
-    load_texture(game, game->tex->spider, "textures/spider_open.xpm");
-    load_texture(game, game->tex->spider_2, "textures/spider_closed.xpm");
-    load_texture(game, game->tex->crow_open, "textures/crow_closed.xpm");
-    load_texture(game, game->tex->fly_open, "textures/fly_closed.xpm");
-    load_texture(game, game->tex->maya, "textures/maya_1.xpm");
-    load_texture(game, game->tex->maya_left, "textures/maya_2.xpm");
-    load_texture(game, game->tex->maya_right, "textures/maya_3.xpm");
-    load_texture(game, game->tex->angry_maya, "textures/angry_maya.xpm");
-    load_texture(game, game->tex->fly_attack, "textures/fly_attack.xpm");
-    load_texture(game, game->tex->spider_attack, "textures/spider_attack.xpm");
-    load_texture(game, game->tex->crow_attack, "textures/crow_attack.xpm");
-    load_texture(game, game->tex->fly_dead, "textures/poltigliadimosca.xpm");
-    load_texture(game, game->tex->crow_dead, "textures/poltigliadicornacchia.xpm");
-    load_texture(game, game->tex->spider_dead, "textures/poltigliadiragno.xpm");
-    load_texture(game, game->tex->food, "textures/food.xpm");
-    load_texture(game, game->tex->bone, "textures/bone.xpm");
-    load_texture(game, game->tex->cat_dead, "textures/mismisvola.xpm");
-    load_texture(game, game->tex->cat_escape, "textures/misescaping_1.xpm");
-    load_texture(game, game->tex->cat_escape_2, "textures/misescaping_2.xpm");
-    load_texture(game, game->tex->cat_escape_3, "textures/mismisescapediculo.xpm");
-    load_texture(game, game->tex->cat_escape_4, "textures/mismisescapediculo_2.xpm");
-    load_texture(game, game->tex->door_light, "textures/cat_door_light.xpm");
-    load_texture(game, game->tex->cat_face, "textures/mismis_face.xpm");
-    load_texture(game, game->tex->closed_door, "textures/gate_light.xpm");
-    load_texture(game, game->tex->open_door, "textures/gate_light_open.xpm");
-    load_texture(game, game->tex->you_win, "textures/you_win.xpm");
-    load_texture(game, game->tex->you_lose, "textures/you_died.xpm");
-    return (1);
 }
 
 int main(int argc, char **argv)
