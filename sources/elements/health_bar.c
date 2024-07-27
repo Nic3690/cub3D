@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:29:19 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 22:15:07 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:21:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ void    draw_health_bar(t_game *game)
     x = WIDTH / 13;
     width = 3 * WIDTH / 10;
     draw_rectangle(game, x - 2, width + 4, 0);
+    if (game->pg->health <= 0)
+        return ;
     health_width = (game->pg->health * width) / 100;
     draw_rectangle(game, x, health_width, 1);
 }

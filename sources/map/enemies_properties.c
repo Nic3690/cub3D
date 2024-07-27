@@ -6,12 +6,11 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:02 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 17:14:12 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:31:22 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 void    set_fly_properties(t_game *game, int index)
 {
@@ -64,6 +63,9 @@ void    set_cat_properties(t_game *game, int x, int y)
     game->cat->escape_texture_5 = game->tex->cat_escape_5;
     game->cat->escape_texture_6 = game->tex->cat_escape_6;
     game->cat->dead_texture = game->tex->cat_dead;
+    game->cat->dead_texture_2 = game->tex->cat_dead_2;
+    game->cat->dead_texture_3 = game->tex->cat_dead_3;
+    game->cat->dead_texture_4 = game->tex->cat_dead_4;
     game->cat->health = 500;
     game->cat->death_timer = -1;
     game->cat->visible = 0;

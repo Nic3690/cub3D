@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:23:59 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:36:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void draw_win_lose(t_game *game, t_image *texture)
 {
     int x, y;
     int img_x, img_y;
-    int scale = 10;
+    int scale = 15;
 
     int screen_x_start = (WIDTH - (texture->w * scale)) / 2;
     int screen_y_start = (HEIGHT - (texture->h * scale)) / 2;
@@ -80,4 +80,14 @@ void draw_win_lose(t_game *game, t_image *texture)
                 pixel_put(game, screen_x_start + x, screen_y_start + y, color);
         }
     }
+}
+
+void	draw_game_elements(t_game *game)
+{
+    draw_paws_attack(game);
+    draw_health_bar(game);
+    draw_health_bar_cat(game);
+    update_face_state(game);
+    draw_face(game);
+    draw_face_cat(game);
 }

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:33:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 18:12:46 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:29:59 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int is_valid_stripe(t_game *game, t_entity *entity, int stripe)
 		&& entity->transform_y < game->z_buffer[stripe]));
 }
 
-void draw_sprite_column(t_game *game, t_entity *entity, int stripe)
+void    draw_sprite_column(t_game *game, t_entity *entity, int stripe)
 {
     int y;
     int d;
@@ -44,7 +44,7 @@ void draw_sprite_column(t_game *game, t_entity *entity, int stripe)
     }
 }
 
-void draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x)
+void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x)
 {
     int stripe;
 

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 16:44:07 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:23:27 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,31 +35,6 @@ void	load_wall_sky_doors_tex(t_game *game)
 	load_texture(game, game->tex->door_light, "sprites/cat_door_light.xpm");
     load_texture(game, game->tex->closed_door, "sprites/gate_light.xpm");
     load_texture(game, game->tex->open_door, "sprites/gate_light_open.xpm");
-}
-
-void	load_cat_tex(t_game *game)
-{
-	game->tex->cat_dead = malloc(sizeof(t_image));
-    game->tex->cat_escape = malloc(sizeof(t_image));
-    game->tex->cat_escape_2 = malloc(sizeof(t_image));
-    game->tex->cat_escape_3 = malloc(sizeof(t_image));
-    game->tex->cat_escape_4 = malloc(sizeof(t_image));
-    game->tex->cat_escape_5 = malloc(sizeof(t_image));
-    game->tex->cat_escape_6 = malloc(sizeof(t_image));
-    game->tex->cat_face = malloc(sizeof(t_image));
-	if (!game->tex->cat_dead || !game->tex->cat_escape
-		|| !game->tex->cat_escape_2 || !game->tex->cat_escape_3
-		|| !game->tex->cat_escape_4 || !game->tex->cat_face
-        || !game->tex->cat_escape_5 || !game->tex->cat_escape_6)
-		exit_game(game);
-	load_texture(game, game->tex->cat_dead, "sprites/mismisvola.xpm");
-    load_texture(game, game->tex->cat_escape, "sprites/misescaping_1.xpm");
-    load_texture(game, game->tex->cat_escape_2, "sprites/misescaping_2.xpm");
-    load_texture(game, game->tex->cat_escape_3, "sprites/mismisescapediculo.xpm");
-    load_texture(game, game->tex->cat_escape_4, "sprites/mismisescapediculo_2.xpm");
-    load_texture(game, game->tex->cat_escape_5, "sprites/misescaping_3.xpm");
-    load_texture(game, game->tex->cat_escape_6, "sprites/misescaping_4.xpm");
-    load_texture(game, game->tex->cat_face, "sprites/mismis_face.xpm");
 }
 
 void	load_dog_tex(t_game *game)
@@ -121,4 +96,11 @@ int load_texture(t_game *game, t_image *image, const char *path)
     image->w = width;
     image->h = height;
     return (1);
+}
+
+void	load_enemies_tex(t_game *game)
+{
+	load_crow_tex(game);
+	load_fly_tex(game);
+	load_spider_tex(game);
 }

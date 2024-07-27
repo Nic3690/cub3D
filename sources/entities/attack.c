@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 10:36:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:41:32 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,25 @@ void    attack_cat(t_game *game, int a_damage, double a_distance)
         {
             game->cat->current_texture = game->cat->dead_texture;
             game->cat->death_timer = 300;
-            draw_win_lose(game, game->tex->you_win);
+            game->win_status = 1;
         }
+    }
+}
+
+void    set_death_cat_texture(t_game *game)
+{
+    int frame_interval = 60;
+    
+    if (game->cat->current_texture != game->cat->dead_texture_4)
+    {
+        if (game->frame_count % frame_interval == 0)
+            game->cat->current_texture = game->cat->dead_texture;
+        else if (game->frame_count % frame_interval == frame_interval / 4)
+            game->cat->current_texture = game->cat->dead_texture_2;
+        else if (game->frame_count % frame_interval ==  frame_interval / 2)
+            game->cat->current_texture = game->cat->dead_texture_3;
+        else if (game->frame_count % frame_interval == 3 * frame_interval / 4)
+            game->cat->current_texture = game->cat->dead_texture_4;
     }
 }
 
@@ -91,7 +108,7 @@ void    player_attack(t_game *game)
     a_damage = 10;
     a_distance = 0.7;
     i = 0;
-    while (i < game->num_enemies)
+    while (i < game->num_enemies && game->win_status == 0)
     {
         attack_enemy(game, &game->enemies[i], a_damage, a_distance);
         i++;

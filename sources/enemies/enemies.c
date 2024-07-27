@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 19:30:24 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:16:51 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void update_enemy_textures(t_game *game)
+void    update_enemy_textures(t_game *game)
 {
     int     i;
     double  attack_distance;
@@ -38,9 +38,9 @@ void update_enemy_textures(t_game *game)
     }
 }
 
-void move_and_attack(t_game *game, t_enemy *enemy, double attack_distance)
+void    move_and_attack(t_game *game, t_enemy *enemy, double attack_distance)
 {
-    int     visible;
+    int visible;
 
     visible = 0;
     init_parameters(game, enemy, &visible);
@@ -53,7 +53,7 @@ void move_and_attack(t_game *game, t_enemy *enemy, double attack_distance)
             {
                 game->pg->health -= enemy->damage;
                 if (game->pg->health <= 0)
-                    draw_win_lose(game, game->tex->you_lose);
+                    game->win_status = 2;
             }
         }
         else
@@ -66,9 +66,11 @@ void move_and_attack(t_game *game, t_enemy *enemy, double attack_distance)
     }
 }
 
-void distance_between_enemies(t_game *game, int i, double min_dist_btw)
+void    distance_between_enemies(t_game *game, int i, double min_dist_btw)
 {
-    int j = 0;
+    int j;
+
+    j = 0;
     while (j < game->num_enemies)
     {
         if (i != j && game->enemies[j].death_timer == -1)

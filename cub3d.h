@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 17:56:25 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:37:21 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,167 +64,173 @@ typedef struct  s_image
 
 typedef struct s_entity
 {
-    double  pos_x;
-    double  pos_y;
-    double  dist;
-    t_image *tex;
-    int move_along_y;
-    int move_along_x;
-    double     sprite_x;
-    double     sprite_y;
-    int     draw_start_x;
-    int     draw_end_x;
-    int     draw_start_y;
-    int     draw_end_y;
-    int     e_width;
-    int     e_height;
-    double  transform_x;
-    double  transform_y;
-    int     tex_x;
-    int     tex_y;
+    double		pos_x;
+    double		pos_y;
+    double		dist;
+    t_image		*tex;
+    int			move_along_y;
+    int			move_along_x;
+    double		sprite_x;
+    double		sprite_y;
+    int			draw_start_x;
+    int			draw_end_x;
+    int			draw_start_y;
+    int			draw_end_y;
+    int			e_width;
+    int			e_height;
+    double		transform_x;
+    double		transform_y;
+    int			tex_x;
+    int			tex_y;
 } t_entity;
 
 typedef struct s_enemy
 {
-    double  pos_x;
-    double  pos_y;
-    int     map_x;
-    int     map_y;
-    double  dist;
-    double  dir_x;
-    double  dir_y;
-    double  ray_dir_x;
-    double  ray_dir_y;
-    double  side_dist_x;
-    double  side_dist_y;
-    double  delta_x;
-    double  delta_y;
-    double  step_x;
-    double  step_y;
-    t_image *texture;
-    t_image *texture2;
-    t_image *current_texture;
-    t_image *attack_texture;
-    t_image *dead_texture;
-    double  last_switch_time;
-    int     attacking;
-    int     retreating;
-    int     retreat_timer;
-    int     type;
-    int     enemy_health;
-    int     death_timer;
-    double  speed;
-    int     frame;
-    int     damage;
+    double		pos_x;
+    double		pos_y;
+    int			map_x;
+    int			map_y;
+    double		dist;
+    double		dir_x;
+    double		dir_y;
+    double		ray_dir_x;
+    double		ray_dir_y;
+    double		side_dist_x;
+    double		side_dist_y;
+    double		delta_x;
+    double		delta_y;
+    double		step_x;
+    double		step_y;
+    t_image		*texture;
+    t_image		*texture2;
+    t_image		*current_texture;
+    t_image		*attack_texture;
+    t_image		*dead_texture;
+    double		last_switch_time;
+    int			attacking;
+    int			retreating;
+    int			retreat_timer;
+    int			type;
+    int			enemy_health;
+    int			death_timer;
+    double		speed;
+    int			frame;
+    int			damage;
 }   t_enemy;
 
 typedef struct s_food
 {
-    double  pos_x;
-    double  pos_y;
-    double dist_x;
-    double dist_y;
-    int     type;
-    double  dist;
-    t_image *texture;
-    int     active;
+    double		pos_x;
+    double		pos_y;
+    double		dist_x;
+    double		dist_y;
+    int			type;
+    double		dist;
+    t_image		*texture;
+    int			active;
 }   t_food;
 
 typedef struct s_cat
 {
-    double  pos_x;
-    double  pos_y;
-    double  dir_x;
-    double  dir_y;
-    double  dist;
-    double  ray_dir_x;
-    double  ray_dir_y;
-    double  side_dist_x;
-    double  side_dist_y;
-    double  delta_x;
-    double  delta_y;
-    double  step_x;
-    double  step_y;
-    int     visible;
-    int     wait_timer;
-    int     moving;
-    double target_x;
-    double target_y;
-    double move_speed;
-    double distance;
-    t_image *current_texture;
-    t_image *escape_texture;
-    t_image *escape_texture_2;
-    t_image *escape_texture_3;
-    t_image *escape_texture_4;
-    t_image *escape_texture_5;
-    t_image *escape_texture_6;
-    t_image *dead_texture;
-    int     health;
-    int     death_timer;
+    double		pos_x;
+    double		pos_y;
+    double		dir_x;
+    double		dir_y;
+    double		dist;
+    double		ray_dir_x;
+    double		ray_dir_y;
+    double		side_dist_x;
+    double		side_dist_y;
+    double		delta_x;
+    double		delta_y;
+    double		step_x;
+    double		step_y;
+    int			visible;
+    int			wait_timer;
+    int			moving;
+    double		target_x;
+    double		target_y;
+    double		move_speed;
+    double		distance;
+    t_image		*current_texture;
+    t_image		*escape_texture;
+    t_image		*escape_texture_2;
+    t_image		*escape_texture_3;
+    t_image		*escape_texture_4;
+    t_image		*escape_texture_5;
+    t_image		*escape_texture_6;
+    t_image		*dead_texture;
+	t_image		*dead_texture_2;
+	t_image		*dead_texture_3;
+	t_image		*dead_texture_4;
+    int			health;
+    int			death_timer;
 }   t_cat;
 
 typedef struct s_door
 {
-    int     pos_x;
-    int     pos_y;
-    double  dist;
-    int     is_open;
-    t_image *closed_tex;
-    t_image *open_tex;
-    t_image *curr_tex;
+    int			pos_x;
+    int			pos_y;
+    double		dist;
+    int			is_open;
+    t_image		*closed_tex;
+    t_image		*open_tex;
+    t_image		*curr_tex;
 }   t_door;
 
 typedef struct s_texture
 {
-	int		x;
-	int		y;
-	double	tex_pos;
-	double	step_x;
-	double	step_y;
-	double	wall_x;
-    int     tex_w;
-    int     tex_h;
-	t_image	*north;
-	t_image	*south;
-	t_image	*west;
-	t_image	*east;
-	t_image	*floor;
-	t_image	*sky;
-    t_image *paws;
-    t_image *blood_paws;
-    t_image *crow;
-    t_image *fly;
-    t_image *spider;
-    t_image *crow_open;
-    t_image *fly_open;
-    t_image *spider_2;
-    t_image *maya;
-    t_image *angry_maya;
-    t_image *maya_left;
-    t_image *maya_right;
-    t_image *fly_attack;
-    t_image *spider_attack;
-    t_image *crow_attack;
-    t_image *fly_dead;
-    t_image *spider_dead;
-    t_image *crow_dead;
-    t_image *food;
-    t_image *bone;
-    t_image *cat_dead;
-    t_image *cat_escape;
-    t_image *cat_escape_2;
-    t_image *cat_escape_3;
-    t_image *cat_escape_4;
-    t_image *cat_escape_5;
-    t_image *cat_escape_6;
-    t_image *door_light;
-    t_image *door_dark;
-    t_image *cat_face;
-    t_image *open_door;
-    t_image *closed_door;
-    t_image *you_win;
-    t_image *you_lose;
+	int			x;
+	int			y;
+	double		tex_pos;
+	double		step_x;
+	double		step_y;
+	double		wall_x;
+    int   		tex_w;
+    int   		tex_h;
+	t_image		*north;
+	t_image		*south;
+	t_image		*west;
+	t_image		*east;
+	t_image		*floor;
+	t_image		*sky;
+    t_image		*paws;
+    t_image		*blood_paws;
+    t_image		*crow;
+    t_image		*fly;
+    t_image		*spider;
+    t_image		*crow_open;
+    t_image		*fly_open;
+    t_image		*spider_2;
+    t_image		*maya;
+    t_image		*angry_maya;
+    t_image		*maya_left;
+    t_image		*maya_right;
+    t_image		*fly_attack;
+    t_image		*spider_attack;
+    t_image		*crow_attack;
+    t_image		*fly_dead;
+    t_image		*spider_dead;
+    t_image		*crow_dead;
+    t_image		*food;
+    t_image		*bone;
+    t_image		*cat_dead;
+	t_image		*cat_dead_2;
+	t_image		*cat_dead_3;
+	t_image		*cat_dead_4;
+    t_image		*cat_escape;
+    t_image		*cat_escape_2;
+    t_image		*cat_escape_3;
+    t_image		*cat_escape_4;
+    t_image		*cat_escape_5;
+    t_image		*cat_escape_6;
+    t_image		*door_light;
+    t_image		*door_dark;
+    t_image		*cat_face;
+    t_image		*open_door;
+    t_image		*closed_door;
+    t_image		*you_win;
+    t_image		*you_lose;
 }	t_texture;
 
 typedef struct s_draw
@@ -235,8 +241,8 @@ typedef struct s_draw
     int		tex_x;
     int		tex_y;
     int		color;
-    double  wall_x;
-    double  step;
+    double	wall_x;
+    double	step;
 }	t_draw;
 
 typedef struct  s_player
@@ -272,14 +278,6 @@ typedef struct  s_player
     int         attack_cooldown;
 }               t_player;
 
-typedef struct s_data
-{
-    int *textures[MAX_TEXTURES];
-    int texture_width[MAX_TEXTURES];
-    int texture_height[MAX_TEXTURES];
-    int num_textures;
-} t_data;
-
 typedef struct  s_game
 {
     void        *mlx;
@@ -299,7 +297,6 @@ typedef struct  s_game
     int         map_height;
     char        **texture_paths;
     t_player    *pg;
-    t_data      *data;
     t_image     *image;
     t_texture   *tex;
     t_draw      *draw;
@@ -320,6 +317,7 @@ typedef struct  s_game
     int         map_cols;
     int         is_cat;
     int         show_minimap;
+    int         win_status;
 }               t_game;
 
 /*check_map.c*/
@@ -343,16 +341,17 @@ void    exit_game(t_game *g);
 /*************************** TEXTURES FOLDER ***************************/
 /*load_textures.c*/
 void	load_wall_sky_doors_tex(t_game *game);
-void	load_cat_tex(t_game *game);
 void	load_dog_tex(t_game *game);
 int     load_all_textures(t_game *game);
 int     load_texture(t_game *game, t_image *texture_image, const char *path);
+void	load_enemies_tex(t_game *game);
 
 /*load_enemy_textures.c*/
+void    check_malloc(t_game *g);
+void	load_cat_tex(t_game *game);
 void	load_crow_tex(t_game *game);
 void	load_fly_tex(t_game *game);
 void	load_spider_tex(t_game *game);
-void	load_enemies_tex(t_game *game);
 /***********************************************************************/
 
 /************************** RAYCASTING FOLDER **************************/
@@ -372,10 +371,10 @@ int		calculate_line_height(t_player *pg, int side);
 /************************** RENDERING FOLDER **************************/
 /*rendering.c*/
 void	render(t_game *g);
-int 	render_game(t_game *game);
 int     calculate_entity_count(t_game *game);
+void    status_and_minimap(t_game *g);
 void	render_entities(t_game *game, t_entity *entities, int entity_count);
-void	draw_game_elements(t_game *game);
+int 	render_game(t_game *game);
 
 /*floor_sky.c*/
 void	render_ceiling_and_floor(t_game *g);
@@ -393,6 +392,7 @@ int		get_tex_color(t_image *image, int tex_x, int tex_y);
 void	drawing(t_game *g, t_image *image, double tex_pos, int x);
 void	drawing_colums(t_game *game, int x);
 void    draw_win_lose(t_game *game, t_image *texture);
+void	draw_game_elements(t_game *game);
 /***********************************************************************/
 
 /************************** MAP FOLDER **************************/
@@ -501,6 +501,7 @@ void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
 void    start_attack(t_game *game);
 void    update_attack_status(t_game *game);
 void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance);
+void    set_death_cat_texture(t_game *game);
 void    attack_cat(t_game *game, int attack_damage, double attack_distance);
 void    player_attack(t_game *game);
 /********************************************************************************/

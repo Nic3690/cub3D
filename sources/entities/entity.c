@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:34:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 17:55:12 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:30:12 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void sort_entities_by_distance(t_entity *entities, int *entity_count)
+void    sort_entities_by_distance(t_entity *entities, int *entity_count)
 {
     int i;
     int j;
@@ -36,7 +36,7 @@ void sort_entities_by_distance(t_entity *entities, int *entity_count)
     }
 }
 
-void entity_distances(t_game *game, t_entity *entities, int *entity_count)
+void    entity_distances(t_game *game, t_entity *entities, int *entity_count)
 {
     *entity_count = 0;
 

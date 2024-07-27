@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 11:58:45 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:37:03 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,35 +28,6 @@ void    render(t_game *g)
     }
 }
 
-int render_game(t_game *game)
-{
-    int			entity_count;
-    t_entity	*entities;
-    
-    game->z_buffer = malloc(sizeof(double) * WIDTH);
-    render_ceiling_and_floor(game);
-    render(game);
-    render_doors(game);
-    entity_count = calculate_entity_count(game);
-    entities = malloc(sizeof(t_entity) * entity_count);
-    if (!entities)
-        exit_game(game);
-    entity_distances(game, entities, &entity_count);
-    update_cat_textures(game);
-    update_enemy_textures(game);
-    check_food_collision(game);
-    render_entities(game, entities, entity_count);
-    free(entities);
-    draw_game_elements(game);
-    if (game->show_minimap)
-        draw_minimap(game);
-    else
-        mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-    free(game->z_buffer);
-    game->frame_count++;
-    return (0);
-}
-
 int	calculate_entity_count(t_game *game)
 {
     int	entity_count;
@@ -65,6 +36,18 @@ int	calculate_entity_count(t_game *game)
     if (!game->is_cat)
         entity_count--;
     return (entity_count);
+}
+
+void    status_and_minimap(t_game *g)
+{
+    if (g->win_status == 1)
+        draw_win_lose(g, g->tex->you_win);
+    if (g->win_status == 2)
+        draw_win_lose(g, g->tex->you_lose);
+	if (g->show_minimap)
+        draw_minimap(g);
+	else
+        mlx_put_image_to_window(g->mlx, g->win, g->img, 0, 0);
 }
 
 void	render_entities(t_game *game, t_entity *entities, int entity_count)
@@ -79,12 +62,29 @@ void	render_entities(t_game *game, t_entity *entities, int entity_count)
     }
 }
 
-void	draw_game_elements(t_game *game)
+int render_game(t_game *game)
 {
-    draw_paws_attack(game);
-    draw_health_bar(game);
-    draw_health_bar_cat(game);
-    update_face_state(game);
-    draw_face(game);
-    draw_face_cat(game);
+    int			entity_count;
+    t_entity	*entities;
+    
+    game->z_buffer = malloc(sizeof(double) * WIDTH);
+    render_ceiling_and_floor(game);
+    render(game);
+    render_doors(game);
+    entity_count = calculate_entity_count(game);
+    entities = malloc(sizeof(t_entity) * entity_count);
+    if (!entities)
+        exit_game(game);
+    entity_distances(game, entities, &entity_count);
+    if (game->win_status == 0)
+        update_enemy_textures(game);
+    update_cat_textures(game);
+    check_food_collision(game);
+    render_entities(game, entities, entity_count);
+    free(entities);
+    draw_game_elements(game);
+	status_and_minimap(game);
+    free(game->z_buffer);
+    game->frame_count++;
+    return (0);
 }

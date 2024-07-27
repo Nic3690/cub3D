@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 16:05:58 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:15:26 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void    init_parameters_game(t_game *g)
     g->num_enemies = 0;
     g->num_food = 0;
     g->show_minimap = 0;
+    g->win_status = 0;
 }
 
 void init_game(t_game *g)

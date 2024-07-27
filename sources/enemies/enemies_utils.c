@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:22:06 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 19:31:38 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:28:02 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    init_parameters(t_game *game, t_enemy *enemy, int *visible)
     *visible = is_visible(game, enemy);
 }
 
-void process_death_timer(t_game *game, t_enemy *enemy, int *i)
+void    process_death_timer(t_game *game, t_enemy *enemy, int *i)
 {
     enemy->death_timer--;
     if (enemy->death_timer == 0)
@@ -34,7 +34,7 @@ void process_death_timer(t_game *game, t_enemy *enemy, int *i)
     }
 }
 
-void retreat_enemy(t_enemy *enemy)
+void    retreat_enemy(t_enemy *enemy)
 {
     if (enemy->retreating)
     {
@@ -49,7 +49,7 @@ void retreat_enemy(t_enemy *enemy)
     }
 }
 
-void check_textures(t_game *game, t_enemy *enemy)
+void    check_textures(t_game *game, t_enemy *enemy)
 {
     if (game->frame_count % enemy->frame == 0)
     {

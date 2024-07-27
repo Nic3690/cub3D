@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:27:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 17:55:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:03:01 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,6 @@ void    update_cat_textures(t_game *game)
     check_cat_visibility(game, cat);
     move_cat(game);
     update_cat_texture_state(game, cat);
+    if (cat->death_timer > 0)
+        set_death_cat_texture(game);
 }

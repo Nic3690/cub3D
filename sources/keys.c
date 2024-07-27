@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:19:25 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:07:10 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:28:54 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	key_press(int keycode, t_game *g)
 {
-	if (keycode == 13) // W
+	if (keycode == 13 && g->win_status == 0) // W
 		move_forward(g);
-	if (keycode == 0) // A
+	if (keycode == 0 && g->win_status == 0) // A
 		move_left(g);
-	if (keycode == 1) // S
+	if (keycode == 1 && g->win_status == 0) // S
 		move_backward(g);
-	if (keycode == 2) // D
+	if (keycode == 2 && g->win_status == 0) // D
 		move_right(g);
-	if (keycode == 123) // LEFT
+	if (keycode == 123 && g->win_status == 0) // LEFT
 		rotate_left(g->pg);
-	if (keycode == 124) // RIGHT
+	if (keycode == 124 && g->win_status == 0) // RIGHT
 		rotate_right(g->pg);
-	if (keycode == 260 || keycode == 259)
+	if ((keycode == 260 || keycode == 259) && g->win_status == 0)
 	{
 		start_attack(g); // CMD
 		player_attack(g);
