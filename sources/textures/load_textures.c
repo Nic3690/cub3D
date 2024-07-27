@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:50:41 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:08:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,26 @@ int load_all_textures(t_game *game)
     load_texture(game, game->tex->bone, "sprites/bone.xpm");
     load_texture(game, game->tex->you_win, "sprites/you_win.xpm");
     load_texture(game, game->tex->you_lose, "sprites/you_died.xpm");
+    return (1);
+}
+
+int load_texture(t_game *game, t_image *image, const char *path)
+{
+    int width;
+    int height;
+
+    width = 64;
+    height = 64;
+    image->img = mlx_xpm_file_to_image(game->mlx, (char *)path, &width, &height);
+    if (!image->img)
+        return (0);
+    image->addr = mlx_get_data_addr(image->img, &image->bits, &image->line, &image->endian);
+    if (!image->addr)
+    {
+        mlx_destroy_image(game->mlx, game->image->img);
+        return (0);
+    }
+    image->w = width;
+    image->h = height;
     return (1);
 }

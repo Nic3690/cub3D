@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:51:52 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:18:14 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,11 +319,16 @@ typedef struct  s_game
 }               t_game;
 
 /*main.c*/
-void    exit_game(t_game *g);
-void pixel_put(t_game *game, int x, int y, int color);
-void init_game(t_game *game);
-int load_texture(t_game *game, t_image *texture_image, const char *path);
+void    pixel_put(t_game *game, int x, int y, int color);
+void    init_parameters_game(t_game *g);
+void    init_game(t_game *game);
 
+/*free.c*/
+void	free_floor_sky_walls_doors(t_game *g);
+void	free_dog(t_game *g);
+void	free_enemies(t_game *g);
+void	free_cat(t_game *g);
+void    exit_game(t_game *g);
 
 /*************************** TEXTURES FOLDER ***************************/
 /*load_textures.c*/
@@ -331,6 +336,7 @@ void	load_wall_sky_doors_tex(t_game *game);
 void	load_cat_tex(t_game *game);
 void	load_dog_tex(t_game *game);
 int     load_all_textures(t_game *game);
+int     load_texture(t_game *game, t_image *texture_image, const char *path);
 
 /*load_enemy_textures.c*/
 void	load_crow_tex(t_game *game);

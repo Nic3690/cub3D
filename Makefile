@@ -1,6 +1,7 @@
 NAME    = cub3d
 
 SRC     =	./sources/main.c \
+			./sources/free.c \
 			./sources/raycasting/raycasting.c \
 			./sources/raycasting/calculate_ray.c \
 			./sources/rendering/rendering.c \
