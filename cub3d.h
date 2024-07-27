@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 13:18:14 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:56:25 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,8 @@ typedef struct s_cat
     t_image *escape_texture_2;
     t_image *escape_texture_3;
     t_image *escape_texture_4;
+    t_image *escape_texture_5;
+    t_image *escape_texture_6;
     t_image *dead_texture;
     int     health;
     int     death_timer;
@@ -214,6 +216,8 @@ typedef struct s_texture
     t_image *cat_escape_2;
     t_image *cat_escape_3;
     t_image *cat_escape_4;
+    t_image *cat_escape_5;
+    t_image *cat_escape_6;
     t_image *door_light;
     t_image *door_dark;
     t_image *cat_face;
@@ -317,6 +321,12 @@ typedef struct  s_game
     int         is_cat;
     int         show_minimap;
 }               t_game;
+
+/*check_map.c*/
+int		count_pg(t_game *g);
+int		check_bottom_top(t_game *g);
+int		check_bottom_top(t_game *g);
+void	check_valid_map(t_game *game);
 
 /*main.c*/
 void    pixel_put(t_game *game, int x, int y, int color);
@@ -530,25 +540,28 @@ void    draw_minimap(t_game *g);
 
 /************************** CAT FOLDER **************************/
 /*cat_collision.c*/
-int is_wall(t_game *game, double x, double y);
-int is_near_wall(t_game *game, double x, double y, double margin);
-void handle_cat_collision(t_game *game);
+int     is_wall(t_game *game, double x, double y);
+int     is_near_wall(t_game *game, double x, double y, double margin);
+void    handle_cat_collision(t_game *game);
 
 /*cat.c*/
-void move_cat(t_game *game);
-void calculate_cat_direction(t_cat *cat);
-void check_cat_visibility(t_game *game, t_cat *cat);
-void update_cat_texture_state(t_game *game, t_cat *cat);
-void update_cat_textures(t_game *game);
+void    draw_face_cat(t_game *game);
+void    draw_cat_face(t_game *game, int scale, int x_start, int y_start);
+void    move_cat(t_game *game);
+void    check_cat_visibility(t_game *game, t_cat *cat);
+void    update_cat_textures(t_game *game);
 
-/*draw_cat.c*/
-void draw_face_cat(t_game *game);
+/*cat_direction.c*/
+void    calculate_cat_direction(t_cat *cat);
+void    update_cat_texture_state(t_game *g, t_cat *c);
+void    update_cat_texture_near(t_game *g, t_cat *c);
+void    update_cat_texture_far(t_game *g, t_cat *c);
 
 /*visibility.c*/
-void init_ray(t_cat *cat, double x0, double y0, double x1, double y1);
-void calculate_step_and_side_dist(t_cat *cat, double x0, double y0, int map_x, int map_y);
-int perform_dda(t_game *game, t_cat *cat, int map_x, int map_y, double x1, double y1);
-int is_visible_cat(t_game *game, double x0, double y0, double x1, double y1);
+void    init_ray(t_game *game, t_cat *cat);
+void    calculate_step_and_side_dist(t_cat *cat, int map_x, int map_y);
+int     perform_dda(t_game *game, t_cat *cat, int map_x, int map_y);
+int     is_visible_cat(t_game *game);
 /****************************************************************/
 
 /*utils.c*/

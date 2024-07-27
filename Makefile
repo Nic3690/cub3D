@@ -2,6 +2,7 @@ NAME    = cub3d
 
 SRC     =	./sources/main.c \
 			./sources/free.c \
+			./sources/check_map.c \
 			./sources/raycasting/raycasting.c \
 			./sources/raycasting/calculate_ray.c \
 			./sources/rendering/rendering.c \
@@ -29,7 +30,7 @@ SRC     =	./sources/main.c \
 			./sources/elements/health_bar.c \
 			./sources/cat/cat.c \
 			./sources/cat/visibility.c \
-			./sources/cat/draw_cat.c \
+			./sources/cat/cat_direction.c \
 			./sources/cat/cat_collision.c \
 			./sources/entities/entity.c \
 			./sources/entities/add_entities.c \

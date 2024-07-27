@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:02 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:03:53 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:14:12 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void    set_cat_properties(t_game *game, int x, int y)
     game->cat->escape_texture_2 = game->tex->cat_escape_2;
     game->cat->escape_texture_3 = game->tex->cat_escape_3;
     game->cat->escape_texture_4 = game->tex->cat_escape_4;
+    game->cat->escape_texture_5 = game->tex->cat_escape_5;
+    game->cat->escape_texture_6 = game->tex->cat_escape_6;
     game->cat->dead_texture = game->tex->cat_dead;
     game->cat->health = 500;
     game->cat->death_timer = -1;
