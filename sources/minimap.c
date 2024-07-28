@@ -6,50 +6,50 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 15:10:18 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:11:18 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    mini_pixel_put(t_game *game, int x, int y, int color)
+void	mini_pixel_put(t_game *game, int x, int y, int color)
 {
-    char    *dst;
+	char    *dst;
 
-    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-        return ;
-    dst = game->miniaddr + (y * game->miniline + x * (game->minibits / 8));
-    *(unsigned int *)dst = color;
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	dst = game->miniaddr + (y * game->miniline + x * (game->minibits / 8));
+	*(unsigned int *)dst = color;
 }
 
-void    draw_square(t_game *game, int x, int y, int color)
+void	draw_square(t_game *game, int x, int y, int color)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 0;
-    j = 0;
-    while (i < TILE_SIZE)
-    {
-        j = 0;
-        while (j < TILE_SIZE)
-        {
-            mini_pixel_put(game, (x + i), (y + j), color);
-            j++;
-        }
-        i++;
-    }
+	i = 0;
+	j = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			mini_pixel_put(game, (x + i), (y + j), color);
+			j++;
+		}
+		i++;
+	}
 }
 
-void    draw_mini_player(t_game *g)
+void	draw_mini_player(t_game *g)
 {
-    int player_mini_x;
-    int player_mini_y;
+	int player_mini_x;
+	int player_mini_y;
 
-    player_mini_x = g->pg->pos_x;
-    player_mini_y = g->pg->pos_y;
-    draw_square(g, player_mini_x * TILE_SIZE, player_mini_y
-        * TILE_SIZE, 0xFF0000);
+	player_mini_x = g->pg->pos_x;
+	player_mini_y = g->pg->pos_y;
+	draw_square(g, player_mini_x * TILE_SIZE, player_mini_y
+		* TILE_SIZE, 0xFF0000);
 }
 
 void    draw_mini_cat(t_game *g)
@@ -63,33 +63,31 @@ void    draw_mini_cat(t_game *g)
         * TILE_SIZE, 0x00FF00);
 }
 
-void    draw_minimap(t_game *g)
+void	draw_minimap(t_game *g)
 {
-    int x;
-    int y;
+	int x;
+	int y;
 
-    x = 0;
-    y = 0;
-    mlx_destroy_image(g->mlx, g->minimap);
-    g->minimap = mlx_new_image(g->mlx, WIDTH, HEIGHT);
-    g->miniaddr = mlx_get_data_addr(g->minimap, &g->minibits, &g->miniline, &g->miniendian);
-    while (y < g->map_cols)
-    {
-        x = 0;
-        while (x < g->map_rows)
-        {
-            if (g->map[x][y] == '1')
-                draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0xFFFFFF);
-            if (g->map[x][y] == ' ' || g->map[x][y] == '5' || g->map[x][y] == '6'
-                || g->map[x][y] == '7' || g->map[x][y] == '8' || g->map[x][y] == '9'
-                || g->map[x][y] == '2' || g->map[x][y] == '3')
-                draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0x0000FF);
-            x++;
-        }
-        y++;
-    }
-    draw_mini_player(g);
-    if (g->is_cat)
-        draw_mini_cat(g);
-    mlx_put_image_to_window(g->mlx, g->win, g->minimap, 0, 0);
+	y = 0;
+	mlx_destroy_image(g->mlx, g->minimap);
+	g->minimap = mlx_new_image(g->mlx, WIDTH, HEIGHT);
+	g->miniaddr = mlx_get_data_addr(g->minimap, &g->minibits,
+		&g->miniline, &g->miniendian);
+	while (y < g->map_cols)
+	{
+		x = 0;
+		while (x < g->map_rows)
+		{
+			if (g->map[x][y] == '1')
+				draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0xFFFFFF);
+			if (g->map[x][y] == ' ' || g->map[x][y] == '0')
+				draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0x000000);
+			x++;
+		}
+		y++;
+	}
+	draw_mini_player(g);
+	if (g->is_cat)
+		draw_mini_cat(g);
+	mlx_put_image_to_window(g->mlx, g->win, g->minimap, 0, 0);
 }

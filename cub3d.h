@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 16:31:18 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 23:36:59 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,12 +336,6 @@ typedef struct  s_game
     int         win_status;
 }               t_game;
 
-/*check_map.c*/
-int		count_pg(t_game *g);
-int		check_bottom_top(t_game *g);
-int		check_bottom_top(t_game *g);
-void	check_valid_map(t_game *game);
-
 /*main.c*/
 void    pixel_put(t_game *game, int x, int y, int color);
 void    init_parameters_game(t_game *g);
@@ -354,62 +348,129 @@ void	free_enemies(t_game *g);
 void	free_cat(t_game *g);
 void    exit_game(t_game *g);
 
-/*************************** TEXTURES FOLDER ***************************/
-/*load_textures.c*/
-void	load_wall_sky_doors_tex(t_game *game);
-void	load_dog_tex(t_game *game);
-int     load_all_textures(t_game *game);
-int     load_texture(t_game *game, t_image *texture_image, const char *path);
-void	load_enemies_tex(t_game *game);
+/*check_map.c*/
+int		count_pg(t_game *g);
+int		check_bottom_top(t_game *g);
+int		check_bottom_top(t_game *g);
+void	check_valid_map(t_game *game);
 
-/*load_enemy_textures.c*/
-void    check_malloc(t_game *g);
-void	load_cat_tex(t_game *game);
-void	load_crow_tex(t_game *game);
-void	load_fly_tex(t_game *game);
-void	load_spider_tex(t_game *game);
-/***********************************************************************/
+/*keys.c*/
+int		key_press(int keycode, t_game *g);
+int		mouse_move(int x, int y, t_game *g);
 
-/************************** RAYCASTING FOLDER **************************/
-/*raycasting.c*/
-void	calculate_ray_direction(t_game *game, int x);
-void	identify_cell(t_player *pg);
-void	init_side(t_game *g);
+/*minimap.c*/
+void    mini_pixel_put(t_game *game, int x, int y, int color);
+void    draw_square(t_game *game, int x, int y, int color);
+void    draw_mini_player(t_game *g);
+void    draw_mini_cat(t_game *g);
+void    draw_minimap(t_game *g);
 
-/*calculate_ray.c*/
-void	calculate_deltas(t_player *pg);
-void	calculate_steps(t_player *pg);
-void	calculate_wall_distance(t_game *g, int type);
-void	calculate_wall_side(t_game *g);
-int		calculate_line_height(t_player *pg, int side);
-/***********************************************************************/
+/*utils.c*/
+void	ft_bzero(void *s, int n, char c);
+char	*ft_strchr(const char *s, int c);
+int     ft_strlen(char *string);
+char	*ft_strdup(char *string);
+char    *ft_strcpy(char *dest, char *src);
 
-/************************** RENDERING FOLDER **************************/
-/*rendering.c*/
-void	render(t_game *g);
-int     calculate_entity_count(t_game *game);
-void    status_and_minimap(t_game *g);
-void	render_entities(t_game *game, t_entity *entities, int entity_count);
-int 	render_game(t_game *game);
 
-/*floor_sky.c*/
-void	render_ceiling_and_floor(t_game *g);
-t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
-void	color_floor_and_sky(t_game *game, t_image *image, int y);
+/************************** CAT FOLDER **************************/
+/*cat.c*/
+void    draw_face_cat(t_game *game);
+void    draw_cat_face(t_game *game, int scale, int x_start, int y_start);
+void    check_cat_distance(t_cat *cat);
+void    move_cat(t_game *game);
+void    update_cat_textures(t_game *game);
 
-/*doors_walls.c*/
-void	render_wall_column(t_game *game, int x, int side);
-t_image *select_wall_texture(t_game *g, int side);
-void    check_door_texture(t_game *g, t_image **image);
-void	render_doors(t_game *g);
+/*cat_direction.c*/
+void    calculate_cat_direction(t_cat *cat);
+void    update_cat_texture_state(t_game *g, t_cat *c);
+void    update_cat_texture_near(t_game *g, t_cat *c);
+void    update_cat_texture_far(t_game *g, t_cat *c);
+void    set_death_cat_texture(t_game *game);
 
-/*drawing.c*/
-int		get_tex_color(t_image *image, int tex_x, int tex_y);
-void	drawing(t_game *g, t_image *image, double tex_pos, int x);
-void	drawing_colums(t_game *game, int x);
-void    draw_win_lose(t_game *game, t_image *texture);
-void	draw_game_elements(t_game *game);
-/***********************************************************************/
+/*cat_path.c*/
+void	get_next_coords(t_game *game, int *start_x, int *start_y);
+void	add_path_coordinates(t_game *game);
+
+/*visibility.c*/
+void    init_ray(t_game *game, t_cat *cat);
+void    calculate_step_and_side_dist(t_cat *cat);
+int     perform_dda(t_game *game, t_cat *cat);
+int     is_visible_cat(t_game *game);
+void    check_cat_visibility(t_game *game, t_cat *cat);
+/****************************************************************/
+
+/******************************* ELEMENTS FOLDER ********************************/
+/*food.c*/
+void    check_food_collision(t_game *game);
+void	dist_collision(t_game *game, t_food *f, int *i);
+
+/*door.c*/
+void open_close_door(t_game *g);
+
+/*paws.c*/
+void    draw_paws_image(t_game *game, t_image *attack_paws, int scale);
+void    draw_paws_attack(t_game *game);
+
+/*dog.c*/
+void    draw_face(t_game *game);
+void    update_face_state(t_game *game);
+t_image *get_current_face_texture(t_game *game);
+void    draw_scaled_face(t_game *game, t_image *current);
+void    cycle_face_state(t_game *game);
+
+/*health_bar.c*/
+void    init_bar_params(int *y, int *height, int *color, int type);
+void    draw_rectangle(t_game *game, int x, int width, int type);
+void    draw_health_bar(t_game *game);
+void    draw_health_bar_cat(t_game *game);
+/********************************************************************************/
+
+/************************** ENEMIES FOLDER ***************************/
+/*enemies.c*/
+void    update_enemy_textures(t_game *game);
+void    move_and_attack(t_game *game, t_enemy *enemy, double attack_distance);
+void    distance_between_enemies(t_game *game, int i, double min_dist_btw);
+void    init_enemy_rays(t_game *game, t_enemy *enemy);
+void    perform_enemy_dda(t_enemy *enemy);
+
+/*enemies_utils.c*/
+void    init_parameters(t_game *game, t_enemy *enemy, int *visible);
+void    process_death_timer(t_game *game, t_enemy *enemy, int *i);
+void    retreat_enemy(t_game *game, t_enemy *enemy);
+void    check_textures(t_game *game, t_enemy *enemy);
+int     is_visible(t_game *game, t_enemy *enemy);
+/*********************************************************************/
+
+/******************************* ENTITIES FOLDER ********************************/
+/*add_entities.c*/
+void    add_food(t_game *game, t_entity *entities, int *entity_count);
+void    add_enemy(t_game *game, t_entity *entities, int *entity_count);
+void    add_cat(t_game *game, t_entity *entities, int *entity_count);
+
+/*draw_entities.c*/
+int     calculate_tex_x(t_entity *entity, int stripe, int sprite_screen_x);
+int     is_valid_stripe(t_game *game, t_entity *entity, int stripe);
+void    draw_sprite_column(t_game *game, t_entity *entity, int stripe);
+void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x);
+
+/*render_entities.c*/
+void	calculate_sprite_transform(t_game *g, t_entity *e);
+void	calculate_sprite_dimensions(t_entity *e, int *screen_x);
+void	calculate_draw_limits(t_entity *e, int screen_x);
+void    render_entity(t_game *game, t_entity *entity);
+
+/*entity.c*/
+void    sort_entities_by_distance(t_entity *entities, int *entity_count);
+void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
+
+/*attack.c*/
+void    start_attack(t_game *game);
+void    update_attack_status(t_game *game);
+void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance);
+void    attack_cat(t_game *game, int attack_damage, double attack_distance);
+void    player_attack(t_game *game);
+/********************************************************************************/
 
 /************************** MAP FOLDER **************************/
 /*map.c*/
@@ -454,31 +515,12 @@ void    set_cat_properties(t_game *game, int x, int y);
 char	*get_next_line(int fd);
 /****************************************************************/
 
-/*keys.c*/
-int		key_press(int keycode, t_game *g);
-
-
-/************************** ENEMIES FOLDER ***************************/
-/*enemies.c*/
-void    update_enemy_textures(t_game *game);
-void    move_and_attack(t_game *game, t_enemy *enemy, double attack_distance);
-void    distance_between_enemies(t_game *game, int i, double min_dist_btw);
-void    init_enemy_rays(t_game *game, t_enemy *enemy);
-void    perform_enemy_dda(t_enemy *enemy);
-
-/*enemies_utils.c*/
-void    init_parameters(t_game *game, t_enemy *enemy, int *visible);
-void    process_death_timer(t_game *game, t_enemy *enemy, int *i);
-void    retreat_enemy(t_game *game, t_enemy *enemy);
-void    check_textures(t_game *game, t_enemy *enemy);
-int     is_visible(t_game *game, t_enemy *enemy);
-/*********************************************************************/
-
 /************************** MOVEMENT FOLDER **************************/
 /*collision.c*/
 int is_enemy_at(t_game *game, double x, double y);
 int is_food(t_game *game, double x, double y);
 int is_door_open(t_game *game, double x, double y);
+int is_cat_at(t_game *game, double x, double y);
 
 /*movement.c*/
 void move_forward(t_game *game);
@@ -491,101 +533,61 @@ void	rotate_right(t_player *pg);
 void	rotate_left(t_player *pg);
 /**********************************************************************/
 
-/******************************* ENTITIES FOLDER ********************************/
-/*add_entities.c*/
-void    add_food(t_game *game, t_entity *entities, int *entity_count);
-void    add_enemy(t_game *game, t_entity *entities, int *entity_count);
-void    add_cat(t_game *game, t_entity *entities, int *entity_count);
+/************************** RAYCASTING FOLDER **************************/
+/*raycasting.c*/
+void	calculate_ray_direction(t_game *game, int x);
+void	identify_cell(t_player *pg);
+void	init_side(t_game *g);
 
-/*draw_entities.c*/
-int     calculate_tex_x(t_entity *entity, int stripe, int sprite_screen_x);
-int     is_valid_stripe(t_game *game, t_entity *entity, int stripe);
-void    draw_sprite_column(t_game *game, t_entity *entity, int stripe);
-void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x);
+/*calculate_ray.c*/
+void	calculate_deltas(t_player *pg);
+void	calculate_steps(t_player *pg);
+void	calculate_wall_distance(t_game *g, int type);
+void	calculate_wall_side(t_game *g);
+int		calculate_line_height(t_player *pg, int side);
+/***********************************************************************/
 
-/*render_entities.c*/
-void	calculate_sprite_transform(t_game *g, t_entity *e);
-void	calculate_sprite_dimensions(t_entity *e, int *screen_x);
-void	calculate_draw_limits(t_entity *e, int screen_x);
-void    render_entity(t_game *game, t_entity *entity);
+/************************** RENDERING FOLDER **************************/
+/*rendering.c*/
+void	render(t_game *g);
+int     calculate_entity_count(t_game *game);
+void    status_and_minimap(t_game *g);
+void	render_entities(t_game *game, t_entity *entities, int entity_count);
+int 	render_game(t_game *game);
 
-/*entity.c*/
-void    sort_entities_by_distance(t_entity *entities, int *entity_count);
-void    entity_distances(t_game *game, t_entity *entities, int *entity_count);
+/*floor_sky.c*/
+void	render_ceiling_and_floor(t_game *g);
+t_image	*check_sky_floor(t_game *game, t_image *image, int y, double *row_dist);
+void	color_floor_and_sky(t_game *game, t_image *image, int y);
 
-/*attack.c*/
-void    start_attack(t_game *game);
-void    update_attack_status(t_game *game);
-void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance);
-void    set_death_cat_texture(t_game *game);
-void    attack_cat(t_game *game, int attack_damage, double attack_distance);
-void    player_attack(t_game *game);
-/********************************************************************************/
+/*doors_walls.c*/
+void	render_wall_column(t_game *game, int x, int side);
+t_image *select_wall_texture(t_game *g, int side);
+void    check_door_texture(t_game *g, t_image **image);
+void	render_doors(t_game *g);
 
-/******************************* ELEMENTS FOLDER ********************************/
-/*food.c*/
-void    check_food_collision(t_game *game);
+/*drawing.c*/
+int		get_tex_color(t_image *image, int tex_x, int tex_y);
+void	drawing(t_game *g, t_image *image, double tex_pos, int x);
+void	drawing_colums(t_game *game, int x);
+void    draw_win_lose(t_game *game, t_image *texture);
+void	draw_game_elements(t_game *game);
+/***********************************************************************/
 
-/*door.c*/
-void open_close_door(t_game *g);
+/*************************** TEXTURES FOLDER ***************************/
+/*load_textures.c*/
+void	load_wall_sky_doors_tex(t_game *game);
+void	load_dog_tex(t_game *game);
+int     load_all_textures(t_game *game);
+int     load_texture(t_game *game, t_image *texture_image, const char *path);
+void	load_enemies_tex(t_game *game);
 
-/*paws.c*/
-void    draw_paws_image(t_game *game, t_image *attack_paws, int scale);
-void    draw_paws_attack(t_game *game);
-
-/*dog.c*/
-void    draw_face(t_game *game);
-void    update_face_state(t_game *game);
-t_image *get_current_face_texture(t_game *game);
-void    draw_scaled_face(t_game *game, t_image *current);
-void    cycle_face_state(t_game *game);
-
-/*health_bar.c*/
-void    init_bar_params(int *y, int *height, int *color, int type);
-void    draw_rectangle(t_game *game, int x, int width, int type);
-void    draw_health_bar(t_game *game);
-void    draw_health_bar_cat(t_game *game);
-/********************************************************************************/
-
-/*minimap.c*/
-void    mini_pixel_put(t_game *game, int x, int y, int color);
-void    draw_square(t_game *game, int x, int y, int color);
-void    draw_mini_player(t_game *g);
-void    draw_mini_cat(t_game *g);
-void    draw_minimap(t_game *g);
-
-
-/************************** CAT FOLDER **************************/
-/*cat_collision.c*/
-int     is_wall(t_game *game, double x, double y);
-int     is_near_wall(t_game *game, double x, double y, double margin);
-void    handle_cat_collision(t_game *game);
-
-/*cat.c*/
-void    draw_face_cat(t_game *game);
-void    draw_cat_face(t_game *game, int scale, int x_start, int y_start);
-void    move_cat(t_game *game);
-void    check_cat_visibility(t_game *game, t_cat *cat);
-void    update_cat_textures(t_game *game);
-
-/*cat_direction.c*/
-void    calculate_cat_direction(t_cat *cat);
-void    update_cat_texture_state(t_game *g, t_cat *c);
-void    update_cat_texture_near(t_game *g, t_cat *c);
-void    update_cat_texture_far(t_game *g, t_cat *c);
-
-/*visibility.c*/
-void    init_ray(t_game *game, t_cat *cat);
-void    calculate_step_and_side_dist(t_cat *cat);
-int     perform_dda(t_game *game, t_cat *cat);
-int     is_visible_cat(t_game *game);
-/****************************************************************/
-
-/*utils.c*/
-void	ft_bzero(void *s, int n, char c);
-char	*ft_strchr(const char *s, int c);
-int     ft_strlen(char *string);
-char	*ft_strdup(char *string);
-char    *ft_strcpy(char *dest, char *src);
+/*load_enemy_textures.c*/
+void    check_malloc(t_game *g);
+void	load_cat_tex(t_game *game);
+void	load_crow_tex(t_game *game);
+void	load_fly_tex(t_game *game);
+void	load_spider_tex(t_game *game);
+/***********************************************************************/
 
 #endif

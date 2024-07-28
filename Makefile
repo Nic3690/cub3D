@@ -31,7 +31,7 @@ SRC     =	./sources/main.c \
 			./sources/cat/cat.c \
 			./sources/cat/visibility.c \
 			./sources/cat/cat_direction.c \
-			./sources/cat/cat_collision.c \
+			./sources/cat/cat_path.c \
 			./sources/entities/entity.c \
 			./sources/entities/add_entities.c \
 			./sources/entities/draw_entities.c \

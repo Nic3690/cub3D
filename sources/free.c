@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:09:19 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 16:34:23 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 22:06:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ void	free_floor_sky_walls_doors(t_game *g)
 	if (g->pg)
 		free(g->pg);
 	if (g->tex->sky)
-    	free(g->tex->sky);
+		free(g->tex->sky);
 	if (g->tex->floor)
 		free(g->tex->floor);
 	if (g->tex->north)
-    	free(g->tex->north);
+		free(g->tex->north);
 	if (g->tex->south)
-    	free(g->tex->south);
+		free(g->tex->south);
 	if (g->tex->west)
-    	free(g->tex->west);
+		free(g->tex->west);
 	if (g->tex->east)
-    	free(g->tex->east);
+		free(g->tex->east);
 	if (g->tex->open_door)
-	    free(g->tex->open_door);
+		free(g->tex->open_door);
 	if (g->tex->closed_door)
-    	free(g->tex->closed_door);
+		free(g->tex->closed_door);
 }
 
 void	free_dog(t_game *g)
@@ -39,15 +39,15 @@ void	free_dog(t_game *g)
 	if (g->tex->paws)
 		free(g->tex->paws);
 	if (g->tex->blood_paws)
-    	free(g->tex->blood_paws);
+		free(g->tex->blood_paws);
 	if (g->tex->maya)
-    	free(g->tex->maya);
+		free(g->tex->maya);
 	if (g->tex->maya_left)
-    	free(g->tex->maya_left);
+		free(g->tex->maya_left);
 	if (g->tex->maya_right)
-    	free(g->tex->maya_right);
+		free(g->tex->maya_right);
 	if (g->tex->angry_maya)
-    	free(g->tex->angry_maya);
+		free(g->tex->angry_maya);
 }
 
 void	free_enemies(t_game *g)
@@ -107,26 +107,26 @@ void	free_cat(t_game *g)
 void    exit_game(t_game *g)
 {
 	free_floor_sky_walls_doors(g);
-    free_dog(g);
+	free_dog(g);
 	free_enemies(g);
 	free_cat(g);
 	if (g->tex->food)
-    	free(g->tex->food);
+		free(g->tex->food);
 	if (g->tex->bone)
-    	free(g->tex->bone);
+		free(g->tex->bone);
 	if (g->tex)
-    	free(g->tex);
+		free(g->tex);
 	if (g->map)
 		free(g->map);
 	if (g->enemies)
-    	free(g->enemies);
+		free(g->enemies);
 	if (g->food)
-    	free(g->food);
+		free(g->food);
 	if (g->cat)
-    	free(g->cat);
+		free(g->cat);
 	if (g->texture_paths)
-    	free(g->texture_paths);
-    mlx_clear_window(g->mlx, g->win);
-    mlx_destroy_window(g->mlx, g->win);
-    exit(0);
+		free(g->texture_paths);
+	mlx_clear_window(g->mlx, g->win);
+	mlx_destroy_window(g->mlx, g->win);
+	exit(0);
 }
