@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:22:13 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 11:24:53 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 00:40:43 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ void    calculate_wall_distance(t_game *g, int type)
     hit = 0;
     while (hit == 0)
     {
-        if ((g->map[g->pg->map_y][g->pg->map_x] == '1'
-            || g->map[g->pg->map_y][g->pg->map_x] == '1') && type == 9)
-            break ;
         init_side(g);
+        // da ragionare
         if (g->map[g->pg->map_y][g->pg->map_x] == '9' && type == 9)
-            hit = 1;
+            break ;
+        if ((g->map[g->pg->map_y][g->pg->map_x] == '1'
+            || g->map[g->pg->map_y][g->pg->map_x] == '9') && type == 9)
+            break ;
         if (g->map[g->pg->map_y][g->pg->map_x] == '1' && type == 1)
             hit = 1;
     }

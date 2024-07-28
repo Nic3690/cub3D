@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 19:37:03 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:35:51 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void    status_and_minimap(t_game *g)
     if (g->win_status == 1)
         draw_win_lose(g, g->tex->you_win);
     if (g->win_status == 2)
+        draw_win_lose(g, g->tex->you_die);
+    if (g->win_status == 3)
         draw_win_lose(g, g->tex->you_lose);
 	if (g->show_minimap)
         draw_minimap(g);
@@ -66,7 +68,7 @@ int render_game(t_game *game)
 {
     int			entity_count;
     t_entity	*entities;
-    
+
     game->z_buffer = malloc(sizeof(double) * WIDTH);
     render_ceiling_and_floor(game);
     render(game);

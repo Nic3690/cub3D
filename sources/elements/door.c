@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:38 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 10:36:39 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:50:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	open_close_door(t_game *g)
 	i = 0;
 	while (i < g->num_doors)
 	{
-		if (abs(g->doors[i].pos_x - g->pg->map_x) < 1
-			&& abs(g->doors[i].pos_y - g->pg->map_y) < 1)
+		if (abs(g->doors[i].pos_x - g->pg->map_x) < 2
+			&& abs(g->doors[i].pos_y - g->pg->map_y) < 2)
 		{
 			if (g->doors[i].is_open == 0)
 			{

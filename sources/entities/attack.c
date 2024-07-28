@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 19:41:32 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:55:59 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void    attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance)
     if (distance < a_distance && g->pg->attack_time >= 5)
     {
         e->enemy_health -= a_damage;
+        e->retreating = 1;
         if (e->enemy_health <= 0 && e->death_timer == -1)
         {
             e->current_texture = e->dead_texture;

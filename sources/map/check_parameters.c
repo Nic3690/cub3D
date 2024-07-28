@@ -6,26 +6,23 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:52:59 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 00:02:19 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:22:39 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    check_doors(t_game *game, int x, int y)
+void    check_doors(t_game *game, int x, int y, int *index)
 {
-    int index;
-
-    index = 0;
     if (game->map[y][x] == DOOR)
     {
-        game->doors[index].pos_x = x;
-        game->doors[index].pos_y = y;
-        game->doors[index].is_open = 0;
-        game->doors[index].open_tex = game->tex->open_door;
-        game->doors[index].closed_tex = game->tex->closed_door;
-        game->doors[index].curr_tex = game->tex->closed_door;
-        index++;
+        game->doors[*index].pos_x = x;
+        game->doors[*index].pos_y = y;
+        game->doors[*index].is_open = 0;
+        game->doors[*index].open_tex = game->tex->open_door;
+        game->doors[*index].closed_tex = game->tex->closed_door;
+        game->doors[*index].curr_tex = game->tex->closed_door;
+        (*index)++;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:09:19 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 16:44:30 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:34:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,12 @@ void	free_cat(t_game *g)
 		free(g->tex->cat_escape_5);
 	if (g->tex->cat_escape_6)
 		free(g->tex->cat_escape_6);
+	if (g->tex->you_win)
+		free(g->tex->you_win);
+	if (g->tex->you_die)
+		free(g->tex->you_die);
+	if (g->tex->you_lose)
+		free(g->tex->you_lose);
 }
 
 void    exit_game(t_game *g)

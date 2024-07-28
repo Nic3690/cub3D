@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:22:06 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 18:28:02 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 13:01:13 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ void    process_death_timer(t_game *game, t_enemy *enemy, int *i)
     }
 }
 
-void    retreat_enemy(t_enemy *enemy)
+void    retreat_enemy(t_game * game, t_enemy *enemy)
 {
     if (enemy->retreating)
     {
-        if (enemy->retreat_timer > 0)
+        if (game->frame_count % enemy->retreat_timer == 0)
         {
-            enemy->retreat_timer--;
             enemy->pos_x -= enemy->dir_x * enemy->speed * 1.5;
             enemy->pos_y -= enemy->dir_y * enemy->speed * 1.5;
         }

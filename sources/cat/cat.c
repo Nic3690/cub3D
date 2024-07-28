@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:27:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 19:03:01 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:36:45 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,36 @@ void    draw_cat_face(t_game *game, int scale, int x_start, int y_start)
     }
 }
 
-void    move_cat(t_game *game)
+// modified function
+void move_cat(t_game *game)
 {
-    t_cat   *cat;
+    t_cat *cat = game->cat;
 
-    cat = game->cat;
-    cat->dir_x = cat->target_x - cat->pos_x;
-    cat->dir_y = cat->target_y - cat->pos_y;
-    cat->distance = sqrt(cat->dir_x * cat->dir_x + cat->dir_y * cat->dir_y);
-    cat->move_speed = 0.01;
-    if (cat->distance > cat->move_speed && cat->death_timer == -1)
+    check_cat_visibility(game, cat);
+    if (cat->current_target < cat->path_length && cat->visible)
     {
-        cat->dir_x /= cat->distance;
-        cat->dir_y /= cat->distance;
-        handle_cat_collision(game);
+        cat->target_x = cat->path[cat->current_target].x + 0.5;
+        cat->target_y = cat->path[cat->current_target].y + 0.5;
+        cat->dir_x = cat->target_x - cat->pos_x;
+        cat->dir_y = cat->target_y - cat->pos_y;
+        cat->distance = sqrt(cat->dir_x * cat->dir_x + cat->dir_y * cat->dir_y);
+        if (cat->distance > cat->move_speed)
+        {
+            cat->dir_x /= cat->distance;
+            cat->dir_y /=cat-> distance;
+            cat->pos_x += cat->dir_x * cat->move_speed;
+            cat->pos_y += cat->dir_y * cat->move_speed;
+        }
+        else
+        {
+            cat->pos_x = cat->target_x + 0.5;
+            cat->pos_y = cat->target_y + 0.5;
+        }
+        if ((fabs(cat->pos_x - cat->target_x) < 0.5) && (fabs(cat->pos_y - cat->target_y) < 0.5))
+            cat->current_target++;
     }
+    if (fabs((int)cat->pos_x - game->door_x) <= 1 && fabs((int)cat->pos_y - game->door_y) <= 1)
+        game->win_status = 3;
 }
 
 void    check_cat_visibility(t_game *g, t_cat *cat)
@@ -88,7 +103,6 @@ void    update_cat_textures(t_game *game)
     
     cat = game->cat;
     calculate_cat_direction(cat);
-    check_cat_visibility(game, cat);
     move_cat(game);
     update_cat_texture_state(game, cat);
     if (cat->death_timer > 0)

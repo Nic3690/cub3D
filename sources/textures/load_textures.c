@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 18:23:27 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:36:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,16 @@ int load_all_textures(t_game *game)
     game->tex->food = malloc(sizeof(t_image));
     game->tex->bone = malloc(sizeof(t_image));
     game->tex->you_win = malloc(sizeof(t_image));
+    game->tex->you_die = malloc(sizeof(t_image));
     game->tex->you_lose = malloc(sizeof(t_image));
 	if (!game->tex->food || !game->tex->bone || !game->tex->you_win
-		|| !game->tex->you_lose)
+		|| !game->tex->you_die || !game->tex->you_lose)
 		exit_game(game);
     load_texture(game, game->tex->food, "sprites/food.xpm");
     load_texture(game, game->tex->bone, "sprites/bone.xpm");
     load_texture(game, game->tex->you_win, "sprites/you_win.xpm");
-    load_texture(game, game->tex->you_lose, "sprites/you_died.xpm");
+    load_texture(game, game->tex->you_die, "sprites/you_died.xpm");
+    load_texture(game, game->tex->you_lose, "sprites/you_lose.xpm");
     return (1);
 }
 

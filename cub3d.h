@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 19:37:21 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 16:31:18 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@
 #define MAP_COLUMNS 25
 #define MAP_ROWS 13
 
-#define ROTATION_SPEED 0.1
+#define ROTATION_SPEED 0.15
 
 #define FOOD_COLLISION_RADIUS 0.5
 
 #define MINIMAP_SIZE 200
 #define TILE_SIZE 300 / MAP_COLUMNS
+
+#define MAX_PATH_LENGTH 127
 
 # include "mlx.h"
 # include <math.h>
@@ -130,10 +132,20 @@ typedef struct s_food
     int			active;
 }   t_food;
 
+// new struct
+typedef struct s_coord
+{
+    int			x;
+    int			y;
+}   t_coord;
+
+// modified struct
 typedef struct s_cat
 {
     double		pos_x;
     double		pos_y;
+    int 		map_x;
+    int 		map_y;
     double		dir_x;
     double		dir_y;
     double		dist;
@@ -165,6 +177,9 @@ typedef struct s_cat
 	t_image		*dead_texture_4;
     int			health;
     int			death_timer;
+    int         current_target;
+    int         path_length;
+    t_coord     *path;
 }   t_cat;
 
 typedef struct s_door
@@ -230,6 +245,7 @@ typedef struct s_texture
     t_image		*open_door;
     t_image		*closed_door;
     t_image		*you_win;
+    t_image		*you_die;
     t_image		*you_lose;
 }	t_texture;
 
@@ -417,7 +433,7 @@ void    scan_map_for_entities(t_game *game);
 void    allocate_entities(t_game *game);
 
 /*check_parameters.c*/
-void    check_doors(t_game *game, int x, int y);
+void    check_doors(t_game *game, int x, int y, int *index);
 void    check_food(t_game *game, int x, int y, int *index);
 void    check_and_set_enemy(t_game *game, int x, int y, int *index);
 
@@ -453,7 +469,7 @@ void    perform_enemy_dda(t_enemy *enemy);
 /*enemies_utils.c*/
 void    init_parameters(t_game *game, t_enemy *enemy, int *visible);
 void    process_death_timer(t_game *game, t_enemy *enemy, int *i);
-void    retreat_enemy(t_enemy *enemy);
+void    retreat_enemy(t_game *game, t_enemy *enemy);
 void    check_textures(t_game *game, t_enemy *enemy);
 int     is_visible(t_game *game, t_enemy *enemy);
 /*********************************************************************/
@@ -560,8 +576,8 @@ void    update_cat_texture_far(t_game *g, t_cat *c);
 
 /*visibility.c*/
 void    init_ray(t_game *game, t_cat *cat);
-void    calculate_step_and_side_dist(t_cat *cat, int map_x, int map_y);
-int     perform_dda(t_game *game, t_cat *cat, int map_x, int map_y);
+void    calculate_step_and_side_dist(t_cat *cat);
+int     perform_dda(t_game *game, t_cat *cat);
 int     is_visible_cat(t_game *game);
 /****************************************************************/
 

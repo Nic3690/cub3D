@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 20:41:46 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/26 21:25:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:46:04 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	check_food_collision(t_game *game)
             f->dist_y /= f->dist;
             if (f->dist < FOOD_COLLISION_RADIUS)
             {
-                game->pg->health += 10;
+                if (game->food[i].type == 0)
+                    game->pg->health += 10;
+                else
+                    game->pg->health += 5;
                 if (game->pg->health > 100)
                     game->pg->health = 100;
 				game->food[i].active = 0;

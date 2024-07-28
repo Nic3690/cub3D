@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 11:05:11 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 15:10:18 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void    draw_minimap(t_game *g)
         {
             if (g->map[x][y] == '1')
                 draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0xFFFFFF);
+            if (g->map[x][y] == ' ' || g->map[x][y] == '5' || g->map[x][y] == '6'
+                || g->map[x][y] == '7' || g->map[x][y] == '8' || g->map[x][y] == '9'
+                || g->map[x][y] == '2' || g->map[x][y] == '3')
+                draw_square(g, y * TILE_SIZE, x * TILE_SIZE, 0x0000FF);
             x++;
         }
         y++;

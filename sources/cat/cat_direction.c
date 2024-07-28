@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 17:31:34 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 17:32:21 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 17:20:40 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void    calculate_cat_direction(t_cat *cat)
 
 void    update_cat_texture_state(t_game *g, t_cat *c)
 {
-    if (fabs(c->dir_x - g->pg->dir_x) < 0.5
-        && fabs(c->dir_y - g->pg->dir_y) < 0.5)
+    if (fabs(c->dir_x - g->pg->dir_x) < 0.6
+        && fabs(c->dir_y - g->pg->dir_y) < 0.6)
         update_cat_texture_near(g, c);
     else
         update_cat_texture_far(g, c);

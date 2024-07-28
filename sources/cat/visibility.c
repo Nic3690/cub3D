@@ -19,51 +19,52 @@ void    init_ray(t_game *g, t_cat *cat)
     cat->distance = sqrt(cat->ray_dir_x * cat->ray_dir_x + cat->ray_dir_y * cat->ray_dir_y);
     cat->ray_dir_x /= cat->distance;
     cat->ray_dir_y /= cat->distance;
+    cat->map_x = (int)cat->pos_x;
+    cat->map_y = (int)cat->pos_y;
     cat->delta_x = fabs(1 / cat->ray_dir_x);
     cat->delta_y = fabs(1 / cat->ray_dir_y);
 }
 
-void calculate_step_and_side_dist(t_cat *cat, int map_x, int map_y)
+void calculate_step_and_side_dist(t_cat *cat)
 {
     if (cat->ray_dir_x < 0)
     {
         cat->step_x = -1;
-        cat->side_dist_x = (cat->pos_x - map_x) * cat->delta_x;
+        cat->side_dist_x = (cat->pos_x - cat->map_x) * cat->delta_x;
     }
     else
     {
         cat->step_x = 1;
-        cat->side_dist_x = (map_x + 1.0 - cat->pos_x) * cat->delta_x;
+        cat->side_dist_x = (cat->map_x + 1.0 - cat->pos_x) * cat->delta_x;
     }
 
     if (cat->ray_dir_y < 0)
     {
         cat->step_y = -1;
-        cat->side_dist_y = (cat->pos_y - map_y) * cat->delta_y;
+        cat->side_dist_y = (cat->pos_y - cat->map_y) * cat->delta_y;
     }
     else
     {
         cat->step_y = 1;
-        cat->side_dist_y = (map_y + 1.0 - cat->pos_y) * cat->delta_y;
+        cat->side_dist_y = (cat->map_y + 1.0 - cat->pos_y) * cat->delta_y;
     }
 }
 
-int perform_dda(t_game *game, t_cat *cat, int map_x, int map_y)
+int perform_dda(t_game *game, t_cat *cat)
 {
-    while (map_x != (int)game->pg->map_x || map_y != (int)game->pg->map_y)
+    while (cat->map_x != (int)game->pg->pos_x || cat->map_y != (int)game->pg->pos_y)
     {
         if (cat->side_dist_x < cat->side_dist_y)
         {
             cat->side_dist_x += cat->delta_x;
-            map_x += cat->step_x;
+            cat->map_x += cat->step_x;
         }
         else
         {
             cat->side_dist_y += cat->delta_y;
-            map_y += cat->step_y;
+            cat->map_y += cat->step_y;
         }
-
-        if (game->map[map_y][map_x] == '1')
+        if (game->map[cat->map_y][cat->map_x] == '1')
         {
             return 0;
         }
@@ -74,10 +75,8 @@ int perform_dda(t_game *game, t_cat *cat, int map_x, int map_y)
 int is_visible_cat(t_game *game)
 {
     t_cat *cat = game->cat;
-    int map_x = (int)cat->pos_x;
-    int map_y = (int)cat->pos_y;
 
     init_ray(game, cat);
-    calculate_step_and_side_dist(cat, map_x, map_y);
-    return (perform_dda(game, cat, map_x, map_y));
+    calculate_step_and_side_dist(cat);
+    return (perform_dda(game, cat));
 }

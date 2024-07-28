@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:50:52 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 11:52:17 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 10:26:39 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void    render_doors(t_game *g)
         identify_cell(g->pg);
         calculate_wall_distance(g, 9);
         drawing_colums(g, x);
-        g->z_buffer[x] = g->pg->wall_dist;
+        if (!is_door_open(g, g->pg->map_x, g->pg->map_y))
+            g->z_buffer[x] = g->pg->wall_dist;
         x++;
     }
 }

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 19:16:51 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/28 12:57:44 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    update_enemy_textures(t_game *game)
         {
             check_textures(game, enemy);
             move_and_attack(game, enemy, attack_distance);
-            retreat_enemy(enemy);
+            retreat_enemy(game, enemy);
             distance_between_enemies(game, i, min_dist_btw);
         }
         i++;
