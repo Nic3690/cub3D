@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:52:59 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:25:56 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:04:09 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	check_food(t_game *game, int x, int y, int *index)
 	{
 		game->food[*index].pos_x = x + 0.5;
 		game->food[*index].pos_y = y + 0.5;
+		game->food[*index].active = 1;
 		(*index)++;
 	}
 }

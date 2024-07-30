@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 19:31:27 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:54:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ int	load_texture(t_game *game, t_image *image, const char *path)
 	if (!image->img)
 	{
 		printf ("Error\nInvalid texture path\n");
-		exit(1);
+		exit_game(game);
 	}
 	image->addr = mlx_get_data_addr(image->img, &image->bits,
 		&image->line, &image->endian);
 	if (!image->addr)
 	{
 		mlx_destroy_image(game->mlx, game->image->img);
-		exit(1);
+		exit_game(game);
 	}
 	image->w = width;
 	image->h = height;

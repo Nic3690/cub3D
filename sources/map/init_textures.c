@@ -20,11 +20,14 @@ void	read_texture_paths(t_game *game, int fd)
 	if (!check_valid_path(path))
 	{
 		printf ("Error\nInvalid Key\n");
-		exit(1);
+		exit_game(game);
 	}
 	i = -1;
 	while (++i < 6)
+	{
 		game->texture_paths[i] = ft_strdup(ft_strchr(path[i], 's'));
+		free(path[i]);
+	}
 	free(path);
 }
 
@@ -34,7 +37,7 @@ void	load_textures_and_map(t_game *game, char *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		exit(EXIT_FAILURE);
+		exit_game(game);
 	game->texture_paths = ft_calloc(MAX_TEXTURES, sizeof(char *));
 	read_texture_paths(game, fd);
 	if (!load_all_textures(game))
@@ -74,10 +77,7 @@ void	sort_paths(char **path)
 
 	i = 0;
 	while (i < 6)
-	{
-		printf("path[%d]: %p\n", i, &path[i]);
 		sorted[i++] = NULL;
-	}
 	i = 0;
 	while (i < 6)
 	{

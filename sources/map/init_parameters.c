@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:55:49 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 16:55:11 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:53:27 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	init_cat(t_game *game)
 	if (!game->is_cat)
 	{
 		printf("Error\nNo cat found in map\n");
-		exit(1);
+		exit_game(game);
 	}
 	else
 		add_path_coordinates(game);

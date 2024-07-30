@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:15:42 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:20:08 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	get_rows_and_cols(t_game *game, int fd, char **buffer)
 	int len;
 
 	i = 0;
-	get_next_line(fd);
+	buffer[i] = get_next_line(fd);
+	free(buffer[i]);
 	buffer[i] = get_next_line(fd);
 	while (buffer[i] != NULL)
 	{
@@ -78,7 +79,7 @@ void	copy_map(t_game *game, char **buffer)
 		game->map[i] = ft_calloc((game->map_cols + 1), sizeof(char));
 		ft_bzero(game->map[i], game->map_cols, ' ');
 		ft_strcpy(game->map[i], buffer[i]);
-		// free(buffer[i]);
+		free(buffer[i]);
 		i++;
 	}
 	if (!count_pg(game))

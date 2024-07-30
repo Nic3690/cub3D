@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:34:47 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 22:54:39 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,6 @@ typedef struct s_texture
     t_image		*cat_escape_5;
     t_image		*cat_escape_6;
     t_image		*door_light;
-    t_image		*door_dark;
     t_image		*cat_face;
     t_image		*open_door;
     t_image		*closed_door;
@@ -346,7 +345,7 @@ void	free_floor_sky_walls_doors(t_game *g);
 void	free_dog(t_game *g);
 void	free_enemies(t_game *g);
 void	free_cat(t_game *g);
-void    exit_game(t_game *g);
+int     exit_game(t_game *g);
 
 /*check_map.c*/
 int		count_pg(t_game *g);

@@ -57,7 +57,7 @@ RESET   = \e[0m
 CURSIVE = \e[33;3m
 
 CC = gcc
-FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+FLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRC:.c=.o)
 

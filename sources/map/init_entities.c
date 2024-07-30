@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:40 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:17:11 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:53:20 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	allocate_entities(t_game *game)
 {
 	game->enemies = ft_calloc(game->num_enemies, sizeof(t_enemy));
 	if (game->enemies == NULL)
-		exit(EXIT_FAILURE);
+		exit_game(game);
 	game->food = ft_calloc(game->num_food, sizeof(t_food));
 	if (game->food == NULL)
-		exit(EXIT_FAILURE);
+		exit_game(game);
 	game->doors = ft_calloc(game->num_doors, sizeof(t_door));
 	if (game->doors == NULL)
-		exit(EXIT_FAILURE);
+		exit_game(game);
 	game->cat = ft_calloc(1, sizeof(t_cat));
 	if (game->cat == NULL)
-		exit(EXIT_FAILURE);    
+		exit_game(game);
 }
