@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 22:50:54 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:21:24 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,37 @@ void	init_game(t_game *g)
 	g->img = mlx_new_image(g->mlx, g->map_width, g->map_height);
 	g->addr = mlx_get_data_addr(g->img, &g->bits, &g->line, &g->endian);
 	g->minimap = mlx_new_image(g->mlx, g->map_width, g->map_height);
-	g->miniaddr = mlx_get_data_addr(g->minimap, &g->minibits, &g->miniline, &g->miniendian);
-	g->pg = malloc(sizeof(t_player));
+	g->miniaddr = mlx_get_data_addr
+		(g->minimap, &g->minibits, &g->miniline, &g->miniendian);
+	g->pg = ft_calloc(1, sizeof(t_player));
 	if (!g->pg)
 		exit_game(g);
-	g->tex = malloc(sizeof(t_texture));
-	init_parameters_game(g);
+	g->tex = ft_calloc(1, sizeof(t_texture));
 	if (!g->tex)
 		exit_game(g);
+	init_parameters_game(g);
 }
 
 int main(int argc, char **argv)
 {
-	t_game game;
+	// t_game	*game;
 
 	if (argc != 2)
 		return (0);
-	init_game(&game);
-	load_textures_and_map(&game, argv[1]);
-	check_valid_map(&game);
-	game.pg->move_speed = 0.12;
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
-	render_ceiling_and_floor(&game);
-	mlx_loop_hook(game.mlx, &render_game, &game);
-	mlx_loop(game.mlx);
+	// game = ft_calloc(1, sizeof(t_game));
+	if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 4) != 0)
+	{
+		printf ("Error\nInvalid file extension\n");
+		exit(1);
+	}
+	// init_game(game);
+	// load_textures_and_map(game, argv[1]);
+	// check_valid_map(game);
+	// game->pg->move_speed = 0.12;
+	// mlx_hook(game->win, 2, 1L << 0, key_press, game);
+	// mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
+	// render_ceiling_and_floor(game);
+	// mlx_loop_hook(game->mlx, &render_game, game);
+	// mlx_loop(game->mlx);
 	return 0;
 }

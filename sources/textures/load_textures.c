@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 21:47:03 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:31:27 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	load_wall_sky_doors_tex(t_game *game)
 {
-	game->tex->sky = malloc(sizeof(t_image));
-	game->tex->floor = malloc(sizeof(t_image));
-	game->tex->north = malloc(sizeof(t_image));
-	game->tex->south = malloc(sizeof(t_image));
-	game->tex->west = malloc(sizeof(t_image));
-	game->tex->east = malloc(sizeof(t_image));
-	game->tex->door_light = malloc(sizeof(t_image));
-	game->tex->open_door = malloc(sizeof(t_image));
-	game->tex->closed_door = malloc(sizeof(t_image));
+	game->tex->sky = ft_calloc(1, sizeof(t_image));
+	game->tex->floor = ft_calloc(1, sizeof(t_image));
+	game->tex->north = ft_calloc(1, sizeof(t_image));
+	game->tex->south = ft_calloc(1, sizeof(t_image));
+	game->tex->west = ft_calloc(1, sizeof(t_image));
+	game->tex->east = ft_calloc(1, sizeof(t_image));
+	game->tex->door_light = ft_calloc(1, sizeof(t_image));
+	game->tex->open_door = ft_calloc(1, sizeof(t_image));
+	game->tex->closed_door = ft_calloc(1, sizeof(t_image));
 	if (!game->tex->sky || !game->tex->floor || !game->tex->north
 		|| !game->tex->south || !game->tex->west || !game->tex->east)
 		exit_game(game);
@@ -39,12 +39,12 @@ void	load_wall_sky_doors_tex(t_game *game)
 
 void	load_dog_tex(t_game *game)
 {
-	game->tex->paws = malloc(sizeof(t_image));
-	game->tex->blood_paws = malloc(sizeof(t_image));
-	game->tex->maya = malloc(sizeof(t_image));
-	game->tex->maya_left = malloc(sizeof(t_image));
-	game->tex->maya_right = malloc(sizeof(t_image));
-	game->tex->angry_maya = malloc(sizeof(t_image));
+	game->tex->paws = ft_calloc(1, sizeof(t_image));
+	game->tex->blood_paws = ft_calloc(1, sizeof(t_image));
+	game->tex->maya = ft_calloc(1, sizeof(t_image));
+	game->tex->maya_left = ft_calloc(1, sizeof(t_image));
+	game->tex->maya_right = ft_calloc(1, sizeof(t_image));
+	game->tex->angry_maya = ft_calloc(1, sizeof(t_image));
 	if (!game->tex->paws || !game->tex->blood_paws || !game->tex->maya
 		|| !game->tex->maya_left || !game->tex->maya_right
 		|| !game->tex->angry_maya)
@@ -63,11 +63,11 @@ int	load_all_textures(t_game *game)
 	load_enemies_tex(game);
 	load_cat_tex(game);
 	load_dog_tex(game);
-	game->tex->food = malloc(sizeof(t_image));
-	game->tex->bone = malloc(sizeof(t_image));
-	game->tex->you_win = malloc(sizeof(t_image));
-	game->tex->you_die = malloc(sizeof(t_image));
-	game->tex->you_lose = malloc(sizeof(t_image));
+	game->tex->food = ft_calloc(1, sizeof(t_image));
+	game->tex->bone = ft_calloc(1, sizeof(t_image));
+	game->tex->you_win = ft_calloc(1, sizeof(t_image));
+	game->tex->you_die = ft_calloc(1, sizeof(t_image));
+	game->tex->you_lose = ft_calloc(1, sizeof(t_image));
 	if (!game->tex->food || !game->tex->bone || !game->tex->you_win
 		|| !game->tex->you_die || !game->tex->you_lose)
 		exit_game(game);
@@ -88,13 +88,16 @@ int	load_texture(t_game *game, t_image *image, const char *path)
 	height = 64;
 	image->img = mlx_xpm_file_to_image(game->mlx, (char *)path, &width, &height);
 	if (!image->img)
-		return (0);
+	{
+		printf ("Error\nInvalid texture path\n");
+		exit(1);
+	}
 	image->addr = mlx_get_data_addr(image->img, &image->bits,
 		&image->line, &image->endian);
 	if (!image->addr)
 	{
 		mlx_destroy_image(game->mlx, game->image->img);
-		return (0);
+		exit(1);
 	}
 	image->w = width;
 	image->h = height;

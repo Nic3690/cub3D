@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 23:36:59 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:34:47 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,6 +372,10 @@ int     ft_strlen(char *string);
 char	*ft_strdup(char *string);
 char    *ft_strcpy(char *dest, char *src);
 
+/*utils2.c*/
+int		ft_strncmp(char *s1, char *s2, int n);
+void    *ft_calloc(int count, int size);
+void	*ft_memset(void *b, int c, int len);
 
 /************************** CAT FOLDER **************************/
 /*cat.c*/
@@ -485,8 +489,11 @@ void    handle_door_position(t_game *game, int x, int y);
 void    set_enemy_position(t_game *game, int x, int y, int index);
 
 /*init_textures.c*/
-void    read_texture_paths(t_game *game, int fd);
-void    load_textures_and_map(t_game *game, char *filename);
+void	read_texture_paths(t_game *game, int fd);
+void	load_textures_and_map(t_game *game, char *filename);
+void	validate_and_sort_path(char **path, char **sorted, int index);
+void	sort_paths(char **path);
+int		check_valid_path(char **path);
 
 /*init_entities.c*/
 void    increment_entity_counts(t_game *game, int x, int y);

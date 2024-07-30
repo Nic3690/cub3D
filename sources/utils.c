@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:41:50 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/27 12:23:48 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:18:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ char	*ft_strdup(char *string)
 
 	i = 0;
 	size = ft_strlen(string);
-	duplicate = malloc(sizeof(char) * (size) + 1);
+	if (string[size - 1] == '\n')
+		size--;
+	duplicate = ft_calloc(size + 1, sizeof(char));
 	if (!duplicate)
 		return (0);
 	while (string[i] && string[i] != '\n')

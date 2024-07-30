@@ -1,4 +1,4 @@
-NAME    = cub3d
+NAME    = cub3D
 
 SRC     =	./sources/main.c \
 			./sources/free.c \
@@ -40,7 +40,8 @@ SRC     =	./sources/main.c \
 			./sources/textures/load_enemy_textures.c \
 			./sources/textures/load_textures.c \
 			./sources/minimap.c \
-			./sources/utils.c
+			./sources/utils.c \
+			./sources/utils2.c \
 
 # ANSI COLOR
 RED     = \033[0;31m

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 21:43:30 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:14:58 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ int render_game(t_game *game)
 	int			entity_count;
 	t_entity	*entities;
 
-	game->z_buffer = malloc(sizeof(double) * WIDTH);
+	game->z_buffer = ft_calloc(WIDTH, sizeof(double));
 	render_ceiling_and_floor(game);
 	render(game);
 	render_doors(game);
 	entity_count = calculate_entity_count(game);
-	entities = malloc(sizeof(t_entity) * entity_count);
+	entities = ft_calloc(entity_count, sizeof(t_entity));
 	if (!entities)
 		exit_game(game);
 	entity_distances(game, entities, &entity_count);

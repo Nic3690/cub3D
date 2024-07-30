@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:41:54 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:36:45 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	drawing_colums(t_game *g, int x)
 {
 	t_draw	*draw;
 
-	draw = malloc (sizeof(t_draw));
+	draw = ft_calloc(1, sizeof(t_draw));
 	if (!draw)
 		return ;
 	draw->line = (int)(HEIGHT / g->pg->wall_dist);

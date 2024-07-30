@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:36:26 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:15:42 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ void	copy_map(t_game *game, char **buffer)
 	int i;
 
 	i = 0;
-	game->map = malloc(sizeof(char *) * game->map_rows);
+	game->map = ft_calloc(game->map_rows, sizeof(char *));
 	while (i < game->map_rows)
 	{
-		game->map[i] = malloc(sizeof(char)
-			* (game->map_cols + 1));
+		game->map[i] = ft_calloc((game->map_cols + 1), sizeof(char));
 		ft_bzero(game->map[i], game->map_cols, ' ');
 		ft_strcpy(game->map[i], buffer[i]);
-		free(buffer[i]);
+		// free(buffer[i]);
 		i++;
 	}
 	if (!count_pg(game))

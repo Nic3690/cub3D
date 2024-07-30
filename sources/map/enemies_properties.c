@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:02 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 23:58:05 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:17:31 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	set_cat_properties(t_game *game, int x, int y)
 	game->cat->visible = 0;
 	game->cat->wait_timer = 5;
 	game->cat->move_speed = 0.02;
-	game->cat->path = malloc(sizeof(t_coord) * (MAX_PATH_LENGTH + 1));
+	game->cat->path = ft_calloc(MAX_PATH_LENGTH + 1, sizeof(t_coord));
 	game->cat->path_length = 0;
 	game->cat->current_target = 0;
 	game->map[y][x] = '0';

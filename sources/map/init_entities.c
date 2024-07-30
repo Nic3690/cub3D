@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:40 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:27:57 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:17:11 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,16 @@ void	scan_map_for_entities(t_game *game)
 
 void	allocate_entities(t_game *game)
 {
-	game->enemies = malloc(sizeof(t_enemy) * game->num_enemies);
+	game->enemies = ft_calloc(game->num_enemies, sizeof(t_enemy));
 	if (game->enemies == NULL)
 		exit(EXIT_FAILURE);
-	game->food = malloc(sizeof(t_food) * game->num_food);
+	game->food = ft_calloc(game->num_food, sizeof(t_food));
 	if (game->food == NULL)
 		exit(EXIT_FAILURE);
-	game->doors = malloc(sizeof(t_door) * game->num_doors);
+	game->doors = ft_calloc(game->num_doors, sizeof(t_door));
 	if (game->doors == NULL)
 		exit(EXIT_FAILURE);
-	game->cat = malloc(sizeof(t_cat));
+	game->cat = ft_calloc(1, sizeof(t_cat));
 	if (game->cat == NULL)
 		exit(EXIT_FAILURE);    
 }

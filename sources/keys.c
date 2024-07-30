@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 21:19:25 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 23:17:03 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:59:22 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	key_press(int keycode, t_game *g)
 
 int	mouse_move(int x, int y, t_game *g)
 {
-    static int		prev_x;
-	int		delta_x;
+    static int	prev_x;
+	int			delta_x;
 
 	(void)y;
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)

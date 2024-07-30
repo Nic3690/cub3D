@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:55:49 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:35:12 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/07/29 16:55:11 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,12 @@ void	init_cat(t_game *game)
 		}
 		y++;
 	}
-	if (game->is_cat)
+	if (!game->is_cat)
+	{
+		printf("Error\nNo cat found in map\n");
+		exit(1);
+	}
+	else
 		add_path_coordinates(game);
 }
 
@@ -102,6 +107,7 @@ void    init_map(t_game *game, int fd)
 {
 	char    *buffer[10000];
 
+	game->is_cat = 0;
 	get_rows_and_cols(game, fd, buffer);
 	copy_map(game, buffer);
 	scan_map_for_entities(game);
