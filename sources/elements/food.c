@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 20:41:46 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 20:42:41 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:14:02 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	dist_collision(t_game *game, t_food *f, int *i)
 
 void	check_food_collision(t_game *game)
 {
-	t_food  *f;
-	int     i;
+	t_food	*f;
+	int		i;
 
 	i = 0;
 	while (i < game->num_food)

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 20:29:10 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 13:19:47 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:09:35 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,11 @@ void	get_next_coords(t_game *game, int *start_x, int *start_y)
 
 void	add_path_coordinates(t_game *game)
 {
-	int start_x;
-	int start_y;
+	int	start_x;
+	int	start_y;
 
 	start_x = game->cat->map_x + 1;
 	start_y = game->cat->map_y;
-
 	while (game->cat->path_length < MAX_PATH_LENGTH)
 	{
 		game->map[start_y][start_x] = '0';

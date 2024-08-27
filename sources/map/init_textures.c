@@ -1,27 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_textures.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/27 15:30:43 by nfurlani          #+#    #+#             */
+/*   Updated: 2024/08/27 16:09:31 by nfurlani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	read_texture_paths(t_game *game, int fd)
 {
-	int     i;
-	char    *line;
+	int		i;
+	char	*line;
 	char	**path;
 
-	i = 0;
+	i = -1;
 	path = ft_calloc(6, sizeof(char *));
-	while (i < 6)
+	while (++i < 6)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			continue ;
 		path[i] = line;
-		i++;
 	}
 	sort_paths(path);
 	if (!check_valid_path(path))
-	{
-		printf ("Error\nInvalid Key\n");
 		exit_game(game);
-	}
 	i = -1;
 	while (++i < 6)
 	{
@@ -33,7 +41,7 @@ void	read_texture_paths(t_game *game, int fd)
 
 void	load_textures_and_map(t_game *game, char *filename)
 {
-	int fd;
+	int	fd;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
@@ -94,7 +102,7 @@ void	sort_paths(char **path)
 
 int	check_valid_path(char **path)
 {
-	int flag;
+	int	flag;
 
 	flag = 1;
 	if (ft_strncmp(path[0], "NO", 2) != 0)

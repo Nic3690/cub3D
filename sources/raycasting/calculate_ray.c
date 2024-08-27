@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:22:13 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:39:50 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:35:30 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	calculate_steps(t_player *pg)
 
 void	calculate_wall_distance(t_game *g, int type)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
 	while (hit == 0)
@@ -71,15 +71,15 @@ void	calculate_wall_side(t_game *g)
 {
 	if (g->pg->side == 0)
 		g->pg->wall_dist = (g->pg->map_x - g->pg->pos_x
-			+ (1 - g->pg->step_x) / 2) / g->pg->ray_x;
+				+ (1 - g->pg->step_x) / 2) / g->pg->ray_x;
 	else
 		g->pg->wall_dist = (g->pg->map_y - g->pg->pos_y
-			+ (1 - g->pg->step_y) / 2) / g->pg->ray_y;
+				+ (1 - g->pg->step_y) / 2) / g->pg->ray_y;
 }
 
 int	calculate_line_height(t_player *pg, int side)
 {
-	double  wall_dist;
+	double	wall_dist;
 
 	if (side == 0)
 		wall_dist = (pg->map_x - pg->pos_x + (1 - pg->step_x) / 2) / pg->ray_x;

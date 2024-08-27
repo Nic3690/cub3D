@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:06:54 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:38:40 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:35:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	rotate_right(t_player *pg)
 
 void	rotate_left(t_player *pg)
 {
-	double old_dir_x;
-	double old_plane_x;
+	double	old_dir_x;
+	double	old_plane_x;
 
 	old_dir_x = pg->dir_x;
 	old_plane_x = pg->plane_x;

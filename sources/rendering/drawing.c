@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:57:20 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 19:36:45 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:58:39 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	get_tex_color(t_image *image, int tex_x, int tex_y)
 {
-	int *texture;
+	int	*texture;
 
 	if (tex_x < 0 || tex_x >= image->w || tex_y < 0 || tex_y >= image->h)
-		return 0;
+		return (0);
 	texture = (int *)image->addr;
 	return (texture[tex_y * image->w + tex_x]);
 }
@@ -65,22 +65,27 @@ void	drawing_colums(t_game *g, int x)
 
 void	draw_win_lose(t_game *game, t_image *texture)
 {
-	int x, y;
-	int img_x, img_y;
-	int scale = 15;
+	int	x;
+	int	y;
+	int	screen_x_start;
+	int	screen_y_start;
+	int	color;
 
-	int screen_x_start = (WIDTH - (texture->w * scale)) / 2;
-	int screen_y_start = (HEIGHT - (texture->h * scale)) / 2;
-	for (y = 0; y < texture->h * scale; y++)
+	y = 0;
+	color = 0;
+	screen_x_start = (WIDTH - (texture->w * 15)) / 2;
+	screen_y_start = (HEIGHT - (texture->h * 15)) / 2;
+	while (y < texture->h * 15)
 	{
-		for (x = 0; x < texture->w * scale; x++)
+		x = 0;
+		while (x < texture->w * 15)
 		{
-			img_x = x / scale;
-			img_y = y / scale;
-			int color = get_tex_color(texture, img_x, img_y);
+			color = get_tex_color(texture, x / 15, y / 15);
 			if (color != (0xFF << 24))
 				pixel_put(game, screen_x_start + x, screen_y_start + y, color);
+			x++;
 		}
+		y++;
 	}
 }
 

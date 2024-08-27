@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:52:59 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 21:04:09 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:29:23 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,3 @@ void	check_and_set_enemy(t_game *game, int x, int y, int *index)
 		game->map[y][x] = '0';
 	}
 }
-

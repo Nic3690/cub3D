@@ -6,23 +6,23 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 22:53:30 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:06:24 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    pixel_put(t_game *game, int x, int y, int color)
+void	pixel_put(t_game *game, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return;
+		return ;
 	dst = game->addr + (y * game->line + x * (game->bits / 8));
 	*(unsigned int *)dst = color;
 }
 
-void    init_parameters_game(t_game *g)
+void	init_parameters_game(t_game *g)
 {
 	g->frame_count = 0;
 	g->pg->health = 100;
@@ -55,7 +55,7 @@ void	init_game(t_game *g)
 	init_parameters_game(g);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_game	*game;
 
@@ -80,5 +80,5 @@ int main(int argc, char **argv)
 	render_ceiling_and_floor(game);
 	mlx_loop_hook(game->mlx, &render_game, game);
 	mlx_loop(game->mlx);
-	return 0;
+	return (0);
 }

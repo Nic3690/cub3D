@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 00:29:19 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 13:41:06 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:23:06 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	init_bar_params(int *y, int *height, int *color, int type)
 
 void	draw_rectangle(t_game *game, int x, int width, int type)
 {
-	int     y;
-	int     height;
-	int     color;
-	int     original;
-	char    *dst;
+	int		y;
+	int		height;
+	int		color;
+	int		original;
+	char	*dst;
 
 	init_bar_params(&y, &height, &color, type);
 	original = width;
@@ -42,7 +42,7 @@ void	draw_rectangle(t_game *game, int x, int width, int type)
 		while (width)
 		{
 			dst = game->addr + ((y + height) * game->line
-				+ (x + width) * (game->bits / 8));
+					+ (x + width) * (game->bits / 8));
 			*(unsigned int *)dst = color;
 			width--;
 		}
@@ -52,9 +52,9 @@ void	draw_rectangle(t_game *game, int x, int width, int type)
 
 void	draw_health_bar(t_game *game)
 {
-	int x;
-	int width;
-	int health_width;
+	int	x;
+	int	width;
+	int	health_width;
 
 	x = WIDTH / 13;
 	width = 3 * WIDTH / 10;
@@ -67,9 +67,9 @@ void	draw_health_bar(t_game *game)
 
 void	draw_health_bar_cat(t_game *game)
 {
-	int x;
-	int width;
-	int health_width;
+	int	x;
+	int	width;
+	int	health_width;
 
 	x = WIDTH - (3 * WIDTH / 10) - (WIDTH / 13);
 	width = 3 * WIDTH / 10;

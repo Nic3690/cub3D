@@ -6,38 +6,38 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 17:45:03 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:01:02 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:13:16 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    draw_face(t_game *game)
+void	draw_face(t_game *game)
 {
-	t_image *current;
+	t_image	*current;
 
 	current = get_current_face_texture(game);
 	draw_scaled_face(game, current);
 }
 
-t_image *get_current_face_texture(t_game *game)
+t_image	*get_current_face_texture(t_game *game)
 {
 	if (game->face_state == 1)
-		return game->tex->maya_left;
+		return (game->tex->maya_left);
 	else if (game->face_state == 2)
-		return game->tex->maya_right;
+		return (game->tex->maya_right);
 	else if (game->face_state == 3)
 		return (game->tex->angry_maya);
 	else
 		return (game->tex->maya);
 }
 
-void    draw_scaled_face(t_game *game, t_image *current)
+void	draw_scaled_face(t_game *game, t_image *current)
 {
-	int x;
-	int y;
-	int scale;
-	int color;
+	int	x;
+	int	y;
+	int	scale;
+	int	color;
 
 	x = 0;
 	y = 0;
@@ -50,14 +50,14 @@ void    draw_scaled_face(t_game *game, t_image *current)
 		{
 			color = get_tex_color(current, x / scale, y / scale);
 			if (color != (0xFF << 24))
-				pixel_put(game,  WIDTH / 100 + x, HEIGHT / 75 + y, color);
+				pixel_put(game, WIDTH / 100 + x, HEIGHT / 75 + y, color);
 			x++;
 		}
 		y++;
 	}
 }
 
-void    update_face_state(t_game *game)
+void	update_face_state(t_game *game)
 {
 	if (game->pg->health <= 30)
 	{
@@ -70,7 +70,7 @@ void    update_face_state(t_game *game)
 		cycle_face_state(game);
 }
 
-void    cycle_face_state(t_game *game)
+void	cycle_face_state(t_game *game)
 {
 	if (game->face_state == 0)
 	{

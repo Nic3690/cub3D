@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:55:49 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 20:53:27 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:30:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	init_doors(t_game *game)
 {
-	int x;
-	int y;
-	int index;
+	int	x;
+	int	y;
+	int	index;
 
 	x = 0;
 	y = 0;
@@ -35,9 +35,9 @@ void	init_doors(t_game *game)
 
 void	init_food(t_game *game)
 {
-	int x;
-	int y;
-	int index;
+	int	x;
+	int	y;
+	int	index;
 
 	x = 0;
 	y = 0;
@@ -56,9 +56,9 @@ void	init_food(t_game *game)
 
 void	init_enemies(t_game *game)
 {
-	int x;
-	int y;
-	int index;
+	int	x;
+	int	y;
+	int	index;
 
 	x = 0;
 	y = 0;
@@ -103,9 +103,9 @@ void	init_cat(t_game *game)
 		add_path_coordinates(game);
 }
 
-void    init_map(t_game *game, int fd)
+void	init_map(t_game *game, int fd)
 {
-	char    *buffer[10000];
+	char	*buffer[10000];
 
 	game->is_cat = 0;
 	get_rows_and_cols(game, fd, buffer);

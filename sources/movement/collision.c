@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:52:32 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:37:34 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:34:29 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_enemy_at(t_game *game, double x, double y)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->num_enemies)
@@ -30,7 +30,7 @@ int	is_enemy_at(t_game *game, double x, double y)
 
 int	is_food(t_game *game, double x, double y)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->num_food)
@@ -45,7 +45,7 @@ int	is_food(t_game *game, double x, double y)
 
 int	is_door_open(t_game *game, double x, double y)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < game->num_doors)

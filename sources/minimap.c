@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:25:34 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:25:36 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	mini_pixel_put(t_game *game, int x, int y, int color)
 {
-	char    *dst;
+	char	*dst;
 
 	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
@@ -24,8 +24,8 @@ void	mini_pixel_put(t_game *game, int x, int y, int color)
 
 void	draw_square(t_game *game, int x, int y, int color)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -43,8 +43,8 @@ void	draw_square(t_game *game, int x, int y, int color)
 
 void	draw_mini_player(t_game *g)
 {
-	int player_mini_x;
-	int player_mini_y;
+	int	player_mini_x;
+	int	player_mini_y;
 
 	player_mini_x = g->pg->pos_x;
 	player_mini_y = g->pg->pos_y;
@@ -52,27 +52,27 @@ void	draw_mini_player(t_game *g)
 		* TILE_SIZE, 0xFF0000);
 }
 
-void    draw_mini_cat(t_game *g)
+void	draw_mini_cat(t_game *g)
 {
-    int cat_mini_x;
-    int cat_mini_y;
+	int	cat_mini_x;
+	int	cat_mini_y;
 
-    cat_mini_x = g->cat->pos_x;
-    cat_mini_y = g->cat->pos_y;
-    draw_square(g, cat_mini_x * TILE_SIZE, cat_mini_y
-        * TILE_SIZE, 0x00FF00);
+	cat_mini_x = g->cat->pos_x;
+	cat_mini_y = g->cat->pos_y;
+	draw_square(g, cat_mini_x * TILE_SIZE, cat_mini_y
+		* TILE_SIZE, 0x00FF00);
 }
 
 void	draw_minimap(t_game *g)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	mlx_destroy_image(g->mlx, g->minimap);
 	g->minimap = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	g->miniaddr = mlx_get_data_addr(g->minimap, &g->minibits,
-		&g->miniline, &g->miniendian);
+			&g->miniline, &g->miniendian);
 	while (y < g->map_cols)
 	{
 		x = 0;

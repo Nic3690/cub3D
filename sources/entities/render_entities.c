@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:36:48 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:24:40 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:29:06 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	calculate_sprite_transform(t_game *g, t_entity *e)
 {
-	double inv_det;
+	double	inv_det;
 
 	e->sprite_x = e->pos_x - g->pg->pos_x;
 	e->sprite_y = e->pos_y - g->pg->pos_y;
 	inv_det = 1.0 / (g->pg->plane_x
-		* g->pg->dir_y - g->pg->dir_x * g->pg->plane_y);
+			* g->pg->dir_y - g->pg->dir_x * g->pg->plane_y);
 	e->transform_x = inv_det
 		* (g->pg->dir_y * e->sprite_x - g->pg->dir_x * e->sprite_y);
 	e->transform_y = inv_det
@@ -51,7 +51,7 @@ void	calculate_draw_limits(t_entity *e, int screen_x)
 
 void	render_entity(t_game *game, t_entity *entity)
 {
-	int screen_x;
+	int	screen_x;
 
 	calculate_sprite_transform(game, entity);
 	calculate_sprite_dimensions(entity, &screen_x);

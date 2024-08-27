@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 19:34:55 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 19:20:08 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:34:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	set_player_direction_we(t_game *game, char dir)
 
 void	get_rows_and_cols(t_game *game, int fd, char **buffer)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	buffer[i] = get_next_line(fd);
@@ -70,7 +70,7 @@ void	get_rows_and_cols(t_game *game, int fd, char **buffer)
 
 void	copy_map(t_game *game, char **buffer)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	game->map = ft_calloc(game->map_rows, sizeof(char *));

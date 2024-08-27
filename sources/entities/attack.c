@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 15:37:36 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 00:18:05 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:27:03 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ void	update_attack_status(t_game *game)
 
 void	attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance)
 {
-	double  dir_x;
-	double  dir_y;
-	double  distance;
+	double	dir_x;
+	double	dir_y;
+	double	distance;
 
 	dir_x = e->pos_x - g->pg->pos_x;
 	dir_y = e->pos_y - g->pg->pos_y;
@@ -64,9 +64,9 @@ void	attack_enemy(t_game *g, t_enemy *e, int a_damage, double a_distance)
 
 void	attack_cat(t_game *game, int a_damage, double a_distance)
 {
-	double  dir_x;
-	double  dir_y;
-	double  distance;
+	double	dir_x;
+	double	dir_y;
+	double	distance;
 
 	dir_x = game->cat->pos_x - game->pg->pos_x;
 	dir_y = game->cat->pos_y - game->pg->pos_y;
@@ -85,9 +85,9 @@ void	attack_cat(t_game *game, int a_damage, double a_distance)
 
 void	player_attack(t_game *game)
 {
-	int     a_damage;
-	double  a_distance;
-	int     i;
+	int		a_damage;
+	double	a_distance;
+	int		i;
 
 	a_damage = 10;
 	a_distance = 0.7;

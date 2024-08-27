@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 00:41:45 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:38:19 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:35:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	move_forward(t_game *game)
 {
-	double  new_x;
-	double  new_y;
+	double	new_x;
+	double	new_y;
 
 	new_x = game->pg->pos_x + game->pg->dir_x * game->pg->move_speed;
 	new_y = game->pg->pos_y + game->pg->dir_y * game->pg->move_speed;
@@ -35,8 +35,8 @@ void	move_forward(t_game *game)
 
 void	move_backward(t_game *game)
 {
-	double  new_x;
-	double  new_y;
+	double	new_x;
+	double	new_y;
 
 	new_x = game->pg->pos_x - game->pg->dir_x * game->pg->move_speed;
 	new_y = game->pg->pos_y - game->pg->dir_y * game->pg->move_speed;
@@ -56,8 +56,8 @@ void	move_backward(t_game *game)
 
 void	move_left(t_game *game)
 {
-	double  new_x;
-	double  new_y;
+	double	new_x;
+	double	new_y;
 
 	new_x = game->pg->pos_x - game->pg->plane_x * game->pg->move_speed;
 	new_y = game->pg->pos_y - game->pg->plane_y * game->pg->move_speed;
@@ -77,8 +77,8 @@ void	move_left(t_game *game)
 
 void	move_right(t_game *game)
 {
-	double  new_x;
-	double  new_y;
+	double	new_x;
+	double	new_y;
 
 	new_x = game->pg->pos_x + game->pg->plane_x * game->pg->move_speed;
 	new_y = game->pg->pos_y + game->pg->plane_y * game->pg->move_speed;

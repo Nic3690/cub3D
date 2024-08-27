@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 16:33:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 19:50:56 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:27:46 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 int	calculate_tex_x(t_entity *entity, int stripe, int sprite_screen_x)
 {
-	return ((int)(256 * (stripe -
-		(-entity->e_width / 2 + sprite_screen_x))
+	return ((int)(256 * (stripe
+			- (-entity->e_width / 2 + sprite_screen_x))
 		* entity->tex->w / entity->e_width) / 256);
 }
 
-int is_valid_stripe(t_game *game, t_entity *entity, int stripe)
+int	is_valid_stripe(t_game *game, t_entity *entity, int stripe)
 {
 	return ((entity->transform_y > 0 && stripe > 0
-		&& stripe < WIDTH
-		&& entity->transform_y < game->z_buffer[stripe]));
+			&& stripe < WIDTH
+			&& entity->transform_y < game->z_buffer[stripe]));
 }
 
-void    draw_sprite_column(t_game *game, t_entity *entity, int stripe)
+void	draw_sprite_column(t_game *game, t_entity *entity, int stripe)
 {
-	int y;
-	int d;
-	int color;
+	int	y;
+	int	d;
+	int	color;
 
 	y = entity->draw_start_y;
 	while (y < entity->draw_end_y)
@@ -44,9 +44,9 @@ void    draw_sprite_column(t_game *game, t_entity *entity, int stripe)
 	}
 }
 
-void    draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x)
+void	draw_sprite(t_game *game, t_entity *entity, int sprite_screen_x)
 {
-	int stripe;
+	int	stripe;
 
 	stripe = entity->draw_start_x;
 	while (stripe < entity->draw_end_x)

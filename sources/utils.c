@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 19:41:50 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:18:00 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:25:57 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ char	*ft_strdup(char *string)
 	return (duplicate);
 }
 
-char    *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (src[i] != '\0')

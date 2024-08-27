@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 20:47:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 22:54:39 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:20:28 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,11 +341,18 @@ void    init_parameters_game(t_game *g);
 void    init_game(t_game *game);
 
 /*free.c*/
+void	free_textures(t_game *g);
+void	free_map(t_game *g);
+void	free_game_objects(t_game *g);
+void	free_graphics(t_game *g);
+int		exit_game(t_game *g);
+
+/*free_entities.c*/
 void	free_floor_sky_walls_doors(t_game *g);
 void	free_dog(t_game *g);
 void	free_enemies(t_game *g);
 void	free_cat(t_game *g);
-int     exit_game(t_game *g);
+void	free_text(t_game *g);
 
 /*check_map.c*/
 int		count_pg(t_game *g);

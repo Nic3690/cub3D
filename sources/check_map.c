@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 15:07:33 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 20:52:04 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:10:10 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int	count_pg(t_game *g)
 		j = 0;
 		while (j < g->map_cols)
 		{
-			if (g->map[i][j] == 'N' || g->map[i][j] == 'S' || 
-				g->map[i][j] == 'E' || g->map[i][j] == 'W') {
+			if (g->map[i][j] == 'N' || g->map[i][j] == 'S'
+				|| g->map[i][j] == 'E' || g->map[i][j] == 'W')
 				count_pg++;
-			}
 			j++;
 		}
 		i++;

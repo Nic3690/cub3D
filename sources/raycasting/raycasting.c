@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 16:13:41 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:40:22 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:35:43 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	calculate_ray_direction(t_game *g, int x)
 {
-	double  camera_x;
+	double	camera_x;
 
 	camera_x = 2 * x / (double)WIDTH - 1;
 	g->pg->ray_x = g->pg->dir_x + g->pg->plane_x * camera_x;

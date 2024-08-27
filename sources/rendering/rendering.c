@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 16:51:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 20:51:19 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:00:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    render(t_game *g)
+void	render(t_game *g)
 {
 	int	x;
 
@@ -38,7 +38,7 @@ int	calculate_entity_count(t_game *game)
 	return (entity_count);
 }
 
-void    status_and_minimap(t_game *g)
+void	status_and_minimap(t_game *g)
 {
 	if (g->win_status == 1)
 		draw_win_lose(g, g->tex->you_win);
@@ -64,7 +64,7 @@ void	render_entities(t_game *game, t_entity *entities, int entity_count)
 	}
 }
 
-int render_game(t_game *game)
+int	render_game(t_game *game)
 {
 	int			entity_count;
 	t_entity	*entities;

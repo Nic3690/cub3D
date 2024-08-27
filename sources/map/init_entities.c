@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:40 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 20:53:20 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:29:38 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	increment_entity_counts(t_game *game, int x, int y)
 
 void	scan_map_for_entities(t_game *game)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;

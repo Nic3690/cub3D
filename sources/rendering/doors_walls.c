@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:50:52 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:41:09 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:36:09 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	render_wall_column(t_game *g, int x, int side)
 	double	tex_pos;
 
 	image = select_wall_texture(g, side);
-	check_door_texture(g, &image);    
+	check_door_texture(g, &image);
 	g->tex->tex_w = image->w;
 	g->tex->tex_h = image->h;
 	g->draw->tex_x = (int)(g->draw->wall_x * (double)g->tex->tex_w);
@@ -28,7 +28,7 @@ void	render_wall_column(t_game *g, int x, int side)
 		g->draw->tex_x = g->tex->tex_w - g->draw->tex_x - 1;
 	g->draw->step = 1.0 * g->tex->tex_w / g->draw->line;
 	tex_pos = (g->draw->draw_start - HEIGHT
-		/ 2 + g->draw->line / 2) * g->draw->step;
+			/ 2 + g->draw->line / 2) * g->draw->step;
 	drawing(g, image, tex_pos, x);
 }
 

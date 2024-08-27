@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 15:22:06 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:05:49 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:24:00 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_parameters(t_game *game, t_enemy *enemy, int *visible)
 	enemy->dir_x = game->pg->pos_x - enemy->pos_x;
 	enemy->dir_y = game->pg->pos_y - enemy->pos_y;
 	enemy->dist = sqrt(enemy->dir_x * enemy->dir_x
-		+ enemy->dir_y * enemy->dir_y);
+			+ enemy->dir_y * enemy->dir_y);
 	enemy->dir_x /= enemy->dist;
 	enemy->dir_y /= enemy->dist;
 	*visible = is_visible(game, enemy);
@@ -34,7 +34,7 @@ void	process_death_timer(t_game *game, t_enemy *enemy, int *i)
 	}
 }
 
-void	retreat_enemy(t_game * game, t_enemy *enemy)
+void	retreat_enemy(t_game *game, t_enemy *enemy)
 {
 	if (enemy->retreating)
 	{

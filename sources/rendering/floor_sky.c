@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 11:50:08 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:42:36 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:43 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	render_ceiling_and_floor(t_game *g)
 {
-	int     y;
-	t_image *image;
-	double  row_dist;
+	int		y;
+	t_image	*image;
+	double	row_dist;
 
 	y = 0;
 	image = NULL;
@@ -39,7 +39,7 @@ void	render_ceiling_and_floor(t_game *g)
 
 t_image	*check_sky_floor(t_game *g, t_image *image, int y, double *row_dist)
 {
-	int half;
+	int	half;
 
 	half = 0;
 	if (y < HEIGHT / 2)
@@ -58,7 +58,7 @@ t_image	*check_sky_floor(t_game *g, t_image *image, int y, double *row_dist)
 
 void	color_floor_and_sky(t_game *g, t_image *img, int y)
 {
-	int x;
+	int	x;
 
 	x = -1;
 	while (x++ < WIDTH)

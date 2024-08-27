@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 11:50:52 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 21:03:16 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:26:25 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ int	ft_strncmp(char *s1, char *s2, int n)
 	return (0);
 }
 
-void *ft_calloc(int count, int size)
+void	*ft_calloc(int count, int size)
 {
-    void *ptr;
-    ptr = malloc(count * size);
-    if (ptr)
-        ft_memset(ptr, 0, count * size);
-    return (ptr);
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (ptr)
+		ft_memset(ptr, 0, count * size);
+	return (ptr);
 }
 
 void	*ft_memset(void *b, int c, int len)

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 20:49:38 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 12:50:23 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:13:35 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	open_close_door(t_game *g)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < g->num_doors)
 	{

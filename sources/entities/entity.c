@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:34:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/28 20:23:48 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:28:47 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 void	sort_entities_by_distance(t_entity *entities, int *entity_count)
 {
-	int i;
-	int j;
+	int			i;
+	int			j;
+	t_entity	temp;
 
 	i = 0;
 	j = 0;
+	temp = 0;
 	while (i < *entity_count - 1)
 	{
 		j = i + 1;
@@ -26,7 +28,7 @@ void	sort_entities_by_distance(t_entity *entities, int *entity_count)
 		{
 			if (entities[i].dist < entities[j].dist)
 			{
-				t_entity temp = entities[i];
+				temp = entities[i];
 				entities[i] = entities[j];
 				entities[j] = temp;
 			}
@@ -39,7 +41,6 @@ void	sort_entities_by_distance(t_entity *entities, int *entity_count)
 void	entity_distances(t_game *game, t_entity *entities, int *entity_count)
 {
 	*entity_count = 0;
-
 	add_food(game, entities, entity_count);
 	add_enemy(game, entities, entity_count);
 	add_cat(game, entities, entity_count);

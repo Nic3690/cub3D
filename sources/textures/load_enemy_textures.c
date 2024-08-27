@@ -6,13 +6,13 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:50:26 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/29 19:40:57 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 16:09:46 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    check_malloc(t_game *g)
+void	check_malloc(t_game *g)
 {
 	if (!g->tex->cat_dead || !g->tex->cat_escape
 		|| !g->tex->cat_escape_2 || !g->tex->cat_escape_3
