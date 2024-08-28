@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 12:28:11 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/08/28 17:54:08 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:09:07 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	load_texture(t_game *game, t_image *image, const char *path)
 
 	width = 64;
 	height = 64;
-	printf("%s\n", path);
 	image->img = mlx_xpm_file_to_image
 		(game->mlx, (char *)path, &width, &height);
 	if (!image->img)

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/25 17:29:14 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/08/28 13:47:36 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:02:50 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	main(int argc, char **argv)
 	init_game(game);
 	load_textures_and_map(game, argv[1]);
 	check_valid_map(game);
-	game->pg->move_speed = 0.12;
+	game->pg->move_speed = 0.06;
 	mlx_hook(game->win, 2, 1L << 0, key_press, game);
 	mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
 	mlx_hook(game->win, 17, 0, exit_game, game);

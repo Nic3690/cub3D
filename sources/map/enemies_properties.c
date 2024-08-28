@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 23:54:02 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/07/30 12:17:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/28 18:01:59 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_fly_properties(t_game *game, int index)
 	game->enemies[index].attack_texture = game->tex->fly_attack;
 	game->enemies[index].dead_texture = game->tex->fly_dead;
 	game->enemies[index].enemy_health = 100;
-	game->enemies[index].speed = 0.015;
+	game->enemies[index].speed = 0.005;
 	game->enemies[index].frame = 15;
 	game->enemies[index].damage = 5;
 	game->enemies[index].retreat_timer = 100;
@@ -33,7 +33,7 @@ void	set_spider_properties(t_game *game, int index)
 	game->enemies[index].attack_texture = game->tex->spider_attack;
 	game->enemies[index].dead_texture = game->tex->spider_dead;
 	game->enemies[index].enemy_health = 50;
-	game->enemies[index].speed = 0.060;
+	game->enemies[index].speed = 0.020;
 	game->enemies[index].frame = 5;
 	game->enemies[index].damage = 2;
 	game->enemies[index].retreat_timer = 100;
@@ -47,7 +47,7 @@ void	set_crow_properties(t_game *game, int index)
 	game->enemies[index].attack_texture = game->tex->crow_attack;
 	game->enemies[index].dead_texture = game->tex->crow_dead;
 	game->enemies[index].enemy_health = 70;
-	game->enemies[index].speed = 0.025;
+	game->enemies[index].speed = 0.010;
 	game->enemies[index].frame = 20;
 	game->enemies[index].damage = 8;
 	game->enemies[index].retreat_timer = 100;
@@ -75,7 +75,7 @@ void	set_cat_properties(t_game *game, int x, int y)
 	game->cat->death_timer = -1;
 	game->cat->visible = 0;
 	game->cat->wait_timer = 5;
-	game->cat->move_speed = 0.02;
+	game->cat->move_speed = 0.01;
 	game->cat->path = ft_calloc(MAX_PATH_LENGTH + 1, sizeof(t_coord));
 	game->cat->path_length = 0;
 	game->cat->current_target = 0;
