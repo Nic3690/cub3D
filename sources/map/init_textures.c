@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:30:43 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/08/27 16:09:31 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:43:22 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ void	read_texture_paths(t_game *game, int fd)
 	char	*line;
 	char	**path;
 
-	i = -1;
+	i = 0;
 	path = ft_calloc(6, sizeof(char *));
-	while (++i < 6)
+	while (i < 6)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			continue ;
 		path[i] = line;
+		i++;
 	}
 	sort_paths(path);
 	if (!check_valid_path(path))
@@ -48,6 +49,7 @@ void	load_textures_and_map(t_game *game, char *filename)
 		exit_game(game);
 	game->texture_paths = ft_calloc(MAX_TEXTURES, sizeof(char *));
 	read_texture_paths(game, fd);
+	write(2, "ciaociaociao\n", 13);
 	if (!load_all_textures(game))
 	{
 		close(fd);

@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 18:34:39 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/08/27 15:28:47 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/27 17:35:51 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	sort_entities_by_distance(t_entity *entities, int *entity_count)
 
 	i = 0;
 	j = 0;
-	temp = 0;
+	temp = entities[i];
 	while (i < *entity_count - 1)
 	{
 		j = i + 1;

@@ -6,7 +6,7 @@
 #    By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/27 15:59:01 by nfurlani          #+#    #+#              #
-#    Updated: 2024/08/27 15:59:04 by nfurlani         ###   ########.fr        #
+#    Updated: 2024/08/27 17:46:05 by nfurlani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME    = cub3D
 
 SRC     =	./sources/main.c \
 			./sources/free.c \
+			./sources/free_entities.c \
 			./sources/check_map.c \
 			./sources/raycasting/raycasting.c \
 			./sources/raycasting/calculate_ray.c \
@@ -74,7 +75,7 @@ FLAGS = -Wall -Wextra -Werror
 OBJS = $(SRC:.c=.o)
 
 LIBRARY = mlx/
-LIBS = -L$(LIBRARY) -lmlx -framework OpenGL -framework AppKit $(LIBRARY)libmlx.a
+LIBS = -L$(LIBRARY) -lmlx -lX11 -lXext -lm
 CCFLAGS = -I$(LIBRARY)
 
 RM = rm -f

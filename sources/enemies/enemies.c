@@ -6,7 +6,7 @@
 /*   By: nfurlani <nfurlani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 23:15:30 by nfurlani          #+#    #+#             */
-/*   Updated: 2024/08/27 15:25:11 by nfurlani         ###   ########.fr       */
+/*   Updated: 2024/08/28 17:55:22 by nfurlani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	distance_between_enemies(t_game *game, int i, double min_dist_btw)
 	double	dist_btw;
 	double	overlap;
 
-	j = 0;	
+	j = 0;
 	while (j < game->num_enemies)
 	{
 		if (i != j && game->enemies[j].death_timer == -1)
